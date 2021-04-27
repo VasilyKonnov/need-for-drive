@@ -1,0 +1,68 @@
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 200;
+  src: url(./assets/fonts/Roboto-Light.ttf);
+}
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 400;
+  src: url(./assets/fonts/Roboto-Regular.ttf);
+}
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 500;
+  src: url(./assets/fonts/Roboto-Medium.ttf);
+}
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 700;
+  src: url(./assets/fonts/Roboto-Bold.ttf);
+}
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 900;
+  src: url(./assets/fonts/Roboto-Black.ttf);
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  font-family: 'Roboto', sans-serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.button {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #ffffff;
+  border-radius: 8px;
+  border: 0;
+  outline: 0;
+  height: 48px;
+  width: 250px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #0ec261 2.61%, #039f67 112.6%);
+  transition: all 0.3s ease;
+}
+.button:hover {
+  background: linear-gradient(90deg, #0b934a 2.61%, #026e47 112.6%);
+  transition: all 0.3s ease;
+}
+.button:active {
+  background: linear-gradient(90deg, #076432 2.61%, #013c27 112.6%);
+  transition: all 0.3s ease;
+}
+.button:disabled,
+.button[disabled] {
+  background: #eee;
+}
