@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/need-for-drive/static/css/main.661b3e10.chunk.css",
+    "main.js": "/need-for-drive/static/js/main.9670dcec.chunk.js",
+    "main.js.map": "/need-for-drive/static/js/main.9670dcec.chunk.js.map",
+    "runtime-main.js": "/need-for-drive/static/js/runtime-main.c14c391d.js",
+    "runtime-main.js.map": "/need-for-drive/static/js/runtime-main.c14c391d.js.map",
+    "static/js/2.9f6d9e15.chunk.js": "/need-for-drive/static/js/2.9f6d9e15.chunk.js",
+    "static/js/2.9f6d9e15.chunk.js.map": "/need-for-drive/static/js/2.9f6d9e15.chunk.js.map",
+    "static/js/3.b8e0918e.chunk.js": "/need-for-drive/static/js/3.b8e0918e.chunk.js",
+    "static/js/3.b8e0918e.chunk.js.map": "/need-for-drive/static/js/3.b8e0918e.chunk.js.map",
+    "index.html": "/need-for-drive/index.html",
+    "static/css/main.661b3e10.chunk.css.map": "/need-for-drive/static/css/main.661b3e10.chunk.css.map",
+    "static/js/2.9f6d9e15.chunk.js.LICENSE.txt": "/need-for-drive/static/js/2.9f6d9e15.chunk.js.LICENSE.txt",
+    "static/media/index.scss": "/need-for-drive/static/media/Roboto-Regular.a8d6ac03.ttf",
+    "static/media/LayoutMenu.module.scss": "/need-for-drive/static/media/telegram.e8137bbe.svg",
+    "static/media/loc-icon.dd9d4bed.svg": "/need-for-drive/static/media/loc-icon.dd9d4bed.svg",
+    "static/media/menu_btn.cec3097c.svg": "/need-for-drive/static/media/menu_btn.cec3097c.svg",
+    "static/media/mobile-menu_btn.88e5a78b.svg": "/need-for-drive/static/media/mobile-menu_btn.88e5a78b.svg",
+    "static/media/x.2990540f.svg": "/need-for-drive/static/media/x.2990540f.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c14c391d.js",
+    "static/js/2.9f6d9e15.chunk.js",
+    "static/css/main.661b3e10.chunk.css",
+    "static/js/main.9670dcec.chunk.js"
+  ]
+}
