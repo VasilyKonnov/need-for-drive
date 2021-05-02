@@ -1,9 +1,7 @@
 .layout {
   display: flex;
   height: 100vh;
-  max-height: 1450px;
   width: 100%;
-  max-width: 2560px;
   margin: 0 auto;
 }
 
@@ -53,7 +51,7 @@
   display: flex;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 4;
 }
 
 .closeWrap {
@@ -211,7 +209,7 @@
     width: 50%;
     height: 100%;
     box-sizing: border-box;
-    background: rgba(0, 0, 0, 0.13);
+    background: rgba(21, 27, 31, 0.81);
   }
 }
 @media screen and (min-width: 1349px) {

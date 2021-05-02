@@ -1,4 +1,5 @@
-import { Layout } from '../../components'
+import { Layout, Carousel } from '../../components'
+import { sliderData } from '../../constants/constants'
 import locIcon from '../../assets/loc-icon.svg'
 import styles from './MainPage.module.scss'
 
@@ -29,7 +30,9 @@ export const MainPage: React.FC = () => {
             <p className={styles.phone}>8 (495) 234-22-44</p>
           </div>
         </div>
-        <div className={styles.slider}></div>
+        <div className={styles.slider}>
+          <Carousel sliderData={sliderData} />
+        </div>
       </div>
     </Layout>
   )

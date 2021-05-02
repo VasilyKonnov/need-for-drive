@@ -1,0 +1,76 @@
+.slick-next,
+.slick-prev {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 100%;
+  background: rgba(14, 194, 97, 0);
+  transition: all .3s ease;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.slick-next:hover,
+.slick-prev:hover {
+  background: rgba(14, 194, 97, .2);
+  transition: all .3s ease;
+}
+
+.slick-prev {
+  left: 0;
+}
+
+.slick-next {
+  right: 0;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.slick-prev:before {
+  background: url('../../assets/arrow-left.svg');
+}
+
+.slick-next:before {
+  background: url('../../assets/arrow-right.svg');
+}
+
+
+.slick-dots {
+  margin-bottom: 0px;
+  bottom: 32px;
+  z-index: 3;
+}
+
+
+.slick-dots li {
+  width: 8px;
+  height: 8px;
+  margin: 0 4px;
+}
+
+.slick-dots li button {
+  border-radius: 50%;
+  background: #eee;
+  transition: all .3s ease;
+  width: 8px;
+  height: 8px;
+}
+
+.slick-dots li.slick-active button {
+  background: #0EC261;
+  transition: all .3s ease;
+}
+
+.slick-dots li button:hover {
+  background: #0EC261;
+  transition: all .3s ease;
+}
