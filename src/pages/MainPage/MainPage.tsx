@@ -1,4 +1,5 @@
 import { Layout, Carousel } from '../../components'
+import { Link } from 'react-router-dom'
 import { sliderData } from '../../constants/constants'
 import locIcon from '../../assets/loc-icon.svg'
 import styles from './MainPage.module.scss'
@@ -22,7 +23,9 @@ export const MainPage: React.FC = () => {
                 <span>Need for drive</span>
               </h1>
               <p>Поминутная аренда авто твоего города</p>
-              <button className="button">Забронировать</button>
+              <Link to="/order-page">
+                <button className="button">Забронировать</button>
+              </Link>
             </div>
           </div>
           <div className={styles.footer}>

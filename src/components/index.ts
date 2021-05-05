@@ -1,3 +1,5 @@
 export { Layout } from './Layout'
 export { LayoutMenu } from './LayoutMenu'
 export { Carousel } from './Slider'
+export { TabLocation } from './TabsOrder/TabLocation'
+export { Order } from './Order'

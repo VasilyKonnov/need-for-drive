@@ -1,0 +1,130 @@
+.header {
+  padding: 24px 0 16px;
+  border-bottom: solid 1px #eeeeee;
+}
+
+.container {
+  width: 1440px;
+  max-width: 100%;
+  padding: 0;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.orderContainer {
+  width: 1440px;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+  height: 100%;
+}
+.tab {
+  width: 100%;
+  padding-top: 32px;
+  padding-right: 16px;
+  padding-bottom: 80px;
+  box-sizing: border-box;
+}
+.order {
+  box-sizing: border-box;
+  padding-top: 32px;
+  width: 100%;
+}
+
+.body {
+  margin-top: 0px;
+  box-sizing: border-box;
+}
+
+.header .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 0;
+}
+
+.title {
+  color: #0ec261;
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.location {
+  color: #999999;
+  font-size: 14px;
+  margin: 0;
+}
+.location img {
+  width: 15px;
+  margin-right: 8px;
+}
+.wrapTabs {
+  padding: 8px 0;
+  border-bottom: solid 1px #eeeeee;
+}
+.wrapTabs button.active {
+  color: #0ec261;
+}
+.wrapTabs button.visited {
+  color: #000;
+}
+
+.wrapTabs button {
+  margin-right: 16px;
+  background: transparent;
+  border: 0;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 700;
+  color: #999999;
+}
+
+.wrapTabs img {
+  margin-right: 16px;
+}
+
+@media screen and (min-width: 425px) {
+}
+
+@media screen and (min-width: 768px) {
+  .tab {
+    padding-bottom: 0px;
+    border-right: solid 1px #eee;
+    min-height: calc(100vh - 138px);
+  }
+  .order {
+    min-width: 320px;
+    width: 320px;
+    height: 100%;
+  }
+  .orderContainer {
+    display: flex;
+    flex-direction: row;
+    padding: 0 64px;
+  }
+  .container {
+    padding: 0 64px;
+  }
+  .header .container {
+    flex-direction: row;
+    align-items: baseline;
+  }
+  .header {
+    padding: 32px 0;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+}
+
+@media screen and (min-width: 1439px) {
+  .header .container {
+    margin: 0 auto;
+  }
+}
