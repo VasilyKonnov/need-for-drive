@@ -1,9 +1,9 @@
 import React from 'react'
-import { TOrder } from './OrderTypes'
+import { TOrderView } from './OrderTypes'
 import styles from './Order.module.scss'
 
-export const OrderView: React.FC<TOrder> = React.memo(
-  ({ toggleMobileOrderOpen, isMobileOrderOpen }) => {
+export const OrderView: React.FC<TOrderView> = React.memo(
+  ({ toggleMobileOrderOpen, isMobileOrderOpen, handleNextTab }) => {
     return (
       <div className={styles.orderWrap}>
         {isMobileOrderOpen ? (
@@ -21,23 +21,18 @@ export const OrderView: React.FC<TOrder> = React.memo(
                 <p className={styles.tabValue}>Ульяновск, Нариманова 42</p>
               </div>
               <div className={styles.filedTab}>
-                <p className={styles.tabName}>Пункт</p>
-                <p className={styles.tabValue}>Ульяновск</p>
-              </div>
-              <div className={styles.filedTab}>
-                <p className={styles.tabName}>Пунктвыдач</p>
-                <p className={styles.tabValue}>Ульяновск, Нариманова 42</p>
-              </div>
-              <div className={styles.filedTab}>
-                <p className={styles.tabName}>Пвыдач</p>
-                <p className={styles.tabValue}>Нарим</p>
+                <p className={styles.tabName}>Модель</p>
+                <p className={styles.tabValue}>Hyndai, i30 N</p>
               </div>
             </div>
             <p className={styles.price}>Цена: от 8 000 до 12 000 ₽</p>
           </>
         ) : null}
 
-        <button className={isMobileOrderOpen ? '' : styles.smallBtn}>
+        <button
+          className={isMobileOrderOpen ? '' : styles.smallBtn}
+          onClick={handleNextTab}
+        >
           Выбрать модель
         </button>
         {isMobileOrderOpen ? (

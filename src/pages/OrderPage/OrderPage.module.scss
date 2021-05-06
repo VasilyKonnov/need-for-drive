@@ -25,7 +25,6 @@
 .tab {
   width: 100%;
   padding-top: 32px;
-  padding-right: 16px;
   padding-bottom: 80px;
   box-sizing: border-box;
 }
@@ -97,6 +96,7 @@
     padding-bottom: 0px;
     border-right: solid 1px #eee;
     min-height: calc(100vh - 138px);
+    padding-right: 16px;
   }
   .order {
     min-width: 320px;

@@ -34,3 +34,9 @@ export const sliderData = [
     button: 'violet',
   },
 ]
+
+export const filterVal = {
+  allModels: 'Все модели',
+  economy: 'Эконом',
+  premium: 'Премиум',
+}

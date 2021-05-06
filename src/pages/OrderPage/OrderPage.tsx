@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Layout, Order, TabLocation } from '../../components'
+import { Layout, Order, TabLocation, TabСhooseСar } from '../../components'
+import { TSelectValue } from './OrderPageTypes'
 import locIcon from '../../assets/loc-icon.svg'
 import arrowTriangle from '../../assets/arrow-triangle.svg'
-import { TSelectValue } from './OrderPageTypes'
 import styles from './OrderPage.module.scss'
 
 const options = [
@@ -13,6 +13,9 @@ const options = [
 
 export const OrderPage: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<TSelectValue>(null)
+  const [isTabLocation, setIsTabLocation] = useState(true)
+  const [isTabСhooseСar, setIsTabСhooseСar] = useState(false)
+
   const handleSelect = (val: TSelectValue) => {
     setSelectedOption(val)
   }
@@ -42,14 +45,24 @@ export const OrderPage: React.FC = () => {
       <div className={styles.body}>
         <div className={styles.orderContainer}>
           <div className={styles.tab}>
-            <TabLocation
-              selectedOption={selectedOption}
-              handleSelect={handleSelect}
-              options={options}
-            />
+            {isTabLocation ? (
+              <TabLocation
+                selectedOption={selectedOption}
+                handleSelect={handleSelect}
+                options={options}
+              />
+            ) : (
+              ''
+            )}
+            {isTabСhooseСar ? <TabСhooseСar /> : ''}
           </div>
           <div className={styles.order}>
-            <Order />
+            <Order
+              setIsTabLocation={setIsTabLocation}
+              setIsTabСhooseСar={setIsTabСhooseСar}
+              isTabLocation={isTabLocation}
+              isTabСhooseСar={isTabСhooseСar}
+            />
           </div>
         </div>
       </div>

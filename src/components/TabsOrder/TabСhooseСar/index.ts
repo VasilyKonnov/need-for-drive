@@ -1,0 +1,1 @@
+export { TabСhooseСar } from './TabСhooseСar'

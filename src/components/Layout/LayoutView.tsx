@@ -5,7 +5,6 @@ import mobiMenuBtn from '../../assets/mobile-menu_btn.svg'
 import { LayoutMenu } from '../LayoutMenu'
 import { memo } from 'react'
 import styles from './Layout.module.scss'
-console.log('styles ', styles)
 export const LayoutView: React.FC<TLayout> = memo(
   ({ children, toggleMenu, isMenuOpen }) => {
     return (
