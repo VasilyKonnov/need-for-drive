@@ -1,5 +1,12 @@
 import { useState } from 'react'
-import { Layout, Order, TabLocation, TabСhooseСar } from '../../components'
+import {
+  Layout,
+  Order,
+  TabLocation,
+  TabСhooseСar,
+  TabAdditionally,
+  TabTotal,
+} from '../../components'
 import { TSelectValue } from './OrderPageTypes'
 import locIcon from '../../assets/loc-icon.svg'
 import arrowTriangle from '../../assets/arrow-triangle.svg'
@@ -13,8 +20,10 @@ const options = [
 
 export const OrderPage: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<TSelectValue>(null)
-  const [isTabLocation, setIsTabLocation] = useState(true)
+  const [isTabLocation, setIsTabLocation] = useState(false)
   const [isTabСhooseСar, setIsTabСhooseСar] = useState(false)
+  const [isTabAdditionally, setIsTabAdditionally] = useState(true)
+  const [isTabTotal, setIsTabTotal] = useState(false)
 
   const handleSelect = (val: TSelectValue) => {
     setSelectedOption(val)
@@ -55,6 +64,8 @@ export const OrderPage: React.FC = () => {
               ''
             )}
             {isTabСhooseСar ? <TabСhooseСar /> : ''}
+            {isTabAdditionally ? <TabAdditionally /> : ''}
+            {isTabTotal ? <TabTotal /> : ''}
           </div>
           <div className={styles.order}>
             <Order

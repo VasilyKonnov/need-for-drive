@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { filterVal } from '../../../constants/constants'
+import { RadioButton } from './../../RadioButton/RadioButton'
 import carImg from '../../../assets/car.jpg'
 import styles from './TabСhooseСar.module.scss'
 
@@ -13,63 +14,30 @@ export const TabСhooseСarView: React.FC = () => {
   return (
     <>
       <form>
-        <label
-          htmlFor="Choice1"
-          className={
-            filterValue === filterVal.allModels
-              ? styles.radioButtonActive
-              : styles.radioButton
-          }
-        >
-          <span className={styles.simulator}></span>
-          <input
-            defaultChecked
-            type="radio"
-            id="Choice1"
-            name="chooseCar"
-            value={filterVal.allModels}
-            onChange={handleFilterValue}
-          />
-          Все модели
-        </label>
-
-        <label
-          htmlFor="Choice2"
-          className={
-            filterValue === filterVal.economy
-              ? styles.radioButtonActive
-              : styles.radioButton
-          }
-        >
-          <span className={styles.simulator}></span>
-          <input
-            type="radio"
-            id="Choice2"
-            name="chooseCar"
-            value={filterVal.economy}
-            onChange={handleFilterValue}
-          />
-          Эконом
-        </label>
-
-        <label
-          htmlFor="Choice3"
-          className={
-            filterValue === filterVal.premium
-              ? styles.radioButtonActive
-              : styles.radioButton
-          }
-        >
-          <span className={styles.simulator}></span>
-          <input
-            type="radio"
-            id="Choice3"
-            name="chooseCar"
-            value={filterVal.premium}
-            onChange={handleFilterValue}
-          />
-          <span>Премиум</span>
-        </label>
+        <RadioButton
+          filterVal={filterVal.allModels}
+          filterState={filterValue}
+          onChange={handleFilterValue}
+          labelTitle={'Все модели'}
+          htmlForChoice={'Choice1'}
+          nameWrap={'chooseCar'}
+        />
+        <RadioButton
+          filterVal={filterVal.economy}
+          filterState={filterValue}
+          onChange={handleFilterValue}
+          labelTitle={'Эконом'}
+          htmlForChoice={'Choice2'}
+          nameWrap={'chooseCar'}
+        />
+        <RadioButton
+          filterVal={filterVal.premium}
+          filterState={filterValue}
+          onChange={handleFilterValue}
+          labelTitle={'Премиум'}
+          htmlForChoice={'Choice3'}
+          nameWrap={'chooseCar'}
+        />
       </form>
       <div className={styles.carList}>
         <div className={styles.carListItem}>

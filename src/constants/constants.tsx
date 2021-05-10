@@ -40,3 +40,14 @@ export const filterVal = {
   economy: 'Эконом',
   premium: 'Премиум',
 }
+
+export const colorAdditionally = {
+  anyСolour: 'Любой',
+  red: 'Красный',
+  blue: 'Голубой',
+}
+
+export const tariffRate = {
+  byMinute: '7',
+  forADay: '1999',
+}

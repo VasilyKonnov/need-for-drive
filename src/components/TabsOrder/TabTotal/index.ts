@@ -1,0 +1,1 @@
+export { TabTotal } from './TabTotal'

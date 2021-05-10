@@ -1,0 +1,49 @@
+.checkBox {
+  display: block;
+  margin-bottom: 12px;
+  cursor: pointer;
+  input {
+    display: none;
+  }
+  .simulator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: solid 1px #999999;
+    margin-right: 8px;
+  }
+  span {
+    font-size: 14px;
+    color: #999;
+  }
+}
+.checkBoxActive {
+  display: block;
+  margin-bottom: 12px;
+  cursor: pointer;
+  input {
+    display: none;
+  }
+  .simulator {
+    display: inline-block;
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border: solid 1px #0ec261;
+    margin-right: 8px;
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 1px;
+      bottom: 1px;
+      width: 13px;
+      height: 10px;
+      background: url(../../assets/check.svg);
+    }
+  }
+  span {
+    font-size: 14px;
+    color: #121212;
+  }
+}
