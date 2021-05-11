@@ -67,21 +67,27 @@
   padding: 8px 0;
   border-bottom: solid 1px #eeeeee;
 }
-.wrapTabs button.active {
+.wrapTabs button.activeTabBtn {
   color: #0ec261;
 }
-.wrapTabs button.visited {
+.wrapTabs button.tabBtn {
   color: #000;
+}
+
+.wrapTabs button:disabled {
+  color: #999999;
 }
 
 .wrapTabs button {
   margin-right: 16px;
   background: transparent;
+  cursor: pointer;
   border: 0;
   font-size: 14px;
   line-height: 16px;
   font-weight: 700;
   color: #999999;
+  padding: 0;
 }
 
 .wrapTabs img {

@@ -20,21 +20,48 @@ const options = [
 
 export const OrderPage: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<TSelectValue>(null)
-  const [isTabLocation, setIsTabLocation] = useState(false)
+  const [isTabLocation, setIsTabLocation] = useState(true)
   const [isTabСhooseСar, setIsTabСhooseСar] = useState(false)
   const [isTabAdditionally, setIsTabAdditionally] = useState(false)
-  const [isTabTotal, setIsTabTotal] = useState(true)
+  const [isTabTotal, setIsTabTotal] = useState(false)
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false)
 
   const handleSelect = (val: TSelectValue) => {
     setSelectedOption(val)
   }
+
+  const activeTabLocation = () => {
+    setIsTabСhooseСar(false)
+    setIsTabAdditionally(false)
+    setIsTabTotal(false)
+    setIsTabLocation(true)
+  }
+  const activeTabСhooseСar = () => {
+    setIsTabAdditionally(false)
+    setIsTabTotal(false)
+    setIsTabLocation(false)
+    setIsTabСhooseСar(true)
+  }
+  const activeTabAdditionally = () => {
+    setIsTabTotal(false)
+    setIsTabLocation(false)
+    setIsTabСhooseСar(false)
+    setIsTabAdditionally(true)
+  }
+  const activeTabTotal = () => {
+    setIsTabAdditionally(false)
+    setIsTabLocation(false)
+    setIsTabСhooseСar(false)
+    setIsTabTotal(true)
+  }
+
   // TODO:
   // Функцию для переключения табов отдельно пишу, первая идея собрать все сеты в массив
   // и фильтрам отбирать сет и делать его тру остальные фалс
 
   // disable будет зависить от наличия данных в конкретном шаге
   // Функция для сбора данных Заказа меняем текст кнопки и данные складываем в хранилище
+
   const handlerTabsOrder = () => {}
 
   return (
@@ -50,13 +77,33 @@ export const OrderPage: React.FC = () => {
       </div>
       <div className={styles.wrapTabs}>
         <div className={styles.container}>
-          <button>Местоположение</button>
+          <button
+            className={isTabLocation ? styles.activeTabBtn : styles.tabBtn}
+            onClick={activeTabLocation}
+          >
+            Местоположение
+          </button>
           <img src={arrowTriangle} alt="иконка" />
-          <button>Модель</button>
+          <button
+            className={isTabСhooseСar ? styles.activeTabBtn : styles.tabBtn}
+            onClick={activeTabСhooseСar}
+          >
+            Модель
+          </button>
           <img src={arrowTriangle} alt="иконка" />
-          <button>Дополнительно</button>
+          <button
+            className={isTabAdditionally ? styles.activeTabBtn : styles.tabBtn}
+            onClick={activeTabAdditionally}
+          >
+            Дополнительно
+          </button>
           <img src={arrowTriangle} alt="иконка" />
-          <button>Итого</button>
+          <button
+            className={isTabTotal ? styles.activeTabBtn : styles.tabBtn}
+            onClick={activeTabTotal}
+          >
+            Итого
+          </button>
         </div>
       </div>
       <div className={styles.body}>

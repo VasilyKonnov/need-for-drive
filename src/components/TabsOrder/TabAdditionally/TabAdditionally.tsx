@@ -30,13 +30,10 @@ export const TabAdditionally: React.FC = () => {
 
   const handleCarTarif = (e: { target: { value: string } }) => {
     const { value } = e.target
-    console.log('handleCarTarif ', value)
     setCarTarif(value)
   }
 
-  useEffect(() => {
-    console.log('startDate - ', startDate)
-  }, [startDate])
+  useEffect(() => {}, [startDate])
 
   return (
     <TabAdditionallyView
