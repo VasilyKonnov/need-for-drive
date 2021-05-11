@@ -51,3 +51,13 @@ export const tariffRate = {
   byMinute: '7',
   forADay: '1999',
 }
+
+export const nameBtnOrder = {
+  chooseModel: 'Выбрать модель',
+  additionally: 'Дополнительно',
+  total: 'Дополнительно',
+  order: 'Заказ',
+  cancel: 'Отменить',
+  confirm: 'Подтвердить',
+  goBack: 'Вернуться',
+}

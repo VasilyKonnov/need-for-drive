@@ -1,0 +1,40 @@
+.wrap {
+  width: 100%;
+  max-width: 736px;
+  display: flex;
+  flex-direction: column;
+  color: #121212;
+}
+.carImg {
+  width: 256px;
+  img {
+    width: 100%;
+  }
+}
+.carName {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+.carRegNumber {
+  font-size: 14px;
+  text-transform: uppercase;
+  display: inline-block;
+  border: 1px solid #999999;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+.details {
+  font-size: 14px;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+@media screen and (min-width: 1024px) {
+  .wrap {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

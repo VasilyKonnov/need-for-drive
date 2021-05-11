@@ -22,12 +22,20 @@ export const OrderPage: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<TSelectValue>(null)
   const [isTabLocation, setIsTabLocation] = useState(false)
   const [isTabСhooseСar, setIsTabСhooseСar] = useState(false)
-  const [isTabAdditionally, setIsTabAdditionally] = useState(true)
-  const [isTabTotal, setIsTabTotal] = useState(false)
+  const [isTabAdditionally, setIsTabAdditionally] = useState(false)
+  const [isTabTotal, setIsTabTotal] = useState(true)
+  const [isOrderConfirmed, setIsOrderConfirmed] = useState(false)
 
   const handleSelect = (val: TSelectValue) => {
     setSelectedOption(val)
   }
+  // TODO:
+  // Функцию для переключения табов отдельно пишу, первая идея собрать все сеты в массив
+  // и фильтрам отбирать сет и делать его тру остальные фалс
+
+  // disable будет зависить от наличия данных в конкретном шаге
+  // Функция для сбора данных Заказа меняем текст кнопки и данные складываем в хранилище
+  const handlerTabsOrder = () => {}
 
   return (
     <Layout>
