@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/need-for-drive/static/css/main.1a67ea53.chunk.css",
-    "main.js": "/need-for-drive/static/js/main.c02d403b.chunk.js",
-    "main.js.map": "/need-for-drive/static/js/main.c02d403b.chunk.js.map",
+    "main.css": "/need-for-drive/static/css/main.9147087c.chunk.css",
+    "main.js": "/need-for-drive/static/js/main.ea93c583.chunk.js",
+    "main.js.map": "/need-for-drive/static/js/main.ea93c583.chunk.js.map",
     "runtime-main.js": "/need-for-drive/static/js/runtime-main.048f7f87.js",
     "runtime-main.js.map": "/need-for-drive/static/js/runtime-main.048f7f87.js.map",
     "static/css/2.1b7d3182.chunk.css": "/need-for-drive/static/css/2.1b7d3182.chunk.css",
@@ -12,14 +12,13 @@
     "static/js/3.889035d3.chunk.js.map": "/need-for-drive/static/js/3.889035d3.chunk.js.map",
     "index.html": "/need-for-drive/index.html",
     "static/css/2.1b7d3182.chunk.css.map": "/need-for-drive/static/css/2.1b7d3182.chunk.css.map",
-    "static/css/main.1a67ea53.chunk.css.map": "/need-for-drive/static/css/main.1a67ea53.chunk.css.map",
+    "static/css/main.9147087c.chunk.css.map": "/need-for-drive/static/css/main.9147087c.chunk.css.map",
     "static/js/2.aa71978c.chunk.js.LICENSE.txt": "/need-for-drive/static/js/2.aa71978c.chunk.js.LICENSE.txt",
     "static/media/index.scss": "/need-for-drive/static/media/Roboto-Regular.a8d6ac03.ttf",
     "static/media/Slider.scss": "/need-for-drive/static/media/arrow-right.7591c327.svg",
     "static/media/arrow-triangle.3f54b55d.svg": "/need-for-drive/static/media/arrow-triangle.3f54b55d.svg",
     "static/media/car.6b37bd69.jpg": "/need-for-drive/static/media/car.6b37bd69.jpg",
     "static/media/CheckBox.module.scss": "/need-for-drive/static/media/check.599a4157.svg",
-    "static/media/LayoutMenu.module.scss": "/need-for-drive/static/media/telegram.09f73cfe.svg",
     "static/media/loc-icon.480be180.svg": "/need-for-drive/static/media/loc-icon.480be180.svg",
     "static/media/map.6b0f8981.jpg": "/need-for-drive/static/media/map.6b0f8981.jpg",
     "static/media/menu_btn.33a03786.svg": "/need-for-drive/static/media/menu_btn.33a03786.svg",
@@ -34,7 +33,7 @@
     "static/js/runtime-main.048f7f87.js",
     "static/css/2.1b7d3182.chunk.css",
     "static/js/2.aa71978c.chunk.js",
-    "static/css/main.1a67ea53.chunk.css",
-    "static/js/main.c02d403b.chunk.js"
+    "static/css/main.9147087c.chunk.css",
+    "static/js/main.ea93c583.chunk.js"
   ]
 }
