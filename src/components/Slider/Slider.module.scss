@@ -18,27 +18,6 @@
     }
   }
 }
-.wrapper {
-  box-sizing: border-box;
-  width: 100%;
-  z-index: 2;
-  padding: 0 92px;
-}
-.wrapper h2 {
-  font-size: 40px;
-  line-height: 47px;
-  color: #fff;
-  margin-top: 0;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-.wrapper p {
-  font-size: 24px;
-  font-weight: 300;
-  color: #eee;
-  margin-top: 0;
-  margin-bottom: 32px;
-}
 
 .green,
 .blue,
@@ -57,14 +36,136 @@
 }
 
 .green {
-  background: linear-gradient(90deg, #13493f 0%, #0c7b1b 100%);
+  background: linear-gradient(
+    90deg,
+    hsla(169, 58%, 18%, 1) 0%,
+    hsla(128, 83%, 26%, 1) 100%
+  );
+  &:hover {
+    background: linear-gradient(
+      90deg,
+      hsla(169, 58%, 10%, 1) 0%,
+      hsla(128, 83%, 16%, 1) 100%
+    );
+  }
+  &:active {
+    background: linear-gradient(
+      90deg,
+      hsla(169, 58%, 0%, 1) 0%,
+      hsla(128, 83%, 06%, 1) 100%
+    );
+  }
 }
 .blue {
-  background: linear-gradient(90deg, #132949 0%, #0c7b67 100%);
+  background: linear-gradient(
+    90deg,
+    hsla(216, 58%, 18%, 1) 0%,
+    hsla(169, 83%, 26%, 1) 100%
+  );
+  &:hover {
+    background: linear-gradient(
+      90deg,
+      hsla(216, 58%, 10%, 1) 0%,
+      hsla(169, 83%, 16%, 1) 100%
+    );
+  }
+  &:active {
+    background: linear-gradient(
+      90deg,
+      hsla(216, 58%, 0%, 1) 0%,
+      hsla(169, 83%, 06%, 1) 100%
+    );
+  }
 }
 .red {
-  background: linear-gradient(90deg, #493013 0%, #7b0c3b 100%);
+  background: linear-gradient(
+    90deg,
+    hsla(32, 58%, 18%, 1) 0%,
+    hsla(335, 83%, 26%, 1) 100%
+  );
+  &:hover {
+    background: linear-gradient(
+      90deg,
+      hsla(32, 58%, 10%, 1) 0%,
+      hsla(335, 83%, 16%, 1) 100%
+    );
+  }
+  &:active {
+    background: linear-gradient(
+      90deg,
+      hsla(32, 58%, 0%, 1) 0%,
+      hsla(335, 83%, 06%, 1) 100%
+    );
+  }
 }
 .violet {
-  background: linear-gradient(90deg, #281349 0%, #720c7b 100%);
+  background: linear-gradient(
+    90deg,
+    hsla(263, 58%, 18%, 1) 0%,
+    hsla(295, 83%, 26%, 1) 100%
+  );
+  &:hover {
+    background: linear-gradient(
+      90deg,
+      hsla(263, 58%, 10%, 1) 0%,
+      hsla(295, 83%, 16%, 1) 100%
+    );
+  }
+  &:active {
+    background: linear-gradient(
+      90deg,
+      hsla(263, 58%, 0%, 1) 0%,
+      hsla(295, 83%, 6%, 1) 100%
+    );
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 270px;
+    z-index: 2;
+    padding: 0 92px;
+    h2 {
+      font-size: 32px;
+      line-height: 37.5px;
+      color: #fff;
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    p {
+      font-size: 22px;
+      font-weight: 300;
+      line-height: 22px;
+      color: #eee;
+      margin-top: 0;
+      margin-bottom: 32px;
+    }
+  }
+}
+@media screen and (min-width: 1440px) {
+  .wrapper {
+    box-sizing: border-box;
+    width: 100%;
+    z-index: 2;
+    padding: 0 92px;
+    h2 {
+      font-size: 40px;
+      line-height: 47px;
+      color: #fff;
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    p {
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 21.6px;
+      color: #eee;
+      margin-top: 0;
+      margin-bottom: 32px;
+    }
+  }
 }

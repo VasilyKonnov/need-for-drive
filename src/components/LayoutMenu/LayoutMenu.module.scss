@@ -1,48 +1,69 @@
 .menu {
   margin-left: 21px;
   margin-top: 80px;
+  a {
+    font-size: 22px;
+    line-height: 25px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.3s ease;
+  }
+  &:hover {
+    color: #0ec261;
+    transition: all 0.3s ease;
+  }
 }
-.menu a {
-  font-size: 22px;
-  line-height: 25px;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  display: block;
-  text-decoration: none;
-  color: #fff;
-  transition: all 0.3s ease;
-}
-.menu a:hover {
-  color: #0ec261;
-  transition: all 0.3s ease;
-}
+
 .social {
   display: flex;
   margin-top: 38px;
-}
-.social a {
-  display: block;
-  width: 32px;
-  height: 32px;
-  margin-right: 24px;
-}
-
-.social a.telegram {
-  background-image: url(../../assets/telegram.svg);
-  &:hover {
-    background-image: url(../../assets/telegram-hover.svg);
+  a {
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin-right: 24px;
   }
-}
-.social a.fb {
-  background-image: url(../../assets/fb-icon.svg);
-  &:hover {
-    background-image: url(../../assets/fb-icon-hover.svg);
+  a.telegram {
+    svg {
+      path {
+        transition: all 0.3s ease;
+      }
+      &:hover {
+        path {
+          transition: all 0.3s ease;
+          fill: #0ec261;
+        }
+      }
+    }
   }
-}
-.social a.inst {
-  background-image: url(../../assets/inst-icon.svg);
-  &:hover {
-    background-image: url(../../assets/inst-icon-hover.svg);
+  a.fb {
+    svg {
+      path {
+        transition: all 0.3s ease;
+      }
+      &:hover {
+        path {
+          transition: all 0.3s ease;
+          fill: #0ec261;
+        }
+      }
+    }
+  }
+  a.inst {
+    svg {
+      path {
+        transition: all 0.3s ease;
+      }
+      &:hover {
+        path {
+          transition: all 0.3s ease;
+          fill: #0ec261;
+        }
+      }
+    }
   }
 }
 
@@ -58,10 +79,10 @@
   .menu {
     margin-top: 0px;
     margin-left: 64px;
-  }
-  .menu a {
-    font-size: 28px;
-    line-height: 32px;
+    a {
+      font-size: 28px;
+      line-height: 32px;
+    }
   }
 }
 @media screen and (min-width: 1024px) {

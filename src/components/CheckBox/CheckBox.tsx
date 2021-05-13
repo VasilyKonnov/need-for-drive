@@ -1,5 +1,5 @@
-import styles from './CheckBox.module.scss'
 import { TCheckBox } from './CheckBoxType'
+import styles from './CheckBox.module.scss'
 
 export const CheckBox: React.FC<TCheckBox> = ({
   labelTitle,

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { TabAdditionallyView } from './TabAdditionallyView'
 import { colorAdditionally, tariffRate } from '../../../constants/constants'
 
@@ -11,29 +11,33 @@ export const TabAdditionally: React.FC = () => {
   const [carColor, setCarColor] = useState(colorAdditionally.anyСolour)
   const [carTarif, setCarTarif] = useState(tariffRate.byMinute)
 
-  const handleFullTank = () => {
+  const handleFullTank = useCallback(() => {
     setIsFullTank(!isFullTank)
-  }
+  }, [isFullTank])
 
-  const handleRightHand = () => {
+  const handleRightHand = useCallback(() => {
     setIsRightHand(!isRightHand)
-  }
+  }, [isRightHand])
 
-  const handleBabySeat = () => {
+  const handleBabySeat = useCallback(() => {
     setIsBabySeat(!isBabySeat)
-  }
+  }, [isBabySeat])
 
-  const handleColorRadioButton = (e: { target: { value: string } }) => {
-    const { value } = e.target
-    setCarColor(value)
-  }
+  const handleColorRadioButton = useCallback(
+    (e: { target: { value: string } }) => {
+      const { value } = e.target
+      setCarColor(value)
+    },
+    [setCarColor],
+  )
 
-  const handleCarTarif = (e: { target: { value: string } }) => {
-    const { value } = e.target
-    setCarTarif(value)
-  }
-
-  useEffect(() => {}, [startDate])
+  const handleCarTarif = useCallback(
+    (e: { target: { value: string } }) => {
+      const { value } = e.target
+      setCarTarif(value)
+    },
+    [setCarTarif],
+  )
 
   return (
     <TabAdditionallyView

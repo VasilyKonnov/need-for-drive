@@ -3,18 +3,18 @@
   display: flex !important;
   align-items: center;
   justify-content: center;
-  width: 64px;
+  width: 32px;
   height: 100%;
   background: rgba(14, 194, 97, 0);
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
   z-index: 3;
 }
 
 .slick-next:hover,
 .slick-prev:hover {
-  background: rgba(14, 194, 97, .2);
-  transition: all .3s ease;
+  background: rgba(14, 194, 97, 0.2);
+  transition: all 0.3s ease;
 }
 
 .slick-prev {
@@ -27,7 +27,7 @@
 
 .slick-prev:before,
 .slick-next:before {
-  content: "";
+  content: '';
   display: block;
   width: 10px;
   height: 20px;
@@ -43,34 +43,36 @@
   background: url('../../assets/arrow-right.svg');
 }
 
-
 .slick-dots {
   margin-bottom: 0px;
   bottom: 32px;
   z-index: 3;
+  li {
+    width: 8px;
+    height: 8px;
+    margin: 0 4px;
+    button {
+      border-radius: 50%;
+      background: #eee;
+      transition: all 0.3s ease;
+      width: 8px;
+      height: 8px;
+      &:hover {
+        background: #0ec261;
+        transition: all 0.3s ease;
+      }
+    }
+  }
+  li.slick-active button {
+    background: #0ec261;
+    transition: all 0.3s ease;
+  }
 }
-
-
-.slick-dots li {
-  width: 8px;
-  height: 8px;
-  margin: 0 4px;
+@media screen and (min-width: 1024px) {
 }
-
-.slick-dots li button {
-  border-radius: 50%;
-  background: #eee;
-  transition: all .3s ease;
-  width: 8px;
-  height: 8px;
-}
-
-.slick-dots li.slick-active button {
-  background: #0EC261;
-  transition: all .3s ease;
-}
-
-.slick-dots li button:hover {
-  background: #0EC261;
-  transition: all .3s ease;
+@media screen and (min-width: 1440px) {
+  .slick-next,
+  .slick-prev {
+    width: 64px;
+  }
 }

@@ -58,40 +58,98 @@
   color: #999999;
   font-size: 14px;
   margin: 0;
+  img {
+    width: 15px;
+    margin-right: 8px;
+  }
 }
-.location img {
-  width: 15px;
-  margin-right: 8px;
-}
+
 .wrapTabs {
   padding: 8px 0;
   border-bottom: solid 1px #eeeeee;
-}
-.wrapTabs button.activeTabBtn {
-  color: #0ec261;
-}
-.wrapTabs button.tabBtn {
-  color: #000;
+  button {
+    margin-right: 16px;
+    background: transparent;
+    cursor: pointer;
+    border: 0;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 700;
+    color: #999999;
+    padding: 0;
+    &.activeTabBtn {
+      color: #0ec261;
+    }
+    &.tabBtn {
+      color: #000;
+    }
+    &:disabled {
+      color: #999999;
+    }
+  }
+  img {
+    margin-right: 16px;
+  }
 }
 
-.wrapTabs button:disabled {
-  color: #999999;
+.orderWrap {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20px 12px;
+  background-color: #fff;
+  box-shadow: 10px 10px 8px 10px #0ec261;
+  h3 {
+    font-size: 18px;
+    font-weight: 500;
+    text-align: right;
+    margin-top: 0;
+    margin-bottom: 26px;
+  }
+  button {
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #fff;
+    width: 287px;
+    height: 48px;
+    border: 0;
+    outline: none;
+    border-radius: 8px;
+    &.smallBtn {
+      width: initial;
+      height: 38px;
+      font-size: 14px;
+      padding: 0 10px;
+    }
+    &.openOrderBtn {
+      width: initial;
+      height: 38px;
+      font-size: 14px;
+      padding: 0 10px;
+      color: #000;
+      background: transparent;
+      float: right;
+    }
+  }
+  .close {
+    top: 21px;
+    position: absolute;
+    background: transparent;
+    width: 30px;
+    height: 30px;
+    color: #000;
+  }
 }
 
-.wrapTabs button {
-  margin-right: 16px;
-  background: transparent;
-  cursor: pointer;
-  border: 0;
-  font-size: 14px;
-  line-height: 16px;
-  font-weight: 700;
-  color: #999999;
-  padding: 0;
-}
-
-.wrapTabs img {
-  margin-right: 16px;
+.price {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 32px;
 }
 
 @media screen and (min-width: 425px) {
@@ -117,12 +175,25 @@
   .container {
     padding: 0 64px;
   }
-  .header .container {
-    flex-direction: row;
-    align-items: baseline;
-  }
   .header {
     padding: 32px 0;
+    .container {
+      flex-direction: row;
+      align-items: baseline;
+    }
+  }
+
+  .orderWrap {
+    padding: 0 0 0 32px;
+    position: initial;
+    box-shadow: none;
+    .close {
+      display: none;
+    }
+  }
+
+  .orderWrap button.openOrderBtn {
+    display: none;
   }
 }
 

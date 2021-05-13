@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import {
   Layout,
   Order,
@@ -26,9 +26,12 @@ export const OrderPage: React.FC = () => {
   const [isTabTotal, setIsTabTotal] = useState(false)
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false)
 
-  const handleSelect = (val: TSelectValue) => {
-    setSelectedOption(val)
-  }
+  const handleSelect = useCallback(
+    (val: TSelectValue) => {
+      setSelectedOption(val)
+    },
+    [setSelectedOption],
+  )
 
   const activeTabLocation = () => {
     setIsTabСhooseСar(false)
@@ -55,12 +58,11 @@ export const OrderPage: React.FC = () => {
     setIsTabTotal(true)
   }
 
-  // TODO:
-  // Функцию для переключения табов отдельно пишу, первая идея собрать все сеты в массив
-  // и фильтрам отбирать сет и делать его тру остальные фалс
+  const [isMobileOrderOpen, setIsMobileOrderOpen] = useState(true)
 
-  // disable будет зависить от наличия данных в конкретном шаге
-  // Функция для сбора данных Заказа меняем текст кнопки и данные складываем в хранилище
+  const toggleMobileOrderOpen = () => {
+    setIsMobileOrderOpen(!isMobileOrderOpen)
+  }
 
   const handlerTabsOrder = () => {}
 
@@ -122,13 +124,45 @@ export const OrderPage: React.FC = () => {
             {isTabAdditionally ? <TabAdditionally /> : ''}
             {isTabTotal ? <TabTotal /> : ''}
           </div>
+
           <div className={styles.order}>
-            <Order
-              setIsTabLocation={setIsTabLocation}
-              setIsTabСhooseСar={setIsTabСhooseСar}
-              isTabLocation={isTabLocation}
-              isTabСhooseСar={isTabСhooseСar}
-            />
+            <div className={styles.orderWrap}>
+              {isMobileOrderOpen ? (
+                <button
+                  className={styles.close}
+                  onClick={toggleMobileOrderOpen}
+                >
+                  &#10006;
+                </button>
+              ) : null}
+
+              {isMobileOrderOpen ? (
+                <>
+                  <h3>Ваш заказ:</h3>
+                  <Order />
+                  <p className={styles.price}>Цена: от 8 000 до 12 000 ₽</p>
+                </>
+              ) : null}
+
+              <button
+                className={
+                  isMobileOrderOpen ? 'button' : `button ${styles.smallBtn}`
+                }
+                onClick={handlerTabsOrder}
+              >
+                Выбрать модель
+              </button>
+              {isMobileOrderOpen ? (
+                ''
+              ) : (
+                <button
+                  className={styles.openOrderBtn}
+                  onClick={toggleMobileOrderOpen}
+                >
+                  Ваш заказ &#9660;
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

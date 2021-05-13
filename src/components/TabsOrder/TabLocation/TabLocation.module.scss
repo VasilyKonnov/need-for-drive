@@ -21,17 +21,15 @@
   max-width: 736px;
   max-height: 356px;
   margin-top: 40px;
-}
-
-.mapWrap p {
-  font-weight: 300;
-  font-size: 14px;
-  margin-bottom: 16px;
-}
-
-.mapWrap img {
-  box-sizing: border-box;
-  width: 100%;
+  p {
+    font-weight: 300;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  img {
+    box-sizing: border-box;
+    width: 100%;
+  }
 }
 
 @media screen and (min-width: 1024px) {

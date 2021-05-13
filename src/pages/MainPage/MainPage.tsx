@@ -13,7 +13,7 @@ export const MainPage: React.FC = () => {
             <p className={styles.title}>Need for drive</p>
             <p className={styles.location}>
               <img src={locIcon} alt="Иконка локации" />
-              Ульяновск
+              <span>Ульяновск</span>
             </p>
           </div>
           <div className={styles.body}>
@@ -30,7 +30,9 @@ export const MainPage: React.FC = () => {
           </div>
           <div className={styles.footer}>
             <p>© 2016-2019 «Need for drive»</p>
-            <p className={styles.phone}>8 (495) 234-22-44</p>
+            <a href="tel:84952342244" className={styles.phone}>
+              8 (495) 234-22-44
+            </a>
           </div>
         </div>
         <div className={styles.slider}>
