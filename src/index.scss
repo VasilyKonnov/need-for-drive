@@ -24,6 +24,10 @@
   src: url(./assets/fonts/Roboto-Black.ttf);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
@@ -50,6 +54,7 @@ code {
   outline: 0;
   height: 48px;
   width: 250px;
+  max-width: 100%;
   cursor: pointer;
   background: linear-gradient(
     90deg,

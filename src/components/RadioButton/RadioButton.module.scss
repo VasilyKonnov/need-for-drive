@@ -1,12 +1,17 @@
 .radioButton {
+  position: relative;
   margin-right: 16px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 300;
   display: inline-flex;
   align-items: initial;
+  z-index: 0;
   input {
-    display: none;
+    display: block;
+    position: absolute;
+    width: 0px;
+    height: 0px;
   }
   .simulator {
     display: inline-block;
@@ -15,9 +20,11 @@
     border: 1px solid #999999;
     border-radius: 50%;
     margin-right: 8px;
+    z-index: 1;
   }
 }
 .radioButtonActive {
+  position: relative;
   margin-right: 16px;
   cursor: pointer;
   font-size: 14px;
@@ -25,7 +32,10 @@
   display: inline-flex;
   align-items: initial;
   input {
-    display: none;
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
   }
   .simulator {
     display: inline-block;

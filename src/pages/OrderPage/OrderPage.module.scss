@@ -58,8 +58,13 @@
   color: #999999;
   font-size: 14px;
   margin: 0;
+  height: 18.33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   img {
-    width: 15px;
+    width: 17px;
+    height: 20px;
     margin-right: 8px;
   }
 }
@@ -68,7 +73,7 @@
   padding: 8px 0;
   border-bottom: solid 1px #eeeeee;
   button {
-    margin-right: 16px;
+    margin-right: 40px;
     background: transparent;
     cursor: pointer;
     border: 0;
@@ -77,6 +82,7 @@
     font-weight: 700;
     color: #999999;
     padding: 0;
+    position: relative;
     &.activeTabBtn {
       color: #0ec261;
     }
@@ -86,14 +92,28 @@
     &:disabled {
       color: #999999;
     }
-  }
-  img {
-    margin-right: 16px;
+    &::after {
+      content: '';
+      width: 6px;
+      height: 8px;
+      display: block;
+      position: absolute;
+      top: 4px;
+      right: -24px;
+      background-image: url(../../assets//arrow-triangle.svg);
+    }
+    &:last-child {
+      margin-right: 0px;
+      &::after {
+        display: none;
+      }
+    }
   }
 }
 
 .orderWrap {
   position: fixed;
+  z-index: 3;
   bottom: 0;
   left: 0;
   box-sizing: border-box;
@@ -163,17 +183,20 @@
     padding-right: 16px;
   }
   .order {
-    min-width: 320px;
+    min-width: 280px;
     width: 320px;
     height: 100%;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
   }
   .orderContainer {
+    padding: 0 32px;
     display: flex;
     flex-direction: row;
-    padding: 0 64px;
   }
   .container {
-    padding: 0 64px;
+    padding: 0 32px;
   }
   .header {
     padding: 32px 0;
@@ -184,7 +207,7 @@
   }
 
   .orderWrap {
-    padding: 0 0 0 32px;
+    padding: 0 0 0 16px;
     position: initial;
     box-shadow: none;
     .close {
@@ -197,7 +220,25 @@
   }
 }
 
+@media screen and (min-width: 808px) {
+  .orderWrap {
+    padding: 0 0 0 16px;
+  }
+  .order {
+    min-width: 320px;
+  }
+}
 @media screen and (min-width: 1024px) {
+  .orderWrap {
+    padding: 0 0 0 32px;
+  }
+  .orderContainer {
+    padding: 0 64px;
+  }
+
+  .container {
+    padding: 0 64px;
+  }
 }
 
 @media screen and (min-width: 1439px) {

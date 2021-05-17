@@ -2,6 +2,7 @@ import imgSlid1 from '../assets/slide1.jpg'
 import imgSlid2 from '../assets/slide2.jpg'
 import imgSlid3 from '../assets/slide3.jpg'
 import imgSlid4 from '../assets/slide4.jpg'
+import carImg from '../assets/car.jpg'
 
 export const sliderData = [
   {
@@ -61,3 +62,78 @@ export const nameBtnOrder = {
   confirm: 'Подтвердить',
   goBack: 'Вернуться',
 }
+
+export const tabsOrder = {
+  tabLocation: { id: 1, label: 'Местоположение' },
+  tabСhooseСar: { id: 2, label: 'Модель' },
+  tabAdditionally: { id: 3, label: 'Дополнительно' },
+  tabTotal: { id: 4, label: 'Итого' },
+}
+
+export const listCars = [
+  {
+    title: 'SONATA',
+    prise: '10 001 - 32 000',
+    imgUrl: carImg,
+  },
+  {
+    title: 'SONATA',
+    prise: '10 002 - 32 000',
+    imgUrl: carImg,
+  },
+  {
+    title: 'SONATA',
+    prise: '10 003 - 32 000',
+    imgUrl: carImg,
+  },
+  {
+    title: 'SONATA',
+    prise: '10 004 - 32 000',
+    imgUrl: carImg,
+  },
+  {
+    title: 'SONATA',
+    prise: '10 005 - 32 000',
+    imgUrl: carImg,
+  },
+  {
+    title: 'SONATA',
+    prise: '10 006 - 32 000',
+    imgUrl: carImg,
+  },
+  {
+    title: 'SONATA',
+    prise: '10 007 - 32 000',
+    imgUrl: carImg,
+  },
+  {
+    title: 'SONATA',
+    prise: '10 008 - 32 000',
+    imgUrl: carImg,
+  },
+  {
+    title: 'SONATA',
+    prise: '10 009 - 32 000',
+    imgUrl: carImg,
+  },
+  {
+    title: 'SONATA',
+    prise: '10 010 - 32 000',
+    imgUrl: carImg,
+  },
+  {
+    title: 'SONATA',
+    prise: '10 011 - 32 000',
+    imgUrl: carImg,
+  },
+  {
+    title: 'SONATA',
+    prise: '10 012 - 32 000',
+    imgUrl: carImg,
+  },
+  {
+    title: 'SONATA',
+    prise: '10 013 - 32 000',
+    imgUrl: carImg,
+  },
+]

@@ -2,68 +2,12 @@
   width: 100%;
   max-width: 736px;
   margin-top: 48px;
-  .carListItem {
-    width: 100%;
-    margin-bottom: 8px;
-    display: inline-block;
-    height: 224px;
-    border: solid 1px #eee;
-    transition: all 0.3s ease;
-    &:hover {
-      position: relative;
-      transition: all 0.3s ease;
-      border: solid 1px #999;
-    }
-    &:nth-child(even) {
-      margin-left: -1px;
-    }
-    &:active {
-      border: 1px solid #0ec261;
-    }
-  }
-}
-
-.carListItem {
-  padding: 16px;
-  box-sizing: border-box;
-  h3 {
-    font-size: 18px;
-    color: #121212;
-    box-sizing: border-box;
-    margin: 0;
-  }
-  p {
-    color: #999999;
-    box-sizing: border-box;
-    margin-bottom: 37px;
-    margin-top: 0;
-  }
-  img {
-    box-sizing: border-box;
-    display: block;
-    float: right;
-    width: 100%;
-    max-width: 256px;
-  }
-}
-
-@media screen and (min-width: 425px) {
-}
-
-@media screen and (min-width: 768px) {
 }
 
 @media screen and (min-width: 1024px) {
   .carList {
-    .carListItem {
-      width: calc(50% - 2px);
-      margin-bottom: -1px;
-    }
     &:nth-child(even) {
       margin-left: initial;
     }
   }
-}
-
-@media screen and (min-width: 1439px) {
 }

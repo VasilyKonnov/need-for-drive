@@ -63,7 +63,7 @@ export const TabAdditionallyView: React.FC<TabAdditionallyimport> = memo(
                 minDate={startDate ? startDate : new Date()}
                 placeholderText="Введите дату и время"
                 showTimeSelect
-                dateFormat="dd-mm-yyyy, hh:mm"
+                dateFormat="dd-MM-yyyy, hh:mm"
                 selected={startDate}
                 onChange={(date: any) => {
                   setStartDate(date)
@@ -78,7 +78,7 @@ export const TabAdditionallyView: React.FC<TabAdditionallyimport> = memo(
                 minDate={startDate ? startDate : new Date()}
                 placeholderText="Введите дату и время"
                 showTimeSelect
-                dateFormat="dd-mm-yyyy, hh:mm"
+                dateFormat="dd-MM-yyyy, hh:mm"
                 selected={endDate}
                 onChange={(date: any) => setEndDate(date)}
                 isClearable

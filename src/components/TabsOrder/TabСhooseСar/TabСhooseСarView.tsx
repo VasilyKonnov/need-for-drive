@@ -1,12 +1,12 @@
 import { memo } from 'react'
-import { filterVal } from '../../../constants/constants'
+import { CarCard } from './../../СarСard/СarСard'
+import { filterVal, listCars } from '../../../constants/constants'
 import { RadioButton } from './../../RadioButton/RadioButton'
 import { TChooseCar } from './TabСhooseСarTypes'
-import carImg from '../../../assets/car.jpg'
 import styles from './TabСhooseСar.module.scss'
 
 export const TabСhooseСarView: React.FC<TChooseCar> = memo(
-  ({ filterValue, handleFilterValue }) => {
+  ({ filterValue, handleFilterValue, handleCarCardValue, carCardValue }) => {
     return (
       <>
         <form>
@@ -36,31 +36,20 @@ export const TabСhooseСarView: React.FC<TChooseCar> = memo(
           />
         </form>
         <div className={styles.carList}>
-          <div className={styles.carListItem}>
-            <h3>SONATA</h3>
-            <p>10 000 - 32 000 ₽</p>
-            <img src={carImg} alt="Картинка машины" />
-          </div>
-          <div className={styles.carListItem}>
-            <h3>SONATA</h3>
-            <p>10 000 - 32 000 ₽</p>
-            <img src={carImg} alt="Картинка машины" />
-          </div>
-          <div className={styles.carListItem}>
-            <h3>SONATA</h3>
-            <p>10 000 - 32 000 ₽</p>
-            <img src={carImg} alt="Картинка машины" />
-          </div>
-          <div className={styles.carListItem}>
-            <h3>SONATA</h3>
-            <p>10 000 - 32 000 ₽</p>
-            <img src={carImg} alt="Картинка машины" />
-          </div>
-          <div className={styles.carListItem}>
-            <h3>SONATA</h3>
-            <p>10 000 - 32 000 ₽</p>
-            <img src={carImg} alt="Картинка машины" />
-          </div>
+          {listCars.map((car: any, id: number) => {
+            return (
+              <CarCard
+                key={id}
+                onChange={handleCarCardValue}
+                priseState={carCardValue}
+                nameWrap="cards cars"
+                htmlForChoice={`cardCar${id}`}
+                title={car.title}
+                prise={car.prise}
+                imgUrl={car.imgUrl}
+              />
+            )
+          })}
         </div>
       </>
     )

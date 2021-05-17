@@ -1,8 +1,7 @@
 .react-select-container {
   border: 0;
   min-width: 224px;
-  height: 28px;
-  margin-bottom: 13px;
+  height: 26px;
   font-size: 13px;
   font-weight: 300;
 }
@@ -14,7 +13,7 @@
 }
 
 .react-select__control {
-  height: 28px;
+  height: 26px;
   min-height: initial;
 }
 
@@ -24,7 +23,7 @@
   box-shadow: 0 0 0 1px #fff;
   border-radius: 0;
   border-bottom: solid 1px #999;
-  height: 28px;
+  height: 26px;
   min-height: initial;
 }
 .react-select__indicator.react-select__dropdown-indicator {
@@ -33,23 +32,31 @@
 .react-select__indicator-separator {
   display: none;
 }
-
+.react-select__option {
+  color: #121212 !important;
+}
 .react-select__option--is-focused,
 .react-select__option--is-selected {
-  background: rgba(14, 194, 97, 0.5) !important;
-  color: #fff;
+  background: transparent !important;
   transition: all 0.3s ease;
 }
 .react-select__option:hover {
-  background: rgba(14, 194, 97, 0.5) !important;
+  background: transparent !important;
   transition: all 0.3s ease;
+  color: rgba(14, 194, 97, 1) !important;
 }
 
 .react-select__option:focus {
-  background: rgba(14, 194, 97, 0.5) !important;
+  background: transparent !important;
   transition: all 0.3s ease;
 }
 .react-select__option::selection {
-  background: rgba(14, 194, 97, 0.5) !important;
+  background: transparent !important;
   transition: all 0.3s ease;
+}
+
+@media screen and (min-width: 1024px) {
+  .react-select-container {
+    margin-top: -6px;
+  }
 }

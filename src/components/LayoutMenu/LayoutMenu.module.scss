@@ -82,6 +82,10 @@
     a {
       font-size: 28px;
       line-height: 32px;
+      &:hover {
+        color: #0ec261;
+        transition: all 0.3s ease;
+      }
     }
   }
 }
@@ -89,5 +93,9 @@
   .menu a {
     font-size: 32px;
     line-height: 37px;
+    &:hover {
+      color: #0ec261;
+      transition: all 0.3s ease;
+    }
   }
 }

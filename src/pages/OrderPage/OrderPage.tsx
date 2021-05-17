@@ -6,10 +6,11 @@ import {
   TabСhooseСar,
   TabAdditionally,
   TabTotal,
+  ScrollToTop,
 } from '../../components'
+import { tabsOrder } from '../../constants/constants'
 import { TSelectValue } from './OrderPageTypes'
 import locIcon from '../../assets/loc-icon.svg'
-import arrowTriangle from '../../assets/arrow-triangle.svg'
 import styles from './OrderPage.module.scss'
 
 const options = [
@@ -20,11 +21,12 @@ const options = [
 
 export const OrderPage: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<TSelectValue>(null)
-  const [isTabLocation, setIsTabLocation] = useState(true)
-  const [isTabСhooseСar, setIsTabСhooseСar] = useState(false)
-  const [isTabAdditionally, setIsTabAdditionally] = useState(false)
-  const [isTabTotal, setIsTabTotal] = useState(false)
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false)
+
+  const [activeTab, setActiveTab] = useState(1)
+  const openTab = (event: any) => {
+    setActiveTab(+event.target.dataset.id)
+  }
 
   const handleSelect = useCallback(
     (val: TSelectValue) => {
@@ -32,31 +34,6 @@ export const OrderPage: React.FC = () => {
     },
     [setSelectedOption],
   )
-
-  const activeTabLocation = () => {
-    setIsTabСhooseСar(false)
-    setIsTabAdditionally(false)
-    setIsTabTotal(false)
-    setIsTabLocation(true)
-  }
-  const activeTabСhooseСar = () => {
-    setIsTabAdditionally(false)
-    setIsTabTotal(false)
-    setIsTabLocation(false)
-    setIsTabСhooseСar(true)
-  }
-  const activeTabAdditionally = () => {
-    setIsTabTotal(false)
-    setIsTabLocation(false)
-    setIsTabСhooseСar(false)
-    setIsTabAdditionally(true)
-  }
-  const activeTabTotal = () => {
-    setIsTabAdditionally(false)
-    setIsTabLocation(false)
-    setIsTabСhooseСar(false)
-    setIsTabTotal(true)
-  }
 
   const [isMobileOrderOpen, setIsMobileOrderOpen] = useState(true)
 
@@ -80,38 +57,55 @@ export const OrderPage: React.FC = () => {
       <div className={styles.wrapTabs}>
         <div className={styles.container}>
           <button
-            className={isTabLocation ? styles.activeTabBtn : styles.tabBtn}
-            onClick={activeTabLocation}
+            className={
+              tabsOrder.tabLocation.id === activeTab
+                ? styles.activeTabBtn
+                : styles.tabBtn
+            }
+            onClick={openTab}
+            data-id={tabsOrder.tabLocation.id}
           >
-            Местоположение
+            {tabsOrder.tabLocation.label}
           </button>
-          <img src={arrowTriangle} alt="иконка" />
           <button
-            className={isTabСhooseСar ? styles.activeTabBtn : styles.tabBtn}
-            onClick={activeTabСhooseСar}
+            className={
+              tabsOrder.tabСhooseСar.id === activeTab
+                ? styles.activeTabBtn
+                : styles.tabBtn
+            }
+            onClick={openTab}
+            data-id={tabsOrder.tabСhooseСar.id}
           >
-            Модель
+            {tabsOrder.tabСhooseСar.label}
           </button>
-          <img src={arrowTriangle} alt="иконка" />
           <button
-            className={isTabAdditionally ? styles.activeTabBtn : styles.tabBtn}
-            onClick={activeTabAdditionally}
+            className={
+              tabsOrder.tabAdditionally.id === activeTab
+                ? styles.activeTabBtn
+                : styles.tabBtn
+            }
+            onClick={openTab}
+            data-id={tabsOrder.tabAdditionally.id}
           >
-            Дополнительно
+            {tabsOrder.tabAdditionally.label}
           </button>
-          <img src={arrowTriangle} alt="иконка" />
           <button
-            className={isTabTotal ? styles.activeTabBtn : styles.tabBtn}
-            onClick={activeTabTotal}
+            className={
+              tabsOrder.tabTotal.id === activeTab
+                ? styles.activeTabBtn
+                : styles.tabBtn
+            }
+            onClick={openTab}
+            data-id={tabsOrder.tabTotal.id}
           >
-            Итого
+            {tabsOrder.tabTotal.label}
           </button>
         </div>
       </div>
       <div className={styles.body}>
         <div className={styles.orderContainer}>
           <div className={styles.tab}>
-            {isTabLocation ? (
+            {tabsOrder.tabLocation.id === activeTab ? (
               <TabLocation
                 selectedOption={selectedOption}
                 handleSelect={handleSelect}
@@ -120,9 +114,13 @@ export const OrderPage: React.FC = () => {
             ) : (
               ''
             )}
-            {isTabСhooseСar ? <TabСhooseСar /> : ''}
-            {isTabAdditionally ? <TabAdditionally /> : ''}
-            {isTabTotal ? <TabTotal /> : ''}
+            {tabsOrder.tabСhooseСar.id === activeTab ? <TabСhooseСar /> : ''}
+            {tabsOrder.tabAdditionally.id === activeTab ? (
+              <TabAdditionally />
+            ) : (
+              ''
+            )}
+            {tabsOrder.tabTotal.id === activeTab ? <TabTotal /> : ''}
           </div>
 
           <div className={styles.order}>
@@ -152,6 +150,7 @@ export const OrderPage: React.FC = () => {
               >
                 Выбрать модель
               </button>
+
               {isMobileOrderOpen ? (
                 ''
               ) : (
@@ -166,6 +165,7 @@ export const OrderPage: React.FC = () => {
           </div>
         </div>
       </div>
+      <ScrollToTop />
     </Layout>
   )
 }
