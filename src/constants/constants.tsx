@@ -63,12 +63,12 @@ export const nameBtnOrder = {
   goBack: 'Вернуться',
 }
 
-export const tabsOrder = {
-  tabLocation: { id: 1, label: 'Местоположение' },
-  tabСhooseСar: { id: 2, label: 'Модель' },
-  tabAdditionally: { id: 3, label: 'Дополнительно' },
-  tabTotal: { id: 4, label: 'Итого' },
-}
+export const tabsOrder = [
+  { id: 1, label: 'Местоположение' },
+  { id: 2, label: 'Модель' },
+  { id: 3, label: 'Дополнительно' },
+  { id: 4, label: 'Итого' },
+]
 
 export const listCars = [
   {

@@ -6,3 +6,8 @@ export type TSelectVal = {
 }
 
 export type TSelectValue = TSelectVal | null
+
+export type TTabOrder = {
+  id: number
+  label: string
+}

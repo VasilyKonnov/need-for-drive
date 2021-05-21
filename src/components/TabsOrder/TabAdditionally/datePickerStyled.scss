@@ -89,3 +89,19 @@
   li.react-datepicker__time-list-item--selected {
   background-color: #0ec261;
 }
+
+@media screen and (max-width: 450px) {
+  .react-datepicker {
+    display: flex;
+    max-width: 315px;
+    left: -40px;
+  }
+  .react-datepicker__time-container {
+    width: 70px;
+  }
+  .react-datepicker__time-container
+    .react-datepicker__time
+    .react-datepicker__time-box {
+    width: 70px;
+  }
+}

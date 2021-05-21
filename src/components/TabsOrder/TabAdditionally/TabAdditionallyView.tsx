@@ -67,6 +67,7 @@ export const TabAdditionallyView: React.FC<TabAdditionallyimport> = memo(
                 selected={startDate}
                 onChange={(date: any) => {
                   setStartDate(date)
+                  setEndDate(null)
                 }}
                 isClearable
                 locale="Ru"

@@ -9,7 +9,7 @@ import {
   ScrollToTop,
 } from '../../components'
 import { tabsOrder } from '../../constants/constants'
-import { TSelectValue } from './OrderPageTypes'
+import { TSelectValue, TTabOrder } from './OrderPageTypes'
 import locIcon from '../../assets/loc-icon.svg'
 import styles from './OrderPage.module.scss'
 
@@ -56,56 +56,27 @@ export const OrderPage: React.FC = () => {
       </div>
       <div className={styles.wrapTabs}>
         <div className={styles.container}>
-          <button
-            className={
-              tabsOrder.tabLocation.id === activeTab
-                ? styles.activeTabBtn
-                : styles.tabBtn
-            }
-            onClick={openTab}
-            data-id={tabsOrder.tabLocation.id}
-          >
-            {tabsOrder.tabLocation.label}
-          </button>
-          <button
-            className={
-              tabsOrder.tabСhooseСar.id === activeTab
-                ? styles.activeTabBtn
-                : styles.tabBtn
-            }
-            onClick={openTab}
-            data-id={tabsOrder.tabСhooseСar.id}
-          >
-            {tabsOrder.tabСhooseСar.label}
-          </button>
-          <button
-            className={
-              tabsOrder.tabAdditionally.id === activeTab
-                ? styles.activeTabBtn
-                : styles.tabBtn
-            }
-            onClick={openTab}
-            data-id={tabsOrder.tabAdditionally.id}
-          >
-            {tabsOrder.tabAdditionally.label}
-          </button>
-          <button
-            className={
-              tabsOrder.tabTotal.id === activeTab
-                ? styles.activeTabBtn
-                : styles.tabBtn
-            }
-            onClick={openTab}
-            data-id={tabsOrder.tabTotal.id}
-          >
-            {tabsOrder.tabTotal.label}
-          </button>
+          {tabsOrder.map((tabOrder: TTabOrder) => {
+            return (
+              <button
+                className={
+                  tabOrder.id === activeTab
+                    ? styles.activeTabBtn
+                    : styles.tabBtn
+                }
+                onClick={openTab}
+                data-id={tabOrder.id}
+              >
+                {tabOrder.label}
+              </button>
+            )
+          })}
         </div>
       </div>
       <div className={styles.body}>
         <div className={styles.orderContainer}>
           <div className={styles.tab}>
-            {tabsOrder.tabLocation.id === activeTab ? (
+            {activeTab === 1 ? (
               <TabLocation
                 selectedOption={selectedOption}
                 handleSelect={handleSelect}
@@ -114,13 +85,9 @@ export const OrderPage: React.FC = () => {
             ) : (
               ''
             )}
-            {tabsOrder.tabСhooseСar.id === activeTab ? <TabСhooseСar /> : ''}
-            {tabsOrder.tabAdditionally.id === activeTab ? (
-              <TabAdditionally />
-            ) : (
-              ''
-            )}
-            {tabsOrder.tabTotal.id === activeTab ? <TabTotal /> : ''}
+            {activeTab === 2 ? <TabСhooseСar /> : ''}
+            {activeTab === 3 ? <TabAdditionally /> : ''}
+            {activeTab === 4 ? <TabTotal /> : ''}
           </div>
 
           <div className={styles.order}>
