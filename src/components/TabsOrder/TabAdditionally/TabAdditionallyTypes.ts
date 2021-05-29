@@ -12,7 +12,7 @@ export type TabAdditionallyimport = {
   setStartDate: React.Dispatch<SetStateAction<null>>
   setEndDate: React.Dispatch<SetStateAction<null>>
   carColor: string
-  handleColorRadioButton: (e: { target: { value: string } }) => void
+  handlerColorRadioButton: (e: { target: { value: string } }) => void
   carTarif: string
-  handleCarTarif: (e: { target: { value: string } }) => void
+  handlerCarTarif: (e: { target: { value: string } }) => void
 }

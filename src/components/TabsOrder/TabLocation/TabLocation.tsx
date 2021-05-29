@@ -6,7 +6,14 @@ import styles from './TabLocation.module.scss'
 import '../SelectCustomStyle.scss'
 
 export const TabLocation: React.FC<TTabLocation> = memo(
-  ({ selectedOption, handleSelect, options }) => {
+  ({
+    selectedOptionCityPoints,
+    selectedOptionCity,
+    handlerCitiesSelect,
+    handlerCityOrdersSelect,
+    optionsCities,
+    optionsCityPoints,
+  }) => {
     return (
       <>
         <div className={styles.selectWrap}>
@@ -15,10 +22,10 @@ export const TabLocation: React.FC<TTabLocation> = memo(
             isClearable
             className="react-select-container"
             classNamePrefix="react-select"
-            defaultValue={selectedOption}
-            onChange={handleSelect}
+            value={selectedOptionCity}
+            onChange={handlerCitiesSelect}
             placeholder="Выберите город"
-            options={options}
+            options={optionsCities}
           />
         </div>
         <div className={styles.selectWrap}>
@@ -27,10 +34,10 @@ export const TabLocation: React.FC<TTabLocation> = memo(
             isClearable
             className="react-select-container"
             classNamePrefix="react-select"
-            defaultValue={selectedOption}
-            onChange={handleSelect}
+            value={selectedOptionCityPoints}
+            onChange={handlerCityOrdersSelect}
             placeholder="Начните вводить пункт..."
-            options={options}
+            options={optionsCityPoints}
           />
         </div>
 

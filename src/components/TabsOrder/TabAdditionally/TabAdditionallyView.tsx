@@ -20,8 +20,8 @@ export const TabAdditionallyView: React.FC<TabAdditionallyimport> = memo(
     setStartDate,
     setEndDate,
     carColor,
-    handleColorRadioButton,
-    handleCarTarif,
+    handlerColorRadioButton,
+    handlerCarTarif,
     carTarif,
   }) => {
     return (
@@ -32,7 +32,7 @@ export const TabAdditionallyView: React.FC<TabAdditionallyimport> = memo(
             <RadioButton
               filterVal={colorAdditionally.anyСolour}
               filterState={carColor}
-              onChange={handleColorRadioButton}
+              onChange={handlerColorRadioButton}
               labelTitle={'Любой'}
               htmlForChoice={'Choice1'}
               nameWrap={'chooseColor'}
@@ -40,7 +40,7 @@ export const TabAdditionallyView: React.FC<TabAdditionallyimport> = memo(
             <RadioButton
               filterVal={colorAdditionally.red}
               filterState={carColor}
-              onChange={handleColorRadioButton}
+              onChange={handlerColorRadioButton}
               labelTitle={'Красный'}
               htmlForChoice={'Choice2'}
               nameWrap={'chooseColor'}
@@ -48,7 +48,7 @@ export const TabAdditionallyView: React.FC<TabAdditionallyimport> = memo(
             <RadioButton
               filterVal={colorAdditionally.blue}
               filterState={carColor}
-              onChange={handleColorRadioButton}
+              onChange={handlerColorRadioButton}
               labelTitle={'Голубой'}
               htmlForChoice={'Choice3'}
               nameWrap={'chooseColor'}
@@ -93,7 +93,7 @@ export const TabAdditionallyView: React.FC<TabAdditionallyimport> = memo(
             <RadioButton
               filterVal={tariffRate.byMinute}
               filterState={carTarif}
-              onChange={handleCarTarif}
+              onChange={handlerCarTarif}
               labelTitle={`Поминутно, ${tariffRate.byMinute}₽/мин`}
               htmlForChoice={'Choice4'}
               nameWrap={'chooseTarif'}
@@ -101,7 +101,7 @@ export const TabAdditionallyView: React.FC<TabAdditionallyimport> = memo(
             <RadioButton
               filterVal={tariffRate.forADay}
               filterState={carTarif}
-              onChange={handleCarTarif}
+              onChange={handlerCarTarif}
               labelTitle={`На сутки, ${tariffRate.forADay}₽/сутки`}
               htmlForChoice={'Choice5'}
               nameWrap={'chooseTarif'}

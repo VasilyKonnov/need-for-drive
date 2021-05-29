@@ -1,55 +1,67 @@
 import { memo } from 'react'
 import { CarCard } from './../../СarСard/СarСard'
-import { filterVal, listCars } from '../../../constants/constants'
 import { RadioButton } from './../../RadioButton/RadioButton'
-import { TChooseCar } from './TabСhooseСarTypes'
+import Loader from 'react-loader-spinner'
+import { TChooseCarView } from './TabСhooseСarTypes'
 import styles from './TabСhooseСar.module.scss'
+import { TCar } from '../../../store/cars'
+import { checkCarImg } from '../../../utils/common'
 
-export const TabСhooseСarView: React.FC<TChooseCar> = memo(
-  ({ filterValue, handleFilterValue, handleCarCardValue, carCardValue }) => {
+export const TabСhooseСarView: React.FC<TChooseCarView> = memo(
+  ({
+    handlerFilterCategory,
+    handlerCarCardValue,
+    carsData,
+    carsCategory,
+    filterStateCarCategory,
+    selectedCarId,
+  }) => {
     return (
       <>
         <form>
           <RadioButton
-            filterVal={filterVal.allModels}
-            filterState={filterValue}
-            onChange={handleFilterValue}
+            filterVal={'all'}
+            filterState={filterStateCarCategory}
+            onChange={handlerFilterCategory}
             labelTitle={'Все модели'}
-            htmlForChoice={'Choice1'}
+            htmlForChoice={'all-car'}
             nameWrap={'chooseCar'}
           />
-          <RadioButton
-            filterVal={filterVal.economy}
-            filterState={filterValue}
-            onChange={handleFilterValue}
-            labelTitle={'Эконом'}
-            htmlForChoice={'Choice2'}
-            nameWrap={'chooseCar'}
-          />
-          <RadioButton
-            filterVal={filterVal.premium}
-            filterState={filterValue}
-            onChange={handleFilterValue}
-            labelTitle={'Премиум'}
-            htmlForChoice={'Choice3'}
-            nameWrap={'chooseCar'}
-          />
+          {carsCategory
+            ? carsCategory.map((carCategory, id) => {
+                return (
+                  <RadioButton
+                    key={id}
+                    filterVal={carCategory.id}
+                    filterState={filterStateCarCategory}
+                    onChange={handlerFilterCategory}
+                    labelTitle={carCategory.name}
+                    htmlForChoice={carCategory.id}
+                    nameWrap={'chooseCar'}
+                  />
+                )
+              })
+            : null}
         </form>
         <div className={styles.carList}>
-          {listCars.map((car: any, id: number) => {
-            return (
-              <CarCard
-                key={id}
-                onChange={handleCarCardValue}
-                priseState={carCardValue}
-                nameWrap="cards cars"
-                htmlForChoice={`cardCar${id}`}
-                title={car.title}
-                prise={car.prise}
-                imgUrl={car.imgUrl}
-              />
-            )
-          })}
+          {carsData ? (
+            carsData.map((car: TCar, id: number) => {
+              return (
+                <CarCard
+                  key={id}
+                  onChange={handlerCarCardValue}
+                  selectedСarId={selectedCarId}
+                  nameWrap="cards-cars"
+                  htmlForChoice={car.id}
+                  title={car.name}
+                  prise={car.priceMin + '-' + car.priceMax}
+                  imgUrl={checkCarImg(car.thumbnail.path)}
+                />
+              )
+            })
+          ) : (
+            <Loader type="TailSpin" color="#0ec261" height={50} width={50} />
+          )}
         </div>
       </>
     )

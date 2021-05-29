@@ -1,32 +1,58 @@
-import { useCallback, useState } from 'react'
-import { filterVal } from '../../../constants/constants'
+import { useCallback, useEffect } from 'react'
 import { TabСhooseСarView } from './TabСhooseСarView'
+import { TChooseCar } from './TabСhooseСarTypes'
 
-export const TabСhooseСar: React.FC = () => {
-  const [filterValue, setFilterValue] = useState(filterVal.allModels)
-  const [carCardValue, setCarCardValue] = useState('0.00')
-
-  const handleFilterValue = useCallback(
+export const TabСhooseСar: React.FC<TChooseCar> = ({
+  setFilterStateCarCategory,
+  filterStateCarCategory,
+  carsCategory,
+  carsData,
+  setSelectedСar,
+  selectedСar,
+  setSelectedCarId,
+  selectedCarId,
+}) => {
+  const handlerFilterCategory = useCallback(
     (e: { target: { value: string } }) => {
       const { value } = e.target
-      setFilterValue(value)
+      setFilterStateCarCategory(value)
     },
-    [setFilterValue],
+    [setFilterStateCarCategory],
   )
-  const handleCarCardValue = useCallback(
+
+  const handlerCarCardValue = useCallback(
     (e: { target: { value: string } }) => {
       const { value } = e.target
-      setCarCardValue(value)
+      setSelectedCarId(value)
     },
-    [setFilterValue],
+    [setSelectedCarId],
   )
+
+  const getSelectionCarData = () => {
+    if (carsData && selectedCarId) {
+      const car = carsData?.filter((item) => {
+        return item.id === selectedCarId
+      })
+      setSelectedСar(car[0])
+    }
+  }
+
+  useEffect(() => {
+    if (selectedCarId) {
+      getSelectionCarData()
+    }
+  }, [selectedCarId, setSelectedCarId])
 
   return (
     <TabСhooseСarView
-      filterValue={filterValue}
-      handleFilterValue={handleFilterValue}
-      carCardValue={carCardValue}
-      handleCarCardValue={handleCarCardValue}
+      carsCategory={carsCategory}
+      filterValue={carsData}
+      filterStateCarCategory={filterStateCarCategory}
+      handlerFilterCategory={handlerFilterCategory}
+      carsData={carsData}
+      selectedСar={selectedСar}
+      handlerCarCardValue={handlerCarCardValue}
+      selectedCarId={selectedCarId}
     />
   )
 }

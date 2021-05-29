@@ -1,3 +1,5 @@
+import { TCity } from '../../store/cities'
+
 export type TOrderPage = {}
 
 export type TSelectVal = {
@@ -10,4 +12,7 @@ export type TSelectValue = TSelectVal | null
 export type TTabOrder = {
   id: number
   label: string
+  disabled: boolean
 }
+
+export type TOptionsList = TSelectVal[] | []

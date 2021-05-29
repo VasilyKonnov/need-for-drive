@@ -1,4 +1,8 @@
 import React, { SetStateAction } from 'react'
+import { TSelectValue } from '../../pages/OrderPage/OrderPageTypes'
 
-export type TOrder = {}
-export type TOrderView = {}
+export type TOrder = {
+  city: TSelectValue
+  cityPoints: TSelectValue
+  carModel: string | null
+}

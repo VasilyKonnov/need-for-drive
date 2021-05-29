@@ -23,7 +23,7 @@ export const TabAdditionally: React.FC = () => {
     setIsBabySeat(!isBabySeat)
   }, [isBabySeat])
 
-  const handleColorRadioButton = useCallback(
+  const handlerColorRadioButton = useCallback(
     (e: { target: { value: string } }) => {
       const { value } = e.target
       setCarColor(value)
@@ -31,7 +31,7 @@ export const TabAdditionally: React.FC = () => {
     [setCarColor],
   )
 
-  const handleCarTarif = useCallback(
+  const handlerCarTarif = useCallback(
     (e: { target: { value: string } }) => {
       const { value } = e.target
       setCarTarif(value)
@@ -51,9 +51,9 @@ export const TabAdditionally: React.FC = () => {
       handleRightHand={handleRightHand}
       setStartDate={setStartDate}
       setEndDate={setEndDate}
-      handleColorRadioButton={handleColorRadioButton}
+      handlerColorRadioButton={handlerColorRadioButton}
       carColor={carColor}
-      handleCarTarif={handleCarTarif}
+      handlerCarTarif={handlerCarTarif}
       carTarif={carTarif}
     />
   )

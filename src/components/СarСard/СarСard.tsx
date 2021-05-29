@@ -6,7 +6,7 @@ export const CarCard: React.FC<TCarCardView> = ({
   prise,
   imgUrl,
   htmlForChoice,
-  priseState,
+  selectedСarId,
   nameWrap,
   onChange,
 }) => {
@@ -15,18 +15,23 @@ export const CarCard: React.FC<TCarCardView> = ({
       <label
         htmlFor={htmlForChoice}
         className={
-          prise === priseState ? styles.carListItemActive : styles.carListItem
+          htmlForChoice === selectedСarId
+            ? styles.carListItemActive
+            : styles.carListItem
         }
       >
         <h3>{title}</h3>
         <p>{prise}</p>
-        <img src={imgUrl} alt={title} />
+        <div
+          className={styles.cardImg}
+          style={{ background: `url(${imgUrl})` }}
+        ></div>
         <input
           className={styles.input}
           type="radio"
           id={htmlForChoice}
           name={nameWrap}
-          value={prise}
+          value={htmlForChoice}
           onChange={onChange}
         />
       </label>

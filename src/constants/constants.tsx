@@ -64,10 +64,10 @@ export const nameBtnOrder = {
 }
 
 export const tabsOrder = [
-  { id: 1, label: 'Местоположение' },
-  { id: 2, label: 'Модель' },
-  { id: 3, label: 'Дополнительно' },
-  { id: 4, label: 'Итого' },
+  { id: 1, label: 'Местоположение', disabled: false },
+  { id: 2, label: 'Модель', disabled: true },
+  { id: 3, label: 'Дополнительно', disabled: true },
+  { id: 4, label: 'Итого', disabled: true },
 ]
 
 export const listCars = [
@@ -137,3 +137,5 @@ export const listCars = [
     imgUrl: carImg,
   },
 ]
+
+export const urlApi = 'https://api-factory.simbirsoft1.com'
