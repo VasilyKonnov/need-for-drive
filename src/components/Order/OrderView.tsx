@@ -3,7 +3,15 @@ import { TOrder } from './OrderTypes'
 import styles from './Order.module.scss'
 
 export const OrderView: React.FC<TOrder> = memo(
-  ({ cityPoints, city, carModel }) => {
+  ({
+    cityPoints,
+    city,
+    carModel,
+    selectedCarColor,
+    startDate,
+    endDate,
+    selectedRate,
+  }) => {
     return (
       <>
         <div className={styles.filedTabWrap}>
@@ -15,7 +23,6 @@ export const OrderView: React.FC<TOrder> = memo(
               </p>
             </div>
           ) : null}
-
           {carModel ? (
             <div className={styles.filedTab}>
               <p className={styles.tabName}>Модель</p>
@@ -23,23 +30,27 @@ export const OrderView: React.FC<TOrder> = memo(
             </div>
           ) : null}
 
-          {/* 
-        <div className={styles.filedTab}>
-          <p className={styles.tabName}>Цвет</p>
-          <p className={styles.tabValue}>Голубой</p>
-        </div>
-        <div className={styles.filedTab}>
-          <p className={styles.tabName}>Длительность аренды</p>
-          <p className={styles.tabValue}>1д 2ч</p>
-        </div>
-        <div className={styles.filedTab}>
-          <p className={styles.tabName}>Тариф</p>
-          <p className={styles.tabValue}>На сутки</p>
-        </div>
-        <div className={styles.filedTab}>
-          <p className={styles.tabName}>Полный бак</p>
-          <p className={styles.tabValue}>Да</p>
-        </div> */}
+          {selectedCarColor && selectedCarColor !== 'Любой' ? (
+            <div className={styles.filedTab}>
+              <p className={styles.tabName}>Цвет</p>
+              <p className={styles.tabValue}>{selectedCarColor}</p>
+            </div>
+          ) : null}
+
+          {/*
+          <div className={styles.filedTab}>
+            <p className={styles.tabName}>Длительность аренды</p>
+            <p className={styles.tabValue}>1д 2ч</p>
+          </div>
+          <div className={styles.filedTab}>
+            <p className={styles.tabName}>Тариф</p>
+            <p className={styles.tabValue}>На сутки</p>
+          </div>
+          <div className={styles.filedTab}>
+            <p className={styles.tabName}>Полный бак</p>
+            <p className={styles.tabValue}>Да</p>
+          </div>{' '}
+          */}
         </div>
       </>
     )

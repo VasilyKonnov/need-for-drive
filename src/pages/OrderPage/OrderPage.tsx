@@ -1,13 +1,18 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FetchingStateTypes } from '../../store'
-import { citiesAction } from '../../store/cities/citiesAction'
-import { cityPointsAction } from '../../store/cityPoints/cityPointsAction'
 
+import { citiesAction } from '../../store/cities/citiesAction'
 import { citiesSelector } from '../../store/cities/citiesSelector'
+
+import { cityPointsAction } from '../../store/cityPoints/cityPointsAction'
 import { cityPointsSelector } from '../../store/cityPoints/cityPointsSelector'
 
+import { carsAction, TCar } from '../../store/cars'
 import { carsSelector } from '../../store/cars/carsSelector'
+
+import { ratesAction, TRate } from '../../store/rates'
+import { ratesSelector } from '../../store/rates/ratesSelector'
 
 import { nameBtnOrder, tabsOrder } from '../../constants/constants'
 import { selectOptionsCities, selectPointsOptions } from '../../utils/common'
@@ -28,7 +33,6 @@ import {
   TCarsCategory,
   TCarsData,
 } from '../../components/TabsOrder/TabСhooseСar/TabСhooseСarTypes'
-import { carsAction, TCar } from '../../store/cars'
 
 export const OrderPage: React.FC = () => {
   const dispatch = useDispatch()
@@ -45,11 +49,23 @@ export const OrderPage: React.FC = () => {
   const [cityPoints, setCityPoints] = useState<TSelectValue>(null)
 
   const [carsData, setCarsData] = useState<TCarsData | null>(null)
+  const [
+    carsDataVsCategory,
+    setCarsDataVsCategory,
+  ] = useState<TCarsData | null>(null)
   const [carsCategory, setCarsCategory] = useState<TCarsCategory>(null)
   const [filterStateCarCategory, setFilterStateCarCategory] = useState('all')
   const [carsFilterData, setCarsFilterData] = useState<TCarsData | null>(null)
   const [selectedСar, setSelectedСar] = useState<TCar | null>(null)
   const [selectedCarId, setSelectedCarId] = useState<TCarId>('')
+
+  const [selectedCarColor, setSelectedCarColor] = useState<string>('colorAny')
+  const [carColors, setCarColors] = useState<string[] | null>(null)
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
+
+  const [selectedRate, setSelectedRate] = useState<TRate | null>(null)
+  const [rateId, setRateId] = useState('')
 
   const { data: cities, fetchingState: fetchingStateCities } = useSelector(
     citiesSelector,
@@ -58,9 +74,11 @@ export const OrderPage: React.FC = () => {
     data: citiesPoints,
     fetchingState: fetchingStateCityPoints,
   } = useSelector(cityPointsSelector)
-
   const { data: cars, fetchingState: fetchingStateCars } = useSelector(
     carsSelector,
+  )
+  const { data: rates, fetchingState: fetchingStateRates } = useSelector(
+    ratesSelector,
   )
 
   const openTab = (event: any) => {
@@ -72,15 +90,18 @@ export const OrderPage: React.FC = () => {
 
   const getCarCategory = () => {
     let category
-    category = cars.map((carData: TCar) => {
-      return { id: carData.categoryId.id, name: carData.categoryId.name }
+    category = cars.filter((car) => car.categoryId !== null)
+    setCarsDataVsCategory(category)
+    category = category.map((car: TCar) => {
+      return { id: car.categoryId.id, name: car.categoryId.name }
     })
 
-    category = category.filter(
-      (item, index, self) =>
+    category = category.filter((item, index, self) => {
+      return (
         index ===
-        self.findIndex((i) => i.id === item.id && i.name === item.name),
-    )
+        self.findIndex((i) => i.id === item.id && i.name === item.name)
+      )
+    })
     setCarsCategory(category)
   }
 
@@ -126,8 +147,8 @@ export const OrderPage: React.FC = () => {
     if (filterStateCarCategory === 'all') {
       setCarsFilterData(carsData)
     }
-    if (carsData !== null && filterStateCarCategory !== 'all') {
-      const result = carsData.filter((items) => {
+    if (carsDataVsCategory !== null && filterStateCarCategory !== 'all') {
+      const result = carsDataVsCategory.filter((items) => {
         return items.categoryId.id === filterStateCarCategory
       })
       setCarsFilterData(result)
@@ -179,6 +200,49 @@ export const OrderPage: React.FC = () => {
   useEffect(() => {
     filterCarCategory()
   }, [filterStateCarCategory, setFilterStateCarCategory, carsData, setCarsData])
+
+  useEffect(() => {
+    if (selectedСar) {
+      setCarColors(selectedСar.colors)
+    }
+  }, [selectedСar, setSelectedСar])
+
+  useEffect(() => {
+    if (fetchingStateRates === FetchingStateTypes.none) {
+      dispatch(ratesAction.list())
+    }
+  }, [dispatch, fetchingStateRates, rates])
+
+  useEffect(() => {
+    if (rates && rateId.length > 0) {
+      const select = rates.filter((rate) => {
+        return rate.id === rateId
+      })
+      setSelectedRate(select[0])
+    }
+  }, [rateId, rates])
+
+  useEffect(() => {
+    if (selectedCarColor) {
+      console.log(selectedCarColor)
+    }
+    if (startDate) {
+      console.log(startDate)
+    }
+    if (endDate) {
+      console.log(endDate)
+    }
+    if (selectedRate) {
+      console.log(selectedRate)
+    }
+  }, [
+    selectedCarColor,
+    startDate,
+    endDate,
+    setStartDate,
+    setEndDate,
+    selectedRate,
+  ])
 
   return (
     <Layout>
@@ -237,7 +301,21 @@ export const OrderPage: React.FC = () => {
                 selectedCarId={selectedCarId}
               />
             ) : null}
-            {activeTab === 3 ? <TabAdditionally /> : null}
+
+            {activeTab === 3 ? (
+              <TabAdditionally
+                carColors={carColors}
+                setSelectedCarColor={setSelectedCarColor}
+                selectedCarColor={selectedCarColor}
+                startDate={startDate}
+                setStartDate={setStartDate}
+                endDate={endDate}
+                setEndDate={setEndDate}
+                selectedRate={selectedRate}
+                rates={rates}
+                setRateId={setRateId}
+              />
+            ) : null}
             {activeTab === 4 ? <TabTotal /> : null}
           </div>
 
@@ -259,6 +337,10 @@ export const OrderPage: React.FC = () => {
                     cityPoints={cityPoints}
                     city={city}
                     carModel={selectedСar ? selectedСar.name : null}
+                    selectedCarColor={selectedCarColor}
+                    startDate={startDate}
+                    endDate={endDate}
+                    selectedRate={selectedRate}
                   />
                 </>
               ) : null}
@@ -292,6 +374,19 @@ export const OrderPage: React.FC = () => {
                   data-id={3}
                 >
                   {nameBtnOrder.additionally}
+                </button>
+              ) : null}
+
+              {activeTab === 3 ? (
+                <button
+                  className={
+                    isMobileOrderOpen ? 'button' : `button ${styles.smallBtn}`
+                  }
+                  onClick={(e) => handlerClickOrderButton(e, 3)}
+                  disabled={true}
+                  data-id={4}
+                >
+                  {nameBtnOrder.total}
                 </button>
               ) : null}
 

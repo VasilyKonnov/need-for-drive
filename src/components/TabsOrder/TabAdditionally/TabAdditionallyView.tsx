@@ -1,28 +1,31 @@
 import React, { memo } from 'react'
 import { CheckBox, RadioButton } from '../../../components'
 import DatePicker from 'react-datepicker'
-import { colorAdditionally, tariffRate } from '../../../constants/constants'
-import { TabAdditionallyimport } from './TabAdditionallyTypes'
+import { tariffRate } from '../../../constants/constants'
+import { TTabAdditionallyView } from './TabAdditionallyTypes'
 import 'react-datepicker/dist/react-datepicker.css'
 import styles from './TabAdditionally.module.scss'
 import './datePickerStyled.scss'
+import { TRate } from '../../../store/rates'
 
-export const TabAdditionallyView: React.FC<TabAdditionallyimport> = memo(
+export const TabAdditionallyView: React.FC<TTabAdditionallyView> = memo(
   ({
     isFullTank,
     isBabySeat,
     isRightHand,
     startDate,
     endDate,
+    setStartDate,
+    setEndDate,
     handleFullTank,
     handleBabySeat,
     handleRightHand,
-    setStartDate,
-    setEndDate,
-    carColor,
+    selectedCarColor,
+    carColors,
     handlerColorRadioButton,
     handlerCarTarif,
-    carTarif,
+    rates,
+    selectedRate,
   }) => {
     return (
       <>
@@ -30,29 +33,27 @@ export const TabAdditionallyView: React.FC<TabAdditionallyimport> = memo(
           <div className={styles.chooseColor}>
             <p className={styles.titleBox}>Цвет</p>
             <RadioButton
-              filterVal={colorAdditionally.anyСolour}
-              filterState={carColor}
+              filterVal={'Любой'}
+              filterState={selectedCarColor}
               onChange={handlerColorRadioButton}
               labelTitle={'Любой'}
-              htmlForChoice={'Choice1'}
+              htmlForChoice={`colorAny`}
               nameWrap={'chooseColor'}
             />
-            <RadioButton
-              filterVal={colorAdditionally.red}
-              filterState={carColor}
-              onChange={handlerColorRadioButton}
-              labelTitle={'Красный'}
-              htmlForChoice={'Choice2'}
-              nameWrap={'chooseColor'}
-            />
-            <RadioButton
-              filterVal={colorAdditionally.blue}
-              filterState={carColor}
-              onChange={handlerColorRadioButton}
-              labelTitle={'Голубой'}
-              htmlForChoice={'Choice3'}
-              nameWrap={'chooseColor'}
-            />
+            {carColors
+              ? carColors.map((color: string, id: number) => {
+                  return (
+                    <RadioButton
+                      filterVal={color}
+                      filterState={selectedCarColor}
+                      onChange={handlerColorRadioButton}
+                      labelTitle={color}
+                      htmlForChoice={`color${id}`}
+                      nameWrap={'chooseColor'}
+                    />
+                  )
+                })
+              : null}
           </div>
 
           <div className={styles.rentDate}>
@@ -70,7 +71,6 @@ export const TabAdditionallyView: React.FC<TabAdditionallyimport> = memo(
                   setEndDate(null)
                 }}
                 isClearable
-                locale="Ru"
               />
             </div>
             <div className={styles.wrapperDate}>
@@ -83,34 +83,30 @@ export const TabAdditionallyView: React.FC<TabAdditionallyimport> = memo(
                 selected={endDate}
                 onChange={(date: any) => setEndDate(date)}
                 isClearable
-                locale="Ru"
               />
             </div>
           </div>
 
           <div className={styles.rate}>
             <p className={styles.titleBox}>Тариф</p>
-            <RadioButton
-              filterVal={tariffRate.byMinute}
-              filterState={carTarif}
-              onChange={handlerCarTarif}
-              labelTitle={`Поминутно, ${tariffRate.byMinute}₽/мин`}
-              htmlForChoice={'Choice4'}
-              nameWrap={'chooseTarif'}
-            />
-            <RadioButton
-              filterVal={tariffRate.forADay}
-              filterState={carTarif}
-              onChange={handlerCarTarif}
-              labelTitle={`На сутки, ${tariffRate.forADay}₽/сутки`}
-              htmlForChoice={'Choice5'}
-              nameWrap={'chooseTarif'}
-            />
+            {rates.length > 0
+              ? rates.map((rate: TRate, id: number) => {
+                  return (
+                    <RadioButton
+                      key={id}
+                      filterVal={rate.id}
+                      filterState={selectedRate ? selectedRate.id : ''}
+                      onChange={handlerCarTarif}
+                      labelTitle={`${rate.rateTypeId.name}, ${rate.price} ₽/${rate.rateTypeId.unit} `}
+                      htmlForChoice={rate.id}
+                      nameWrap={'chooseTarif'}
+                    />
+                  )
+                })
+              : null}
           </div>
-
           <div className={styles.services}>
             <p className={styles.titleBox}>Доп услуги</p>
-
             <CheckBox
               labelTitle={'Полный бак, 500р'}
               id={'happy'}
