@@ -11,8 +11,8 @@ import { TRate } from '../../../store/rates'
 export const TabAdditionallyView: React.FC<TTabAdditionallyView> = memo(
   ({
     isFullTank,
-    isBabySeat,
-    isRightHand,
+    isNeedChildChair,
+    isRightWheel,
     startDate,
     endDate,
     setStartDate,
@@ -64,7 +64,7 @@ export const TabAdditionallyView: React.FC<TTabAdditionallyView> = memo(
                 minDate={startDate ? startDate : new Date()}
                 placeholderText="Введите дату и время"
                 showTimeSelect
-                dateFormat="dd-MM-yyyy, hh:mm"
+                dateFormat={'dd-MM-yyyy, hh:mm'}
                 selected={startDate}
                 onChange={(date: any) => {
                   setStartDate(date)
@@ -79,7 +79,7 @@ export const TabAdditionallyView: React.FC<TTabAdditionallyView> = memo(
                 minDate={startDate ? startDate : new Date()}
                 placeholderText="Введите дату и время"
                 showTimeSelect
-                dateFormat="dd-MM-yyyy, hh:mm"
+                dateFormat={'dd-MM-yyyy, hh:mm'}
                 selected={endDate}
                 onChange={(date: any) => setEndDate(date)}
                 isClearable
@@ -116,13 +116,13 @@ export const TabAdditionallyView: React.FC<TTabAdditionallyView> = memo(
             <CheckBox
               labelTitle={'Детское кресло, 200р'}
               id={'happy2'}
-              checked={isBabySeat}
+              checked={isNeedChildChair}
               onChange={handleBabySeat}
             />
             <CheckBox
               labelTitle={'Правый руль, 1600р'}
               id={'happy3'}
-              checked={isRightHand}
+              checked={isRightWheel}
               onChange={handleRightHand}
             />
           </div>

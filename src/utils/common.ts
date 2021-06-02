@@ -23,3 +23,32 @@ export const checkCarImg = (imgUrl: string) => {
     return imgUrl
   }
 }
+
+export function dayHourMinute(t: number) {
+  var cd = 24 * 60 * 60 * 1000,
+    ch = 60 * 60 * 1000,
+    d = Math.floor(t / cd),
+    h = Math.floor((t - d * cd) / ch),
+    m = Math.round((t - d * cd - h * ch) / 60000),
+    pad = function (n: any) {
+      return n < 10 ? '0' + n : n
+    }
+  if (m === 60) {
+    h++
+    m = 0
+  }
+  if (h === 24) {
+    d++
+    h = 0
+  }
+
+  return `${d}д ${pad(h)}ч ${pad(m)}м`
+}
+
+export function getMinuteInDateDef(t: number) {
+  return Math.round(t / 60000)
+}
+
+export const rounded = function (price: number) {
+  return +price.toFixed(2)
+}

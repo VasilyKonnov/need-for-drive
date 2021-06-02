@@ -139,3 +139,9 @@ export const listCars = [
 ]
 
 export const urlApi = 'https://api-factory.simbirsoft1.com'
+
+export const rateType = {
+  week: '5f622f029d3a610b850fd820',
+  day: '5e26a082099b810b946c5d83',
+  minute: '5e26a07f099b810b946c5d82',
+}

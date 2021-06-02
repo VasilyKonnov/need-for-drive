@@ -16,7 +16,7 @@ import { ratesSelector } from '../../store/rates/ratesSelector'
 
 import { nameBtnOrder, tabsOrder } from '../../constants/constants'
 import { selectOptionsCities, selectPointsOptions } from '../../utils/common'
-import { TOptionsList, TSelectValue, TTabOrder } from './OrderPageTypes'
+import { TOptionsList, TOrder, TSelectValue, TTabOrder } from './OrderPageTypes'
 import {
   Layout,
   Order,
@@ -25,6 +25,7 @@ import {
   TabAdditionally,
   TabTotal,
   ScrollToTop,
+  TotalSum,
 } from '../../components'
 import locIcon from '../../assets/loc-icon.svg'
 import styles from './OrderPage.module.scss'
@@ -36,7 +37,6 @@ import {
 
 export const OrderPage: React.FC = () => {
   const dispatch = useDispatch()
-  const [isOrderConfirmed, setIsOrderConfirmed] = useState(false)
   const [isMobileOrderOpen, setIsMobileOrderOpen] = useState(true)
   const [optionsCities, setOptionsCities] = useState<TOptionsList>([])
   const [optionsCitiesPoints, setOptionsCitiesPoints] = useState<TOptionsList>(
@@ -66,6 +66,13 @@ export const OrderPage: React.FC = () => {
 
   const [selectedRate, setSelectedRate] = useState<TRate | null>(null)
   const [rateId, setRateId] = useState('')
+
+  const [isFullTank, setIsFullTank] = useState(false)
+  const [isNeedChildChair, setIsNeedChildChair] = useState(false)
+  const [isRightWheel, setIsRightWheel] = useState(false)
+  const [totalSumOrder, setTotalSumOrder] = useState(0)
+
+  const [order, setOrder] = useState<TOrder | null>(null)
 
   const { data: cities, fetchingState: fetchingStateCities } = useSelector(
     citiesSelector,
@@ -223,17 +230,31 @@ export const OrderPage: React.FC = () => {
   }, [rateId, rates])
 
   useEffect(() => {
-    if (selectedCarColor) {
-      console.log(selectedCarColor)
-    }
-    if (startDate) {
-      console.log(startDate)
-    }
-    if (endDate) {
-      console.log(endDate)
-    }
-    if (selectedRate) {
-      console.log(selectedRate)
+    if (
+      city &&
+      cityPoints &&
+      selectedСar &&
+      startDate &&
+      endDate &&
+      rateId &&
+      totalSumOrder
+    ) {
+      setOrder({
+        orderStatusId: { name: 'Новый заказ' },
+        cityId: city,
+        pointId: cityPoints,
+        carId: selectedСar,
+        color: selectedCarColor ? selectedCarColor : 'any',
+        dateFrom: startDate,
+        dateTo: endDate,
+        rateId: rateId,
+        price: totalSumOrder,
+        isFullTank: isFullTank,
+        isNeedChildChair: isNeedChildChair,
+        isRightWheel: isRightWheel,
+      })
+    } else {
+      setOrder(null)
     }
   }, [
     selectedCarColor,
@@ -242,6 +263,14 @@ export const OrderPage: React.FC = () => {
     setStartDate,
     setEndDate,
     selectedRate,
+    city,
+    rateId,
+    totalSumOrder,
+    isFullTank,
+    isNeedChildChair,
+    isRightWheel,
+    cityPoints,
+    selectedСar,
   ])
 
   return (
@@ -314,6 +343,12 @@ export const OrderPage: React.FC = () => {
                 selectedRate={selectedRate}
                 rates={rates}
                 setRateId={setRateId}
+                isFullTank={isFullTank}
+                setIsFullTank={setIsFullTank}
+                setIsNeedChildChair={setIsNeedChildChair}
+                isNeedChildChair={isNeedChildChair}
+                setIsRightWheel={setIsRightWheel}
+                isRightWheel={isRightWheel}
               />
             ) : null}
             {activeTab === 4 ? <TabTotal /> : null}
@@ -341,15 +376,23 @@ export const OrderPage: React.FC = () => {
                     startDate={startDate}
                     endDate={endDate}
                     selectedRate={selectedRate}
+                    isFullTank={isFullTank}
+                    isNeedChildChair={isNeedChildChair}
+                    isRightWheel={isRightWheel}
                   />
                 </>
               ) : null}
 
-              {selectedСar ? (
-                <p className={styles.price}>
-                  Цена: от {selectedСar.priceMin} до {selectedСar.priceMax} ₽
-                </p>
-              ) : null}
+              <TotalSum
+                selectedСar={selectedСar}
+                selectedRate={selectedRate}
+                startDate={startDate}
+                endDate={endDate}
+                setTotalSumOrder={setTotalSumOrder}
+                isFullTank={isFullTank}
+                isNeedChildChair={isNeedChildChair}
+                isRightWheel={isRightWheel}
+              />
 
               {activeTab === 1 ? (
                 <button
@@ -383,7 +426,7 @@ export const OrderPage: React.FC = () => {
                     isMobileOrderOpen ? 'button' : `button ${styles.smallBtn}`
                   }
                   onClick={(e) => handlerClickOrderButton(e, 3)}
-                  disabled={true}
+                  disabled={order ? false : true}
                   data-id={4}
                 >
                   {nameBtnOrder.total}

@@ -1,4 +1,3 @@
-import React, { SetStateAction } from 'react'
 import { TSelectValue } from '../../pages/OrderPage/OrderPageTypes'
 import { TRate } from '../../store/rates'
 
@@ -10,4 +9,7 @@ export type TOrder = {
   startDate: any
   endDate: any
   selectedRate: TRate | null
+  isFullTank: boolean
+  isNeedChildChair: boolean
+  isRightWheel: boolean
 }

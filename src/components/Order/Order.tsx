@@ -10,6 +10,9 @@ export const Order: React.FC<TOrder> = ({
   startDate,
   endDate,
   selectedRate,
+  isFullTank,
+  isNeedChildChair,
+  isRightWheel,
 }) => {
   return (
     <OrderView
@@ -20,6 +23,9 @@ export const Order: React.FC<TOrder> = ({
       startDate={startDate}
       endDate={endDate}
       selectedRate={selectedRate}
+      isFullTank={isFullTank}
+      isNeedChildChair={isNeedChildChair}
+      isRightWheel={isRightWheel}
     />
   )
 }

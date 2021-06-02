@@ -13,22 +13,24 @@ export const TabAdditionally: React.FC<TTabAdditionally> = ({
   selectedRate,
   rates,
   setRateId,
+  isFullTank,
+  setIsFullTank,
+  setIsNeedChildChair,
+  isNeedChildChair,
+  setIsRightWheel,
+  isRightWheel,
 }) => {
-  const [isFullTank, setIsFullTank] = useState(false)
-  const [isRightHand, setIsRightHand] = useState(false)
-  const [isBabySeat, setIsBabySeat] = useState(false)
-
   const handleFullTank = useCallback(() => {
     setIsFullTank(!isFullTank)
   }, [isFullTank])
 
   const handleRightHand = useCallback(() => {
-    setIsRightHand(!isRightHand)
-  }, [isRightHand])
+    setIsRightWheel(!isRightWheel)
+  }, [isRightWheel])
 
   const handleBabySeat = useCallback(() => {
-    setIsBabySeat(!isBabySeat)
-  }, [isBabySeat])
+    setIsNeedChildChair(!isNeedChildChair)
+  }, [isNeedChildChair])
 
   const handlerColorRadioButton = useCallback(
     (e: { target: { value: string } }) => {
@@ -42,6 +44,8 @@ export const TabAdditionally: React.FC<TTabAdditionally> = ({
     (e: { target: { value: string } }) => {
       const { value } = e.target
       setRateId(value)
+      setStartDate(null)
+      setEndDate(null)
     },
     [setRateId],
   )
@@ -49,8 +53,8 @@ export const TabAdditionally: React.FC<TTabAdditionally> = ({
   return (
     <TabAdditionallyView
       isFullTank={isFullTank}
-      isRightHand={isRightHand}
-      isBabySeat={isBabySeat}
+      isRightWheel={isRightWheel}
+      isNeedChildChair={isNeedChildChair}
       setStartDate={setStartDate}
       setEndDate={setEndDate}
       startDate={startDate}

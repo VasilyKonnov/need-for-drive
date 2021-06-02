@@ -16,3 +16,18 @@ export type TTabOrder = {
 }
 
 export type TOptionsList = TSelectVal[] | []
+
+export type TOrder = {
+  orderStatusId: { name: string }
+  cityId: any
+  pointId: any
+  carId: any
+  color: string
+  dateFrom: any
+  dateTo: any
+  rateId: any
+  price: number
+  isFullTank: boolean
+  isNeedChildChair: boolean
+  isRightWheel: boolean
+}

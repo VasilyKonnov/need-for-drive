@@ -12,12 +12,18 @@ export type TTabAdditionally = {
   selectedRate: TRate | null
   rates: TRate[]
   setRateId: (value: string) => void
+  isFullTank: boolean
+  setIsFullTank: (val: boolean) => void
+  setIsNeedChildChair: (val: boolean) => void
+  isNeedChildChair: boolean
+  setIsRightWheel: (val: boolean) => void
+  isRightWheel: boolean
 }
 
 export type TTabAdditionallyView = {
   isFullTank: boolean
-  isBabySeat: boolean
-  isRightHand: boolean
+  isNeedChildChair: boolean
+  isRightWheel: boolean
   startDate: Date | null | undefined
   endDate: Date | null | undefined
   handleFullTank: () => void
