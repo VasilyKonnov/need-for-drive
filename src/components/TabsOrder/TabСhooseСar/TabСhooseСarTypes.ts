@@ -14,6 +14,7 @@ export type TChooseCar = {
   carsData: TCarsData
   selectedCarId: TCarId
   setSelectedCarId: (value: TCarId) => void
+  resetOrderCar: () => void
 }
 
 export type TChooseCarView = {

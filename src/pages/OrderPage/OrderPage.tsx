@@ -43,8 +43,8 @@ export const OrderPage: React.FC = () => {
     [],
   )
   const [activeTab, setActiveTab] = useState(1)
-  const [tabsOrderLoc, setLabsOrderLoc] = useState(tabsOrder)
-  const [tabDisabledIndex, setTtabDisabledIndex] = useState(1)
+  const [tabsOrderLoc, setTabsOrderLoc] = useState(tabsOrder)
+  const [tabDisabledIndex, setTabDisabledIndex] = useState(1)
   const [city, setCity] = useState<TSelectValue>(null)
   const [cityPoints, setCityPoints] = useState<TSelectValue>(null)
 
@@ -71,6 +71,7 @@ export const OrderPage: React.FC = () => {
   const [isNeedChildChair, setIsNeedChildChair] = useState(false)
   const [isRightWheel, setIsRightWheel] = useState(false)
   const [totalSumOrder, setTotalSumOrder] = useState(0)
+  const [isModalConfirmOpen, setIsModalConfirmOpen] = useState(true)
 
   const [order, setOrder] = useState<TOrder | null>(null)
 
@@ -131,15 +132,14 @@ export const OrderPage: React.FC = () => {
     let array = tabsOrderLoc.map((tab) => {
       return Object.assign({}, tab)
     })
-
     for (var i in array) {
       if (array[i].disabled === true) {
         array[i].disabled = false
-        setTtabDisabledIndex(Number(i) + 1)
+        setTabDisabledIndex(Number(i) + 1)
         break
       }
     }
-    setLabsOrderLoc(array)
+    setTabsOrderLoc(array)
   }
   const handlerClickOrderButton = (event: any, val: number) => {
     if (tabDisabledIndex > val) {
@@ -148,6 +148,10 @@ export const OrderPage: React.FC = () => {
       handlerTabsOrder()
       openTab(event)
     }
+  }
+
+  const handlerModalConfirm = () => {
+    setIsModalConfirmOpen(!isModalConfirmOpen)
   }
 
   const filterCarCategory = () => {
@@ -160,6 +164,26 @@ export const OrderPage: React.FC = () => {
       })
       setCarsFilterData(result)
     }
+  }
+
+  const resetOrderCar = () => {
+    setSelectedСar(null)
+    setSelectedRate(null)
+    setSelectedCarColor('')
+    setSelectedCarId('')
+    setRateId('')
+    setTotalSumOrder(0)
+    setOrder(null)
+  }
+
+  const resetOrder = () => {
+    resetOrderCar()
+    setTabsOrderLoc(tabsOrder)
+    setIsFullTank(false)
+    setIsNeedChildChair(false)
+    setIsRightWheel(false)
+    setStartDate(null)
+    setEndDate(null)
   }
 
   useEffect(() => {
@@ -328,6 +352,7 @@ export const OrderPage: React.FC = () => {
                 selectedСar={selectedСar}
                 setSelectedCarId={setSelectedCarId}
                 selectedCarId={selectedCarId}
+                resetOrderCar={resetOrderCar}
               />
             ) : null}
 
@@ -351,7 +376,8 @@ export const OrderPage: React.FC = () => {
                 isRightWheel={isRightWheel}
               />
             ) : null}
-            {activeTab === 4 ? <TabTotal /> : null}
+
+            {activeTab === 4 ? <TabTotal order={order} /> : null}
           </div>
 
           <div className={styles.order}>
@@ -433,6 +459,18 @@ export const OrderPage: React.FC = () => {
                 </button>
               ) : null}
 
+              {activeTab === 4 ? (
+                <button
+                  className={
+                    isMobileOrderOpen ? 'button' : `button ${styles.smallBtn}`
+                  }
+                  onClick={handlerModalConfirm}
+                  disabled={order ? false : true}
+                >
+                  {nameBtnOrder.doOrder}
+                </button>
+              ) : null}
+
               {isMobileOrderOpen ? null : (
                 <button
                   className={styles.openOrderBtn}
@@ -446,6 +484,22 @@ export const OrderPage: React.FC = () => {
         </div>
       </div>
       <ScrollToTop />
+      {isModalConfirmOpen ? (
+        <div className={styles.tabTotalModal}>
+          <div>
+            <p>Подтвердить заказ</p>
+            <button className={`button ${styles.confirmBtn}`}>
+              {nameBtnOrder.confirm}
+            </button>
+            <button
+              className={`button--crimson ${styles.confirmBtn}`}
+              onClick={handlerModalConfirm}
+            >
+              {nameBtnOrder.goBack}
+            </button>
+          </div>
+        </div>
+      ) : null}
     </Layout>
   )
 }

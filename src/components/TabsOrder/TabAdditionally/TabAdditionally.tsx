@@ -44,8 +44,6 @@ export const TabAdditionally: React.FC<TTabAdditionally> = ({
     (e: { target: { value: string } }) => {
       const { value } = e.target
       setRateId(value)
-      setStartDate(null)
-      setEndDate(null)
     },
     [setRateId],
   )

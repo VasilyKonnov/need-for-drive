@@ -61,6 +61,7 @@ export const nameBtnOrder = {
   cancel: 'Отменить',
   confirm: 'Подтвердить',
   goBack: 'Вернуться',
+  doOrder: 'Заказать',
 }
 
 export const tabsOrder = [
@@ -144,4 +145,11 @@ export const rateType = {
   week: '5f622f029d3a610b850fd820',
   day: '5e26a082099b810b946c5d83',
   minute: '5e26a07f099b810b946c5d82',
+}
+export const dateOptions = {
+  year: 'numeric',
+  month: 'numeric',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: 'numeric',
 }

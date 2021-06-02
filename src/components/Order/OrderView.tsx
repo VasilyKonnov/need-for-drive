@@ -1,15 +1,8 @@
 import React, { memo } from 'react'
 import { TOrder } from './OrderTypes'
 import styles from './Order.module.scss'
-import { dayHourMinute, getMinuteInDateDef } from '../../utils/common'
-
-const dateOptions = {
-  year: 'numeric',
-  month: 'numeric',
-  day: 'numeric',
-  hour: 'numeric',
-  minute: 'numeric',
-}
+import { dayHourMinute } from '../../utils/common'
+import { dateOptions } from '../../constants/constants'
 
 export const OrderView: React.FC<TOrder> = memo(
   ({

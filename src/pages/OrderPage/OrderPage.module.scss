@@ -172,7 +172,49 @@
   margin-bottom: 32px;
 }
 
-@media screen and (min-width: 425px) {
+.tabTotalModal {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 99;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.tabTotalModal div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tabTotalModal div p {
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
+  color: #121212;
+  margin-bottom: 32px;
+}
+
+.tabTotalModal div button.confirmBtn {
+  width: 177px;
+  height: 48px;
+  margin-bottom: 16px;
+}
+
+@media screen and (min-width: 525px) {
+  .tabTotalModal div {
+    display: block;
+  }
+  .tabTotalModal div button.confirmBtn {
+    width: 177px;
+    height: 48px;
+    margin-bottom: 0px;
+    margin-right: 16px;
+  }
 }
 
 @media screen and (min-width: 768px) {

@@ -11,6 +11,7 @@ export const TabСhooseСar: React.FC<TChooseCar> = ({
   selectedСar,
   setSelectedCarId,
   selectedCarId,
+  resetOrderCar,
 }) => {
   const handlerFilterCategory = useCallback(
     (e: { target: { value: string } }) => {
@@ -23,9 +24,10 @@ export const TabСhooseСar: React.FC<TChooseCar> = ({
   const handlerCarCardValue = useCallback(
     (e: { target: { value: string } }) => {
       const { value } = e.target
+      resetOrderCar()
       setSelectedCarId(value)
     },
-    [setSelectedCarId],
+    [resetOrderCar, setSelectedCarId],
   )
 
   const getSelectionCarData = () => {
