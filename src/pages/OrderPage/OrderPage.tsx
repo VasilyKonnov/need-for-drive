@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FetchingStateTypes } from '../../store'
+import { useHistory } from 'react-router-dom'
 
 import { citiesAction } from '../../store/cities/citiesAction'
 import { citiesSelector } from '../../store/cities/citiesSelector'
@@ -11,8 +12,14 @@ import { cityPointsSelector } from '../../store/cityPoints/cityPointsSelector'
 import { carsAction, TCar } from '../../store/cars'
 import { carsSelector } from '../../store/cars/carsSelector'
 
+import { orderStatusTypesAction } from '../../store/orderStatusTypes'
+import { orderStatusTypesSelector } from '../../store/orderStatusTypes/orderStatusTypesSelector'
+
 import { ratesAction, TRate } from '../../store/rates'
 import { ratesSelector } from '../../store/rates/ratesSelector'
+
+import { orderAction } from '../../store/order'
+import { orderSelector } from '../../store/order/orderSelector'
 
 import { nameBtnOrder, tabsOrder } from '../../constants/constants'
 import { selectOptionsCities, selectPointsOptions } from '../../utils/common'
@@ -36,6 +43,7 @@ import {
 } from '../../components/TabsOrder/TabСhooseСar/TabСhooseСarTypes'
 
 export const OrderPage: React.FC = () => {
+  const history = useHistory()
   const dispatch = useDispatch()
   const [isMobileOrderOpen, setIsMobileOrderOpen] = useState(true)
   const [optionsCities, setOptionsCities] = useState<TOptionsList>([])
@@ -71,7 +79,7 @@ export const OrderPage: React.FC = () => {
   const [isNeedChildChair, setIsNeedChildChair] = useState(false)
   const [isRightWheel, setIsRightWheel] = useState(false)
   const [totalSumOrder, setTotalSumOrder] = useState(0)
-  const [isModalConfirmOpen, setIsModalConfirmOpen] = useState(true)
+  const [isModalConfirmOpen, setIsModalConfirmOpen] = useState(false)
 
   const [order, setOrder] = useState<TOrder | null>(null)
 
@@ -88,6 +96,11 @@ export const OrderPage: React.FC = () => {
   const { data: rates, fetchingState: fetchingStateRates } = useSelector(
     ratesSelector,
   )
+  const {
+    data: orderStatusTypes,
+    fetchingState: fetchingStateOrderStatusTypes,
+  } = useSelector(orderStatusTypesSelector)
+  const { data: orderStore } = useSelector(orderSelector)
 
   const openTab = (event: any) => {
     setActiveTab(+event.target.dataset.id)
@@ -118,6 +131,7 @@ export const OrderPage: React.FC = () => {
       setCity(val)
       setCityPoints(null)
       setOptionsCitiesPoints([])
+      resetOrder()
     },
     [setCity],
   )
@@ -141,6 +155,7 @@ export const OrderPage: React.FC = () => {
     }
     setTabsOrderLoc(array)
   }
+
   const handlerClickOrderButton = (event: any, val: number) => {
     if (tabDisabledIndex > val) {
       openTab(event)
@@ -178,12 +193,22 @@ export const OrderPage: React.FC = () => {
 
   const resetOrder = () => {
     resetOrderCar()
-    setTabsOrderLoc(tabsOrder)
+    setStartDate(null)
+    setEndDate(null)
     setIsFullTank(false)
     setIsNeedChildChair(false)
     setIsRightWheel(false)
-    setStartDate(null)
-    setEndDate(null)
+    setTabDisabledIndex(1)
+    setTabsOrderLoc(tabsOrder)
+  }
+
+  const sendOrder = () => {
+    if (order !== null) {
+      dispatch(orderAction.list(order))
+    }
+    if (orderStore) {
+      history.push('/order-id/' + orderStore.id)
+    }
   }
 
   useEffect(() => {
@@ -254,7 +279,14 @@ export const OrderPage: React.FC = () => {
   }, [rateId, rates])
 
   useEffect(() => {
+    if (fetchingStateOrderStatusTypes === FetchingStateTypes.none) {
+      dispatch(orderStatusTypesAction.list())
+    }
+  }, [dispatch, fetchingStateOrderStatusTypes, orderStatusTypes])
+
+  useEffect(() => {
     if (
+      orderStatusTypes &&
       city &&
       cityPoints &&
       selectedСar &&
@@ -264,9 +296,9 @@ export const OrderPage: React.FC = () => {
       totalSumOrder
     ) {
       setOrder({
-        orderStatusId: { name: 'Новый заказ' },
-        cityId: city,
-        pointId: cityPoints,
+        orderStatusId: orderStatusTypes.id,
+        cityId: city.value,
+        pointId: cityPoints.value,
         carId: selectedСar,
         color: selectedCarColor ? selectedCarColor : 'any',
         dateFrom: startDate,
@@ -295,6 +327,7 @@ export const OrderPage: React.FC = () => {
     isRightWheel,
     cityPoints,
     selectedСar,
+    orderStatusTypes,
   ])
 
   return (
@@ -310,10 +343,10 @@ export const OrderPage: React.FC = () => {
       </div>
       <div className={styles.wrapTabs}>
         <div className={styles.container}>
-          {tabsOrderLoc.map((tabOrder: TTabOrder) => {
+          {tabsOrderLoc.map((tabOrder: TTabOrder, id: number) => {
             return (
               <button
-                key={tabOrder.id}
+                key={id}
                 className={
                   tabOrder.id === activeTab
                     ? styles.activeTabBtn
@@ -488,7 +521,10 @@ export const OrderPage: React.FC = () => {
         <div className={styles.tabTotalModal}>
           <div>
             <p>Подтвердить заказ</p>
-            <button className={`button ${styles.confirmBtn}`}>
+            <button
+              className={`button ${styles.confirmBtn}`}
+              onClick={sendOrder}
+            >
               {nameBtnOrder.confirm}
             </button>
             <button

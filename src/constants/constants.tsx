@@ -56,7 +56,7 @@ export const tariffRate = {
 export const nameBtnOrder = {
   chooseModel: 'Выбрать модель',
   additionally: 'Дополнительно',
-  total: 'Дополнительно',
+  total: 'Итого',
   order: 'Заказ',
   cancel: 'Отменить',
   confirm: 'Подтвердить',

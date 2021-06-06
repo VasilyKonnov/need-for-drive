@@ -1,11 +1,12 @@
 import { Route, Switch } from 'react-router-dom'
-import { MainPage, OrderPage } from './pages'
+import { MainPage, OrderInfo, OrderPage } from './pages'
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={MainPage} />
       <Route path="/order-page" component={OrderPage} />
+      <Route path="/order-id/:id" component={OrderInfo} />
     </Switch>
   )
 }

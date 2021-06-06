@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import { TOrder } from './OrderTypes'
 import styles from './Order.module.scss'
 import { dayHourMinute } from '../../utils/common'
@@ -52,7 +52,9 @@ export const OrderView: React.FC<TOrder> = memo(
             </div>
           ) : null}
 
-          {startDate && endDate ? (
+          {startDate !== null &&
+          endDate !== null &&
+          endDate - startDate !== 0 ? (
             <div className={styles.filedTab}>
               <p className={styles.tabName}>Длительность аренды</p>
               <p className={styles.tabValue}>

@@ -1,3 +1,4 @@
+import { TOrder } from '../../pages/OrderPage/OrderPageTypes'
 import { fetchAxios } from '../../services/axios'
 
 const getCities = async () => {
@@ -35,7 +36,7 @@ const getOrderStatusId = async () => {
   return response.data.data[0]
 }
 
-const postOrder = async (order: any) => {
+const postOrder = async (order: TOrder) => {
   const response = await fetchAxios.post('/db/order', order)
   return response.data.data
 }
@@ -43,6 +44,11 @@ const postOrder = async (order: any) => {
 const getOrder = async (orderId: any) => {
   const response = await fetchAxios.get(`/db/order/${orderId}`)
   return response.data.data
+}
+
+const removeOrder = async (orderId: any) => {
+  const response = await fetchAxios.delete(`/db/order/${orderId}`)
+  return response
 }
 
 const orderApi = {
@@ -55,6 +61,7 @@ const orderApi = {
   getOrderStatusId,
   postOrder,
   getOrder,
+  removeOrder,
 }
 
 export default orderApi

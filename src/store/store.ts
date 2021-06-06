@@ -4,6 +4,8 @@ import { carsReducer } from './cars'
 import { citiesReducer } from './cities'
 import { cityPointsReducer } from './cityPoints'
 import { ratesReducer } from './rates'
+import { orderStatusTypesReducer } from './orderStatusTypes'
+import { orderReducer } from './order'
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +13,8 @@ export const store = configureStore({
     cities: citiesReducer,
     cityPoints: cityPointsReducer,
     rates: ratesReducer,
+    orderStatusTypes: orderStatusTypesReducer,
+    order: orderReducer,
   },
   middleware: [thunk],
 })

@@ -205,6 +205,20 @@
   margin-bottom: 16px;
 }
 
+.loaderWrap {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.orderNumber {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 16px;
+  color: #121212;
+}
+
 @media screen and (min-width: 525px) {
   .tabTotalModal div {
     display: block;

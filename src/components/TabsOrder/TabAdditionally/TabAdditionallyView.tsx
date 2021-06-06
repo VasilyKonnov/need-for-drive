@@ -67,7 +67,7 @@ export const TabAdditionallyView: React.FC<TTabAdditionallyView> = memo(
                 dateFormat={'dd-MM-yyyy, hh:mm'}
                 selected={startDate}
                 onChange={(date: any) => {
-                  setStartDate(date)
+                  date ? setStartDate(date.getTime()) : setStartDate(null)
                   setEndDate(null)
                 }}
                 isClearable
@@ -81,7 +81,9 @@ export const TabAdditionallyView: React.FC<TTabAdditionallyView> = memo(
                 showTimeSelect
                 dateFormat={'dd-MM-yyyy, hh:mm'}
                 selected={endDate}
-                onChange={(date: any) => setEndDate(date)}
+                onChange={(date: any) =>
+                  date ? setEndDate(date.getTime()) : setEndDate(null)
+                }
                 isClearable
               />
             </div>
