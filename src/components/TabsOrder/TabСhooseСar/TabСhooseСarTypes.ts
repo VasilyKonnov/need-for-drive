@@ -8,10 +8,6 @@ export type TCarId = string | number | readonly string[] | undefined
 export type TChooseCar = {
   setSelectedСar: (car: TCar) => void
   selectedСar: TCar | null
-  setFilterStateCarCategory: (value: string) => void
-  filterStateCarCategory: string
-  carsCategory: TCarsCategory
-  carsData: TCarsData
   selectedCarId: TCarId
   setSelectedCarId: (value: TCarId) => void
   resetOrderCar: () => void

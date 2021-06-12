@@ -1,7 +1,6 @@
 import { memo } from 'react'
 import { CarCard } from './../../СarСard/СarСard'
 import { RadioButton } from './../../RadioButton/RadioButton'
-import Loader from 'react-loader-spinner'
 import { TChooseCarView } from './TabСhooseСarTypes'
 import styles from './TabСhooseСar.module.scss'
 import { TCar } from '../../../store/cars'
@@ -44,24 +43,22 @@ export const TabСhooseСarView: React.FC<TChooseCarView> = memo(
             : null}
         </form>
         <div className={styles.carList}>
-          {carsData ? (
-            carsData.map((car: TCar, id: number) => {
-              return (
-                <CarCard
-                  key={id}
-                  onChange={handlerCarCardValue}
-                  selectedСarId={selectedCarId}
-                  nameWrap="cards-cars"
-                  htmlForChoice={car.id}
-                  title={car.name}
-                  prise={car.priceMin + '-' + car.priceMax}
-                  imgUrl={checkCarImg(car.thumbnail.path)}
-                />
-              )
-            })
-          ) : (
-            <Loader type="TailSpin" color="#0ec261" height={50} width={50} />
-          )}
+          {carsData
+            ? carsData.map((car: TCar, id: number) => {
+                return (
+                  <CarCard
+                    key={id}
+                    onChange={handlerCarCardValue}
+                    selectedСarId={selectedCarId}
+                    nameWrap="cards-cars"
+                    htmlForChoice={car.id}
+                    title={car.name}
+                    prise={car.priceMin + '-' + car.priceMax}
+                    imgUrl={checkCarImg(car.thumbnail.path)}
+                  />
+                )
+              })
+            : null}
         </div>
       </>
     )

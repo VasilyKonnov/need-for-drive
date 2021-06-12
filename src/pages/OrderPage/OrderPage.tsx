@@ -3,14 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FetchingStateTypes } from '../../store'
 import { useHistory } from 'react-router-dom'
 
-import { citiesAction } from '../../store/cities/citiesAction'
-import { citiesSelector } from '../../store/cities/citiesSelector'
-
-import { cityPointsAction } from '../../store/cityPoints/cityPointsAction'
-import { cityPointsSelector } from '../../store/cityPoints/cityPointsSelector'
-
-import { carsAction, TCar } from '../../store/cars'
-import { carsSelector } from '../../store/cars/carsSelector'
+import { TCar } from '../../store/cars'
 
 import { orderStatusTypesAction } from '../../store/orderStatusTypes'
 import { orderStatusTypesSelector } from '../../store/orderStatusTypes/orderStatusTypesSelector'
@@ -22,7 +15,6 @@ import { orderAction } from '../../store/order'
 import { orderSelector } from '../../store/order/orderSelector'
 
 import { nameBtnOrder, tabsOrder } from '../../constants/constants'
-import { selectOptionsCities, selectPointsOptions } from '../../utils/common'
 import { TOptionsList, TOrder, TSelectValue, TTabOrder } from './OrderPageTypes'
 import {
   Layout,
@@ -36,17 +28,14 @@ import {
 } from '../../components'
 import locIcon from '../../assets/loc-icon.svg'
 import styles from './OrderPage.module.scss'
-import {
-  TCarId,
-  TCarsCategory,
-  TCarsData,
-} from '../../components/TabsOrder/TabСhooseСar/TabСhooseСarTypes'
+import { TCarId } from '../../components/TabsOrder/TabСhooseСar/TabСhooseСarTypes'
 
 export const OrderPage: React.FC = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const [isMobileOrderOpen, setIsMobileOrderOpen] = useState(true)
+
   const [optionsCities, setOptionsCities] = useState<TOptionsList>([])
+  const [isMobileOrderOpen, setIsMobileOrderOpen] = useState(true)
   const [optionsCitiesPoints, setOptionsCitiesPoints] = useState<TOptionsList>(
     [],
   )
@@ -56,14 +45,6 @@ export const OrderPage: React.FC = () => {
   const [city, setCity] = useState<TSelectValue>(null)
   const [cityPoints, setCityPoints] = useState<TSelectValue>(null)
 
-  const [carsData, setCarsData] = useState<TCarsData | null>(null)
-  const [
-    carsDataVsCategory,
-    setCarsDataVsCategory,
-  ] = useState<TCarsData | null>(null)
-  const [carsCategory, setCarsCategory] = useState<TCarsCategory>(null)
-  const [filterStateCarCategory, setFilterStateCarCategory] = useState('all')
-  const [carsFilterData, setCarsFilterData] = useState<TCarsData | null>(null)
   const [selectedСar, setSelectedСar] = useState<TCar | null>(null)
   const [selectedCarId, setSelectedCarId] = useState<TCarId>('')
 
@@ -83,16 +64,6 @@ export const OrderPage: React.FC = () => {
 
   const [order, setOrder] = useState<TOrder | null>(null)
 
-  const { data: cities, fetchingState: fetchingStateCities } = useSelector(
-    citiesSelector,
-  )
-  const {
-    data: citiesPoints,
-    fetchingState: fetchingStateCityPoints,
-  } = useSelector(cityPointsSelector)
-  const { data: cars, fetchingState: fetchingStateCars } = useSelector(
-    carsSelector,
-  )
   const { data: rates, fetchingState: fetchingStateRates } = useSelector(
     ratesSelector,
   )
@@ -107,23 +78,6 @@ export const OrderPage: React.FC = () => {
   }
   const toggleMobileOrderOpen = () => {
     setIsMobileOrderOpen(!isMobileOrderOpen)
-  }
-
-  const getCarCategory = () => {
-    let category
-    category = cars.filter((car) => car.categoryId !== null)
-    setCarsDataVsCategory(category)
-    category = category.map((car: TCar) => {
-      return { id: car.categoryId.id, name: car.categoryId.name }
-    })
-
-    category = category.filter((item, index, self) => {
-      return (
-        index ===
-        self.findIndex((i) => i.id === item.id && i.name === item.name)
-      )
-    })
-    setCarsCategory(category)
   }
 
   const handlerCitiesSelect = useCallback(
@@ -169,18 +123,6 @@ export const OrderPage: React.FC = () => {
     setIsModalConfirmOpen(!isModalConfirmOpen)
   }
 
-  const filterCarCategory = () => {
-    if (filterStateCarCategory === 'all') {
-      setCarsFilterData(carsData)
-    }
-    if (carsDataVsCategory !== null && filterStateCarCategory !== 'all') {
-      const result = carsDataVsCategory.filter((items) => {
-        return items.categoryId.id === filterStateCarCategory
-      })
-      setCarsFilterData(result)
-    }
-  }
-
   const resetOrderCar = () => {
     setSelectedСar(null)
     setSelectedRate(null)
@@ -210,52 +152,6 @@ export const OrderPage: React.FC = () => {
       history.push('/order-id/' + orderStore.id)
     }
   }
-
-  useEffect(() => {
-    if (fetchingStateCities === FetchingStateTypes.none) {
-      dispatch(citiesAction.list())
-    }
-    if (cities.length > 1) {
-      setOptionsCities(selectOptionsCities(cities))
-    }
-  }, [cities, dispatch, fetchingStateCities])
-
-  useEffect(() => {
-    if (fetchingStateCityPoints === FetchingStateTypes.none) {
-      dispatch(cityPointsAction.list())
-    }
-
-    if (citiesPoints.length > 1 && city) {
-      let filterVal = citiesPoints.filter((cityPoints) => {
-        return cityPoints.cityId !== null
-          ? cityPoints.cityId.id === city.value
-          : ''
-      })
-      setOptionsCitiesPoints(selectPointsOptions(filterVal))
-    }
-  }, [city, citiesPoints, dispatch, fetchingStateCityPoints])
-
-  useEffect(() => {
-    if (fetchingStateCars === FetchingStateTypes.none) {
-      dispatch(carsAction.list())
-    }
-    if (cars.length > 1) {
-      setCarsData(cars)
-    }
-    if (carsData !== null && carsFilterData === null) {
-      setCarsFilterData(carsData)
-    }
-  }, [cars, carsData, carsFilterData, dispatch, fetchingStateCars, setCarsData])
-
-  useEffect(() => {
-    if (cars.length > 0 && carsCategory === null) {
-      getCarCategory()
-    }
-  }, [cars, carsCategory])
-
-  useEffect(() => {
-    filterCarCategory()
-  }, [filterStateCarCategory, setFilterStateCarCategory, carsData, setCarsData])
 
   useEffect(() => {
     if (selectedСar) {
@@ -373,14 +269,13 @@ export const OrderPage: React.FC = () => {
                 handlerCityOrdersSelect={handlerCityOrdersSelect}
                 optionsCities={optionsCities}
                 optionsCityPoints={optionsCitiesPoints}
+                setOptionsCities={setOptionsCities}
+                setOptionsCitiesPoints={setOptionsCitiesPoints}
+                city={city}
               />
             ) : null}
             {activeTab === 2 ? (
               <TabСhooseСar
-                setFilterStateCarCategory={setFilterStateCarCategory}
-                filterStateCarCategory={filterStateCarCategory}
-                carsCategory={carsCategory}
-                carsData={carsFilterData}
                 setSelectedСar={setSelectedСar}
                 selectedСar={selectedСar}
                 setSelectedCarId={setSelectedCarId}

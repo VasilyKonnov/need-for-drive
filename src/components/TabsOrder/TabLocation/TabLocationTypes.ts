@@ -10,4 +10,7 @@ export type TTabLocation = {
   handlerCityOrdersSelect: (val: TSelectValue) => void
   optionsCities: TSelectVal[]
   optionsCityPoints: TSelectVal[]
+  setOptionsCities: (val: TSelectVal[]) => void
+  setOptionsCitiesPoints: (val: TSelectVal[]) => void
+  city: TSelectValue
 }
