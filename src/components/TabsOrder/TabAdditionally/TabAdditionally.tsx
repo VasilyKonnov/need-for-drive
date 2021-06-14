@@ -1,6 +1,12 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { TabAdditionallyView } from './TabAdditionallyView'
 import { TTabAdditionally } from './TabAdditionallyTypes'
+import { FetchingStateTypes } from '../../../store'
+import { useDispatch, useSelector } from 'react-redux'
+import { ratesSelector } from '../../../store/rates/ratesSelector'
+import { ratesAction } from '../../../store/rates/ratesAction'
+import { Spinner } from './../../Spiner/Spiner'
+import { TRate } from '../../../store/rates'
 
 export const TabAdditionally: React.FC<TTabAdditionally> = ({
   carColors,
@@ -11,24 +17,31 @@ export const TabAdditionally: React.FC<TTabAdditionally> = ({
   setEndDate,
   endDate,
   selectedRate,
-  rates,
+  setSelectedRate,
+  rateId,
   setRateId,
-  isFullTank,
   setIsFullTank,
   setIsNeedChildChair,
-  isNeedChildChair,
   setIsRightWheel,
+  isFullTank,
+  isNeedChildChair,
   isRightWheel,
 }) => {
-  const handleFullTank = useCallback(() => {
+  const dispatch = useDispatch()
+
+  const { data: rates, fetchingState: fetchingStateRates } = useSelector(
+    ratesSelector,
+  )
+
+  const handlerFullTank = useCallback(() => {
     setIsFullTank(!isFullTank)
   }, [isFullTank])
 
-  const handleRightHand = useCallback(() => {
+  const handlerRightHand = useCallback(() => {
     setIsRightWheel(!isRightWheel)
   }, [isRightWheel])
 
-  const handleBabySeat = useCallback(() => {
+  const handlerBabySeat = useCallback(() => {
     setIsNeedChildChair(!isNeedChildChair)
   }, [isNeedChildChair])
 
@@ -39,6 +52,12 @@ export const TabAdditionally: React.FC<TTabAdditionally> = ({
     },
     [setSelectedCarColor],
   )
+  const filterRates = (rates: TRate[]) => {
+    return rates.filter(
+      (rate) =>
+        rate.id !== null && rate.rateTypeId !== null && rate.price !== null,
+    )
+  }
 
   const handlerCarTarif = useCallback(
     (e: { target: { value: string } }) => {
@@ -48,24 +67,43 @@ export const TabAdditionally: React.FC<TTabAdditionally> = ({
     [setRateId],
   )
 
-  return (
-    <TabAdditionallyView
-      isFullTank={isFullTank}
-      isRightWheel={isRightWheel}
-      isNeedChildChair={isNeedChildChair}
-      setStartDate={setStartDate}
-      setEndDate={setEndDate}
-      startDate={startDate}
-      endDate={endDate}
-      handleFullTank={handleFullTank}
-      handleBabySeat={handleBabySeat}
-      handleRightHand={handleRightHand}
-      handlerColorRadioButton={handlerColorRadioButton}
-      selectedCarColor={selectedCarColor}
-      carColors={carColors}
-      handlerCarTarif={handlerCarTarif}
-      rates={rates}
-      selectedRate={selectedRate}
-    />
-  )
+  useEffect(() => {
+    if (fetchingStateRates === FetchingStateTypes.none) {
+      dispatch(ratesAction.list())
+    }
+  }, [dispatch, fetchingStateRates, rates])
+
+  useEffect(() => {
+    if (rates && rateId.length > 0) {
+      const select = rates.filter((rate) => {
+        return rate.id === rateId
+      })
+      setSelectedRate(select[0])
+    }
+  }, [rateId, rates])
+
+  if (rates.length > 0) {
+    return (
+      <TabAdditionallyView
+        isFullTank={isFullTank}
+        isRightWheel={isRightWheel}
+        isNeedChildChair={isNeedChildChair}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+        startDate={startDate}
+        endDate={endDate}
+        handlerFullTank={handlerFullTank}
+        handlerBabySeat={handlerBabySeat}
+        handlerRightHand={handlerRightHand}
+        handlerColorRadioButton={handlerColorRadioButton}
+        selectedCarColor={selectedCarColor}
+        carColors={carColors}
+        handlerCarTarif={handlerCarTarif}
+        rates={filterRates(rates)}
+        selectedRate={selectedRate}
+      />
+    )
+  } else {
+    return <Spinner />
+  }
 }

@@ -97,5 +97,21 @@ export const TotalSum: React.FC<TTotalSum> = ({
     )
   }
 
+  if (
+    selectedRate !== null &&
+    selectedRate.rateTypeId.id === rateType.weekSale
+  ) {
+    return (
+      <p className={styles.price}>
+        {endDate !== null && startDate !== null
+          ? `Цена: ${addServicesSum(weekPrise(selectedRate.price))} ₽`
+          : `Цена: ${
+              (setTotalSumOrder(addServicesSum(selectedRate.price)),
+              addServicesSum(selectedRate.price))
+            } ₽`}
+      </p>
+    )
+  }
+
   return <p className={styles.price}></p>
 }

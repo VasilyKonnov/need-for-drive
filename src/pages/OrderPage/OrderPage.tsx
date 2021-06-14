@@ -8,8 +8,7 @@ import { TCar } from '../../store/cars'
 import { orderStatusTypesAction } from '../../store/orderStatusTypes'
 import { orderStatusTypesSelector } from '../../store/orderStatusTypes/orderStatusTypesSelector'
 
-import { ratesAction, TRate } from '../../store/rates'
-import { ratesSelector } from '../../store/rates/ratesSelector'
+import { TRate } from '../../store/rates'
 
 import { orderAction } from '../../store/order'
 import { orderSelector } from '../../store/order/orderSelector'
@@ -64,13 +63,11 @@ export const OrderPage: React.FC = () => {
 
   const [order, setOrder] = useState<TOrder | null>(null)
 
-  const { data: rates, fetchingState: fetchingStateRates } = useSelector(
-    ratesSelector,
-  )
   const {
     data: orderStatusTypes,
     fetchingState: fetchingStateOrderStatusTypes,
   } = useSelector(orderStatusTypesSelector)
+
   const { data: orderStore } = useSelector(orderSelector)
 
   const openTab = (event: any) => {
@@ -158,21 +155,6 @@ export const OrderPage: React.FC = () => {
       setCarColors(selectedСar.colors)
     }
   }, [selectedСar, setSelectedСar])
-
-  useEffect(() => {
-    if (fetchingStateRates === FetchingStateTypes.none) {
-      dispatch(ratesAction.list())
-    }
-  }, [dispatch, fetchingStateRates, rates])
-
-  useEffect(() => {
-    if (rates && rateId.length > 0) {
-      const select = rates.filter((rate) => {
-        return rate.id === rateId
-      })
-      setSelectedRate(select[0])
-    }
-  }, [rateId, rates])
 
   useEffect(() => {
     if (fetchingStateOrderStatusTypes === FetchingStateTypes.none) {
@@ -294,7 +276,8 @@ export const OrderPage: React.FC = () => {
                 endDate={endDate}
                 setEndDate={setEndDate}
                 selectedRate={selectedRate}
-                rates={rates}
+                setSelectedRate={setSelectedRate}
+                rateId={rateId}
                 setRateId={setRateId}
                 isFullTank={isFullTank}
                 setIsFullTank={setIsFullTank}

@@ -10,7 +10,9 @@ export type TTabAdditionally = {
   endDate: Date | null | undefined
   setEndDate: (date: any) => void
   selectedRate: TRate | null
-  rates: TRate[]
+  setSelectedRate: (val: TRate | null) => void
+  // rates: TRate[]
+  rateId: string
   setRateId: (value: string) => void
   isFullTank: boolean
   setIsFullTank: (val: boolean) => void
@@ -26,9 +28,9 @@ export type TTabAdditionallyView = {
   isRightWheel: boolean
   startDate: Date | null | undefined
   endDate: Date | null | undefined
-  handleFullTank: () => void
-  handleBabySeat: () => void
-  handleRightHand: () => void
+  handlerFullTank: () => void
+  handlerBabySeat: () => void
+  handlerRightHand: () => void
   setStartDate: React.Dispatch<SetStateAction<null>>
   setEndDate: React.Dispatch<SetStateAction<null>>
   selectedCarColor: string

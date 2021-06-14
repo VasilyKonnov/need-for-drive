@@ -17,9 +17,9 @@ export const TabAdditionallyView: React.FC<TTabAdditionallyView> = memo(
     endDate,
     setStartDate,
     setEndDate,
-    handleFullTank,
-    handleBabySeat,
-    handleRightHand,
+    handlerFullTank,
+    handlerBabySeat,
+    handlerRightHand,
     selectedCarColor,
     carColors,
     handlerColorRadioButton,
@@ -113,19 +113,19 @@ export const TabAdditionallyView: React.FC<TTabAdditionallyView> = memo(
               labelTitle={'Полный бак, 500р'}
               id={'happy'}
               checked={isFullTank}
-              onChange={handleFullTank}
+              onChange={handlerFullTank}
             />
             <CheckBox
               labelTitle={'Детское кресло, 200р'}
               id={'happy2'}
               checked={isNeedChildChair}
-              onChange={handleBabySeat}
+              onChange={handlerBabySeat}
             />
             <CheckBox
               labelTitle={'Правый руль, 1600р'}
               id={'happy3'}
               checked={isRightWheel}
-              onChange={handleRightHand}
+              onChange={handlerRightHand}
             />
           </div>
         </form>
