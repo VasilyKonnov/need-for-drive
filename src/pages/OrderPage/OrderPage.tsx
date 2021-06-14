@@ -145,10 +145,12 @@ export const OrderPage: React.FC = () => {
     if (order !== null) {
       dispatch(orderAction.list(order))
     }
+  }
+  useEffect(() => {
     if (orderStore) {
       history.push('/order-id/' + orderStore.id)
     }
-  }
+  }, [history, orderStore])
 
   useEffect(() => {
     if (selectedСar) {

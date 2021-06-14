@@ -1,5 +1,4 @@
 import React from 'react'
-import Loader from 'react-loader-spinner'
 import locIcon from '../../assets/loc-icon.svg'
 import { Layout, Order } from '../../components'
 import { nameBtnOrder } from '../../constants/constants'
@@ -7,6 +6,7 @@ import { TOrderInfo } from './OrderInfoTypes'
 import styles from '../OrderPage/OrderPage.module.scss'
 import stylesOrder from '../../components/TabsOrder/TabTotal/TabTotal.module.scss'
 import { checkCarImg } from '../../utils/common'
+import { Spinner } from '../../components/Spiner/Spiner'
 
 export const OrderInfoView: React.FC<TOrderInfo> = ({
   isMobileOrderOpen,
@@ -37,13 +37,13 @@ export const OrderInfoView: React.FC<TOrderInfo> = ({
       <div className={styles.body}>
         <div className={styles.orderContainer}>
           <div className={styles.tab}>
-            {getOrderError !== null && order === null ? (
+            {getOrderError && order === null ? (
               <p>
                 {getOrderError} <b>{orderId}</b>
               </p>
             ) : null}
 
-            {order !== null && getOrderError === null ? (
+            {order && getOrderError === null ? (
               <div className={stylesOrder.wrap}>
                 <div className={stylesOrder.carInfo}>
                   <p className={stylesOrder.orderTitle}>
@@ -61,8 +61,7 @@ export const OrderInfoView: React.FC<TOrderInfo> = ({
 
                   <p className={stylesOrder.details}>
                     <b>Доступна с </b>
-                    {order.dateFrom}
-                    {/* {order.dateFrom.toLocaleString('ru', dateOptions)} */}
+                    {new Date(order.dateFrom).toLocaleString('ru')}
                   </p>
 
                   <p className={stylesOrder.details}>
@@ -80,16 +79,7 @@ export const OrderInfoView: React.FC<TOrderInfo> = ({
               </div>
             ) : null}
 
-            {order === null && getOrderError === null ? (
-              <div className={styles.loaderWrap}>
-                <Loader
-                  type="TailSpin"
-                  color="#0ec261"
-                  height={50}
-                  width={50}
-                />
-              </div>
-            ) : null}
+            {order === null && getOrderError === null ? <Spinner /> : null}
           </div>
           <div className={styles.order}>
             <div className={styles.orderWrap}>
@@ -101,7 +91,7 @@ export const OrderInfoView: React.FC<TOrderInfo> = ({
                   &#10006;
                 </button>
               ) : null}
-              {isMobileOrderOpen && order !== null ? (
+              {isMobileOrderOpen && order ? (
                 <>
                   <h3>Ваш заказ:</h3>
                   <Order

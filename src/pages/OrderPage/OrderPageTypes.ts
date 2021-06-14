@@ -1,3 +1,4 @@
+import { TCar } from '../../store/cars/carsTypes'
 import { TCity } from '../../store/cities'
 
 export type TOrderPage = {}
@@ -19,13 +20,13 @@ export type TOptionsList = TSelectVal[] | []
 
 export type TOrder = {
   orderStatusId: string
-  cityId: any
-  pointId: any
-  carId: any
+  cityId: string
+  pointId: string
+  carId: TCar
   color: string
-  dateFrom: any
-  dateTo: any
-  rateId: any
+  dateFrom: number | null
+  dateTo: number | null
+  rateId: string
   price: number
   isFullTank: boolean
   isNeedChildChair: boolean

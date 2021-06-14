@@ -35,4 +35,5 @@ export const {
   fetchOrder,
   fetchErrorOrder,
 } = orderSlice.actions
+
 export const orderReducer = orderSlice.reducer

@@ -1,40 +1,48 @@
 import styles from './TabTotal.module.scss'
-import { TTabTotal } from './TabTotalTypes'
+import { TTabTotalView } from './TabTotalTypes'
 import { checkCarImg } from '../../../utils/common'
-import { dateOptions } from '../../../constants/constants'
 
-export const TabTotalView: React.FC<TTabTotal> = ({ order }) => {
+export const TabTotalView: React.FC<TTabTotalView> = ({
+  dateFrom,
+  name,
+  number,
+  description,
+  tank,
+  path,
+}) => {
   return (
     <div className={styles.wrap}>
-      {order ? (
-        <>
-          <div className={styles.carInfo}>
-            <h3 className={styles.carName}>{order.carId.name}</h3>
-            <span className={styles.carRegNumber}>{order.carId.number}</span>
+      <>
+        <div className={styles.carInfo}>
+          <h3 className={styles.carName}>{name}</h3>
 
+          {number ? (
+            <span className={styles.carRegNumber}>{number}</span>
+          ) : null}
+
+          {tank ? (
             <p className={styles.details}>
-              <b>Топливо</b> {order.carId.tank + '%'}
+              <b>Топливо</b> {tank + '%'}
             </p>
+          ) : null}
 
-            <p className={styles.details}>
-              <b>Доступна с </b>
-              {order.dateFrom.toLocaleString('ru', dateOptions)}
-            </p>
+          <p className={styles.details}>
+            <b>Доступна с </b>
+            {new Date(dateFrom).toLocaleString('ru')}
+          </p>
 
+          {description ? (
             <p className={styles.details}>
               <b>Описание </b>
-              {order.carId.description}
+              {description}
             </p>
-          </div>
+          ) : null}
+        </div>
 
-          <div className={styles.carImg}>
-            <img
-              src={checkCarImg(order.carId.thumbnail.path)}
-              alt="картинка машины"
-            />
-          </div>
-        </>
-      ) : null}
+        <div className={styles.carImg}>
+          <img src={checkCarImg(path)} alt="картинка машины" />
+        </div>
+      </>
     </div>
   )
 }
