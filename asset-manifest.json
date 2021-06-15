@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/need-for-drive/static/css/main.64db2256.chunk.css",
-    "main.js": "/need-for-drive/static/js/main.b3abf2ec.chunk.js",
-    "main.js.map": "/need-for-drive/static/js/main.b3abf2ec.chunk.js.map",
+    "main.css": "/need-for-drive/static/css/main.a70bf05a.chunk.css",
+    "main.js": "/need-for-drive/static/js/main.c4b6619b.chunk.js",
+    "main.js.map": "/need-for-drive/static/js/main.c4b6619b.chunk.js.map",
     "runtime-main.js": "/need-for-drive/static/js/runtime-main.1ee0507a.js",
     "runtime-main.js.map": "/need-for-drive/static/js/runtime-main.1ee0507a.js.map",
     "static/css/2.1b7d3182.chunk.css": "/need-for-drive/static/css/2.1b7d3182.chunk.css",
-    "static/js/2.84142968.chunk.js": "/need-for-drive/static/js/2.84142968.chunk.js",
-    "static/js/2.84142968.chunk.js.map": "/need-for-drive/static/js/2.84142968.chunk.js.map",
+    "static/js/2.cd1eba58.chunk.js": "/need-for-drive/static/js/2.cd1eba58.chunk.js",
+    "static/js/2.cd1eba58.chunk.js.map": "/need-for-drive/static/js/2.cd1eba58.chunk.js.map",
     "static/js/3.d634b21f.chunk.js": "/need-for-drive/static/js/3.d634b21f.chunk.js",
     "static/js/3.d634b21f.chunk.js.map": "/need-for-drive/static/js/3.d634b21f.chunk.js.map",
     "index.html": "/need-for-drive/index.html",
     "static/css/2.1b7d3182.chunk.css.map": "/need-for-drive/static/css/2.1b7d3182.chunk.css.map",
-    "static/css/main.64db2256.chunk.css.map": "/need-for-drive/static/css/main.64db2256.chunk.css.map",
-    "static/js/2.84142968.chunk.js.LICENSE.txt": "/need-for-drive/static/js/2.84142968.chunk.js.LICENSE.txt",
+    "static/css/main.a70bf05a.chunk.css.map": "/need-for-drive/static/css/main.a70bf05a.chunk.css.map",
+    "static/js/2.cd1eba58.chunk.js.LICENSE.txt": "/need-for-drive/static/js/2.cd1eba58.chunk.js.LICENSE.txt",
     "static/media/index.scss": "/need-for-drive/static/media/Roboto-Regular.a8d6ac03.ttf",
     "static/media/Slider.scss": "/need-for-drive/static/media/arrow-right.7591c327.svg",
     "static/media/OrderPage.module.scss": "/need-for-drive/static/media/arrow-triangle.3f54b55d.svg",
@@ -32,8 +32,8 @@
   "entrypoints": [
     "static/js/runtime-main.1ee0507a.js",
     "static/css/2.1b7d3182.chunk.css",
-    "static/js/2.84142968.chunk.js",
-    "static/css/main.64db2256.chunk.css",
-    "static/js/main.b3abf2ec.chunk.js"
+    "static/js/2.cd1eba58.chunk.js",
+    "static/css/main.a70bf05a.chunk.css",
+    "static/js/main.c4b6619b.chunk.js"
   ]
 }
