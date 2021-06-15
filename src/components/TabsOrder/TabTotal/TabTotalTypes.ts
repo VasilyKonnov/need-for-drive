@@ -5,10 +5,10 @@ export type TTabTotal = {
 }
 
 export type TTabTotalView = {
-  dateFrom: number
+  dateFrom: string | number | Date | null
   name: string
   number: string
   description: string
-  tank: string
+  tank: number
   path: string
 }

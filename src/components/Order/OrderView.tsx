@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 import { TOrder } from './OrderTypes'
 import styles from './Order.module.scss'
 import { dayHourMinute } from '../../utils/common'

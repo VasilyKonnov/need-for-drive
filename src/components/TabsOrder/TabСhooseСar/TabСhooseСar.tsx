@@ -31,7 +31,7 @@ export const TabСhooseСar: React.FC<TChooseCar> = ({
     carsSelector,
   )
 
-  const filterCarCategory = () => {
+  const filterCarCategory = useCallback(() => {
     if (filterStateCarCategory === 'all') {
       setCarsFilterData(carsData)
     }
@@ -41,9 +41,9 @@ export const TabСhooseСar: React.FC<TChooseCar> = ({
       })
       setCarsFilterData(result)
     }
-  }
+  }, [carsData, carsDataVsCategory, filterStateCarCategory])
 
-  const getCarCategory = () => {
+  const getCarCategory = useCallback(() => {
     let category
     category = cars.filter((car) => car.categoryId !== null)
     setCarsDataVsCategory(category)
@@ -58,7 +58,7 @@ export const TabСhooseСar: React.FC<TChooseCar> = ({
       )
     })
     setCarsCategory(category)
-  }
+  }, [cars])
 
   const handlerFilterCategory = useCallback(
     (e: { target: { value: string } }) => {
@@ -77,14 +77,14 @@ export const TabСhooseСar: React.FC<TChooseCar> = ({
     [resetOrderCar, setSelectedCarId],
   )
 
-  const getSelectionCarData = () => {
+  const getSelectionCarData = useCallback(() => {
     if (carsData && selectedCarId) {
-      const car = carsData?.filter((item) => {
-        return item.id === selectedCarId
-      })
-      setSelectedСar(car[0])
+      const car = carsData.find(({ id }) => id === selectedCarId)
+      if (car) {
+        setSelectedСar(car)
+      }
     }
-  }
+  }, [carsData, selectedCarId, setSelectedСar])
 
   useEffect(() => {
     if (fetchingStateCars === FetchingStateTypes.none) {
@@ -102,17 +102,23 @@ export const TabСhooseСar: React.FC<TChooseCar> = ({
     if (cars.length > 0 && carsCategory === null) {
       getCarCategory()
     }
-  }, [cars, carsCategory])
+  }, [cars, carsCategory, getCarCategory])
 
   useEffect(() => {
     filterCarCategory()
-  }, [filterStateCarCategory, setFilterStateCarCategory, carsData, setCarsData])
+  }, [
+    filterStateCarCategory,
+    setFilterStateCarCategory,
+    carsData,
+    setCarsData,
+    filterCarCategory,
+  ])
 
   useEffect(() => {
     if (selectedCarId) {
       getSelectionCarData()
     }
-  }, [selectedCarId, setSelectedCarId])
+  }, [getSelectionCarData, selectedCarId, setSelectedCarId])
 
   if (carsData) {
     return (

@@ -7,4 +7,10 @@ export type TOrderInfo = {
   orderId: string
   getOrderError: string | null
   removeOrderRequest: () => void
+  path: string
+  name: string
+  number: string
+  tank: number
+  description: string
+  dateFrom: string | number | Date
 }

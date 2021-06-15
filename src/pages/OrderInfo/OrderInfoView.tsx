@@ -15,6 +15,12 @@ export const OrderInfoView: React.FC<TOrderInfo> = ({
   orderId,
   getOrderError,
   removeOrderRequest,
+  path,
+  name,
+  number,
+  tank,
+  description,
+  dateFrom,
 }) => {
   return (
     <Layout>
@@ -49,38 +55,36 @@ export const OrderInfoView: React.FC<TOrderInfo> = ({
                   <p className={stylesOrder.orderTitle}>
                     Ваш заказ подтверждён
                   </p>
-                  <h3 className={stylesOrder.carName}>{order.carId.name}</h3>
-                  <span className={stylesOrder.carRegNumber}>
-                    {order.carId.number}
-                  </span>
-                  {order.carId.tank ? (
+                  <h3 className={stylesOrder.carName}>{name}</h3>
+                  {number ? (
+                    <span className={stylesOrder.carRegNumber}>{number}</span>
+                  ) : null}
+                  {tank ? (
                     <p className={stylesOrder.details}>
-                      <b>Топливо</b> {order.carId.tank + '%'}
+                      <b>Топливо</b> {tank + '%'}
                     </p>
                   ) : null}
 
                   <p className={stylesOrder.details}>
                     <b>Доступна с </b>
-                    {new Date(order.dateFrom).toLocaleString('ru')}
+                    {new Date(dateFrom).toLocaleString('ru')}
                   </p>
-
-                  <p className={stylesOrder.details}>
-                    <b>Описание </b>
-                    {order.carId.description}
-                  </p>
+                  {description ? (
+                    <p className={stylesOrder.details}>
+                      <b>Описание </b>
+                      {description}
+                    </p>
+                  ) : null}
                 </div>
 
                 <div className={stylesOrder.carImg}>
-                  <img
-                    src={checkCarImg(order.carId.thumbnail.path)}
-                    alt="картинка машины"
-                  />
+                  <img src={checkCarImg(path)} alt="картинка машины" />
                 </div>
               </div>
             ) : null}
-
             {order === null && getOrderError === null ? <Spinner /> : null}
           </div>
+
           <div className={styles.order}>
             <div className={styles.orderWrap}>
               {isMobileOrderOpen ? (

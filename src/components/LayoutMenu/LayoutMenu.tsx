@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import telImg from '../../assets/telegram.svg'
 import styles from './LayoutMenu.module.scss'
 
 export const LayoutMenu = () => {

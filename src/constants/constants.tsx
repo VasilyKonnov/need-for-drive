@@ -70,6 +70,12 @@ export const tabsOrder = [
   { id: 3, label: 'Дополнительно', disabled: true },
   { id: 4, label: 'Итого', disabled: true },
 ]
+export const tabsOrderCarsActive = [
+  { id: 1, label: 'Местоположение', disabled: false },
+  { id: 2, label: 'Модель', disabled: false },
+  { id: 3, label: 'Дополнительно', disabled: true },
+  { id: 4, label: 'Итого', disabled: true },
+]
 
 export const listCars = [
   {

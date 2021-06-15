@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { OrderInfoView } from './OrderInfoView'
 import { orderAction, TOrderStore } from '../../store/order'
 import { orderSelector } from '../../store/order/orderSelector'
 import orderApi from '../../utils/api/order'
+import { Spinner } from '../../components/Spiner/Spiner'
 
 export const OrderInfo = () => {
   const history = useHistory()
@@ -21,7 +22,7 @@ export const OrderInfo = () => {
     setIsMobileOrderOpen(!isMobileOrderOpen)
   }
 
-  const getOrder = async () => {
+  const getOrder = useCallback(async () => {
     try {
       const response = await orderApi.getOrder(orderId.id)
       setOrderLoc(response)
@@ -31,7 +32,7 @@ export const OrderInfo = () => {
         'Проверьте номер заказа, нам не удалось найти заказ с номером ',
       )
     }
-  }
+  }, [orderId.id])
 
   const removeOrderRequest = () => {
     dispatch(orderAction.remove())
@@ -47,14 +48,28 @@ export const OrderInfo = () => {
     }
   }, [getOrder, orderId, orderLoc, orderStore, setOrderLoc])
 
-  return (
-    <OrderInfoView
-      order={orderLoc ? orderLoc : null}
-      isMobileOrderOpen={isMobileOrderOpen}
-      toggleMobileOrderOpen={toggleMobileOrderOpen}
-      orderId={orderId.id}
-      getOrderError={getOrderError}
-      removeOrderRequest={removeOrderRequest}
-    />
-  )
+  if (orderLoc && orderId) {
+    const { dateFrom } = orderLoc
+    const { name, number, tank, description } = orderLoc.carId
+    const path = orderLoc.carId.thumbnail.path
+
+    return (
+      <OrderInfoView
+        order={orderLoc}
+        path={path}
+        name={name}
+        number={number}
+        tank={tank}
+        description={description}
+        dateFrom={dateFrom}
+        isMobileOrderOpen={isMobileOrderOpen}
+        toggleMobileOrderOpen={toggleMobileOrderOpen}
+        orderId={orderId.id}
+        getOrderError={getOrderError}
+        removeOrderRequest={removeOrderRequest}
+      />
+    )
+  } else {
+    return <Spinner />
+  }
 }

@@ -7,6 +7,8 @@ import { ratesSelector } from '../../../store/rates/ratesSelector'
 import { ratesAction } from '../../../store/rates/ratesAction'
 import { Spinner } from './../../Spiner/Spiner'
 import { TRate } from '../../../store/rates'
+import { orderStatusTypesAction } from '../../../store/orderStatusTypes/orderStatusTypesAction'
+import { orderStatusTypesSelector } from '../../../store/orderStatusTypes/orderStatusTypesSelector'
 
 export const TabAdditionally: React.FC<TTabAdditionally> = ({
   carColors,
@@ -33,17 +35,21 @@ export const TabAdditionally: React.FC<TTabAdditionally> = ({
     ratesSelector,
   )
 
+  const { fetchingState: fetchingStateOrderStatusTypes } = useSelector(
+    orderStatusTypesSelector,
+  )
+
   const handlerFullTank = useCallback(() => {
     setIsFullTank(!isFullTank)
-  }, [isFullTank])
+  }, [isFullTank, setIsFullTank])
 
   const handlerRightHand = useCallback(() => {
     setIsRightWheel(!isRightWheel)
-  }, [isRightWheel])
+  }, [isRightWheel, setIsRightWheel])
 
   const handlerBabySeat = useCallback(() => {
     setIsNeedChildChair(!isNeedChildChair)
-  }, [isNeedChildChair])
+  }, [isNeedChildChair, setIsNeedChildChair])
 
   const handlerColorRadioButton = useCallback(
     (e: { target: { value: string } }) => {
@@ -80,7 +86,13 @@ export const TabAdditionally: React.FC<TTabAdditionally> = ({
       })
       setSelectedRate(select[0])
     }
-  }, [rateId, rates])
+  }, [rateId, rates, setSelectedRate])
+
+  useEffect(() => {
+    if (fetchingStateOrderStatusTypes === FetchingStateTypes.none) {
+      dispatch(orderStatusTypesAction.list())
+    }
+  }, [dispatch, fetchingStateOrderStatusTypes])
 
   if (rates.length > 0) {
     return (

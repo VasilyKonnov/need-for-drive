@@ -41,7 +41,7 @@ export const TabLocation: React.FC<TTabLocation> = memo(
       if (cities.length > 1) {
         setOptionsCities(selectOptionsCities(cities))
       }
-    }, [cities, dispatch, fetchingStateCities])
+    }, [cities, dispatch, fetchingStateCities, setOptionsCities])
 
     useEffect(() => {
       if (fetchingStateCityPoints === FetchingStateTypes.none) {
@@ -56,7 +56,13 @@ export const TabLocation: React.FC<TTabLocation> = memo(
         })
         setOptionsCitiesPoints(selectPointsOptions(filterVal))
       }
-    }, [city, citiesPoints, dispatch, fetchingStateCityPoints])
+    }, [
+      city,
+      citiesPoints,
+      dispatch,
+      fetchingStateCityPoints,
+      setOptionsCitiesPoints,
+    ])
 
     return (
       <>

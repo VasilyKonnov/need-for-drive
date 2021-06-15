@@ -1,5 +1,4 @@
 import { TCar } from '../../store/cars/carsTypes'
-import { TCity } from '../../store/cities'
 
 export type TOrderPage = {}
 

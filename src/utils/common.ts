@@ -1,7 +1,6 @@
 import { TCityPoint } from '../store/cityPoints'
 import { TCity } from '../store/cities'
 import { urlApi } from '../constants/constants'
-import { TOrderStatus } from '../store/orderStatusTypes'
 
 export const selectOptionsCities = (cities: TCity[]) => {
   let options = cities.map((option: TCity) => {

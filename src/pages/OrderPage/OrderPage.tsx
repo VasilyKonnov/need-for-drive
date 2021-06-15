@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { FetchingStateTypes } from '../../store'
 import { useHistory } from 'react-router-dom'
 
 import { TCar } from '../../store/cars'
 
-import { orderStatusTypesAction } from '../../store/orderStatusTypes'
 import { orderStatusTypesSelector } from '../../store/orderStatusTypes/orderStatusTypesSelector'
 
 import { TRate } from '../../store/rates'
@@ -13,7 +11,11 @@ import { TRate } from '../../store/rates'
 import { orderAction } from '../../store/order'
 import { orderSelector } from '../../store/order/orderSelector'
 
-import { nameBtnOrder, tabsOrder } from '../../constants/constants'
+import {
+  nameBtnOrder,
+  tabsOrder,
+  tabsOrderCarsActive,
+} from '../../constants/constants'
 import { TOptionsList, TOrder, TSelectValue, TTabOrder } from './OrderPageTypes'
 import {
   Layout,
@@ -24,10 +26,11 @@ import {
   TabTotal,
   ScrollToTop,
   TotalSum,
+  OrderButton,
 } from '../../components'
+import { TCarId } from '../../components/TabsOrder/TabСhooseСar/TabСhooseСarTypes'
 import locIcon from '../../assets/loc-icon.svg'
 import styles from './OrderPage.module.scss'
-import { TCarId } from '../../components/TabsOrder/TabСhooseСar/TabСhooseСarTypes'
 
 export const OrderPage: React.FC = () => {
   const history = useHistory()
@@ -63,10 +66,7 @@ export const OrderPage: React.FC = () => {
 
   const [order, setOrder] = useState<TOrder | null>(null)
 
-  const {
-    data: orderStatusTypes,
-    fetchingState: fetchingStateOrderStatusTypes,
-  } = useSelector(orderStatusTypesSelector)
+  const { data: orderStatusTypes } = useSelector(orderStatusTypesSelector)
 
   const { data: orderStore } = useSelector(orderSelector)
 
@@ -84,6 +84,7 @@ export const OrderPage: React.FC = () => {
       setOptionsCitiesPoints([])
       resetOrder()
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [setCity],
   )
   const handlerCityOrdersSelect = useCallback(
@@ -95,7 +96,7 @@ export const OrderPage: React.FC = () => {
 
   const handlerTabsOrder = () => {
     let array = tabsOrderLoc.map((tab) => {
-      return Object.assign({}, tab)
+      return { ...tab }
     })
     for (var i in array) {
       if (array[i].disabled === true) {
@@ -116,9 +117,9 @@ export const OrderPage: React.FC = () => {
     }
   }
 
-  const handlerModalConfirm = () => {
+  const handlerModalConfirm = useCallback(() => {
     setIsModalConfirmOpen(!isModalConfirmOpen)
-  }
+  }, [isModalConfirmOpen])
 
   const resetOrderCar = () => {
     setSelectedСar(null)
@@ -128,6 +129,8 @@ export const OrderPage: React.FC = () => {
     setRateId('')
     setTotalSumOrder(0)
     setOrder(null)
+    setTabDisabledIndex(2)
+    setTabsOrderLoc(tabsOrderCarsActive)
   }
 
   const resetOrder = () => {
@@ -157,12 +160,6 @@ export const OrderPage: React.FC = () => {
       setCarColors(selectedСar.colors)
     }
   }, [selectedСar, setSelectedСar])
-
-  useEffect(() => {
-    if (fetchingStateOrderStatusTypes === FetchingStateTypes.none) {
-      dispatch(orderStatusTypesAction.list())
-    }
-  }, [dispatch, fetchingStateOrderStatusTypes, orderStatusTypes])
 
   useEffect(() => {
     if (
@@ -333,56 +330,16 @@ export const OrderPage: React.FC = () => {
                 isRightWheel={isRightWheel}
               />
 
-              {activeTab === 1 ? (
-                <button
-                  className={
-                    isMobileOrderOpen ? 'button' : `button ${styles.smallBtn}`
-                  }
-                  onClick={(e) => handlerClickOrderButton(e, 1)}
-                  disabled={cityPoints && city ? false : true}
-                  data-id={2}
-                >
-                  {nameBtnOrder.chooseModel}
-                </button>
-              ) : null}
-
-              {activeTab === 2 ? (
-                <button
-                  className={
-                    isMobileOrderOpen ? 'button' : `button ${styles.smallBtn}`
-                  }
-                  onClick={(e) => handlerClickOrderButton(e, 2)}
-                  disabled={selectedСar ? false : true}
-                  data-id={3}
-                >
-                  {nameBtnOrder.additionally}
-                </button>
-              ) : null}
-
-              {activeTab === 3 ? (
-                <button
-                  className={
-                    isMobileOrderOpen ? 'button' : `button ${styles.smallBtn}`
-                  }
-                  onClick={(e) => handlerClickOrderButton(e, 3)}
-                  disabled={order ? false : true}
-                  data-id={4}
-                >
-                  {nameBtnOrder.total}
-                </button>
-              ) : null}
-
-              {activeTab === 4 ? (
-                <button
-                  className={
-                    isMobileOrderOpen ? 'button' : `button ${styles.smallBtn}`
-                  }
-                  onClick={handlerModalConfirm}
-                  disabled={order ? false : true}
-                >
-                  {nameBtnOrder.doOrder}
-                </button>
-              ) : null}
+              <OrderButton
+                activeTab={activeTab}
+                isMobileOrderOpen={isMobileOrderOpen}
+                handlerClickOrderButton={handlerClickOrderButton}
+                cityPoints={cityPoints}
+                city={city}
+                selectedСar={selectedСar}
+                order={order}
+                handlerModalConfirm={handlerModalConfirm}
+              />
 
               {isMobileOrderOpen ? null : (
                 <button

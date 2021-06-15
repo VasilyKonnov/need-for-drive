@@ -1,7 +1,6 @@
 import React, { memo } from 'react'
 import { CheckBox, RadioButton } from '../../../components'
 import DatePicker from 'react-datepicker'
-import { tariffRate } from '../../../constants/constants'
 import { TTabAdditionallyView } from './TabAdditionallyTypes'
 import 'react-datepicker/dist/react-datepicker.css'
 import styles from './TabAdditionally.module.scss'

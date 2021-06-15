@@ -28,7 +28,7 @@ export const TabTotalView: React.FC<TTabTotalView> = ({
 
           <p className={styles.details}>
             <b>Доступна с </b>
-            {new Date(dateFrom).toLocaleString('ru')}
+            {dateFrom ? new Date(dateFrom).toLocaleString('ru') : null}
           </p>
 
           {description ? (
