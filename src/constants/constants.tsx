@@ -160,3 +160,6 @@ export const dateOptions = {
   hour: 'numeric',
   minute: 'numeric',
 }
+
+export const gMapApiKey = 'AIzaSyBmm-8GGqLITMbzUdK76mTH6oOz08UTlPw'
+export const geocodingApiKey = 'AIzaSyBwhqu0zQJiJbtHL1eZMHOxnsyF3UFWJBs'

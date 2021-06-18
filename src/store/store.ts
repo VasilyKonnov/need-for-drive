@@ -6,6 +6,7 @@ import { cityPointsReducer } from './cityPoints'
 import { ratesReducer } from './rates'
 import { orderStatusTypesReducer } from './orderStatusTypes'
 import { orderReducer } from './order'
+import { geoSitiesReducer } from './geoSities'
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     rates: ratesReducer,
     orderStatusTypes: orderStatusTypesReducer,
     order: orderReducer,
+    geoSities: geoSitiesReducer,
   },
   middleware: [thunk],
 })

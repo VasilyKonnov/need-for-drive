@@ -1,0 +1,1 @@
+export { Gmap } from './Gmap'

@@ -3,14 +3,14 @@ import Select from 'react-select'
 import { citiesAction } from '../../../store/cities/citiesAction'
 import { citiesSelector } from '../../../store/cities/citiesSelector'
 import { TTabLocation } from './TabLocationTypes'
-import map from '../../../assets/map.jpg'
-import styles from './TabLocation.module.scss'
-import '../SelectCustomStyle.scss'
 import { FetchingStateTypes } from '../../../store/types'
 import { useDispatch, useSelector } from 'react-redux'
 import { cityPointsSelector } from '../../../store/cityPoints/cityPointsSelector'
 import { selectOptionsCities, selectPointsOptions } from '../../../utils/common'
 import { cityPointsAction } from '../../../store/cityPoints/cityPointsAction'
+import styles from './TabLocation.module.scss'
+import '../SelectCustomStyle.scss'
+import { Gmap } from '../../Gmap'
 
 export const TabLocation: React.FC<TTabLocation> = memo(
   ({
@@ -93,7 +93,12 @@ export const TabLocation: React.FC<TTabLocation> = memo(
 
         <div className={styles.mapWrap}>
           <p>Выбрать на карте:</p>
-          <img src={map} alt="map" />
+          <Gmap
+            optionsCities={optionsCities}
+            optionsCityPoints={optionsCityPoints}
+            selectedOptionCityPoints={selectedOptionCityPoints}
+            selectedOptionCity={selectedOptionCity}
+          />
         </div>
       </>
     )
