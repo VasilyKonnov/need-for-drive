@@ -3,7 +3,7 @@ import { TSelectVal, TSelectValue } from '../../pages/OrderPage/OrderPageTypes'
 export type TGmap = {
   optionsCities: TSelectVal[]
   optionsCityPoints: TSelectVal[]
-  selectedOptionCityPoints: TSelectValue
+  selectedOptionCityPoint: TSelectValue
   selectedOptionCity: TSelectValue
 }
 

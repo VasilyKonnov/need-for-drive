@@ -23,15 +23,13 @@ const options = {
   zoomControl: true,
 }
 
-// TODO: Доделать вывод на карте выбранный адрес
-
 Geocode.setApiKey(geocodingApiKey)
 Geocode.setLanguage('ru')
 
 export const Gmap: React.FC<TGmap> = ({
   optionsCities,
   optionsCityPoints,
-  selectedOptionCityPoints,
+  selectedOptionCityPoint,
   selectedOptionCity,
 }) => {
   const dispatch = useDispatch()
@@ -43,16 +41,18 @@ export const Gmap: React.FC<TGmap> = ({
   const [pointsList, setPointsList] = useState<string[] | null>(null)
   const [pointsStreets, setPointsStreets] = useState<string[] | null>(null)
   const [centerMap, setCenterMap] = useState<TGeoPosition | null>(null)
+  const [centerMapCity, setCenterMapCity] = useState<TGeoPosition | null>(null)
+  const [markerStreet, setMarkerStreet] = useState<TGeoPosition | null>(null)
   const [zoom, setZoom] = useState(3)
 
   const { data: geoSities } = useSelector(geoSitiesSelector)
 
-  const getCenterMap = (city: string) => {
+  const getSityCenterMap = (city: string) => {
     setCenterMap(null)
     Geocode.fromAddress(city).then(
       (response) => {
         const location: TGeoPosition = response.results[0].geometry.location
-        setCenterMap(location)
+        setCenterMapCity(location)
       },
       (error) => {
         console.error(error)
@@ -60,7 +60,7 @@ export const Gmap: React.FC<TGmap> = ({
     )
   }
 
-  const getMapPoints = useCallback(
+  const getMapPointsCities = useCallback(
     (arrayAdress: string[]) => {
       setCenterMap(null)
       const arrGeoPoin: TGeoPosition[] = []
@@ -102,6 +102,21 @@ export const Gmap: React.FC<TGmap> = ({
     })
   }
 
+  const getMapPointStreet = (street: string) => {
+    setMarkerStreet(null)
+    if (selectedOptionCity && street) {
+      Geocode.fromAddress('г.' + selectedOptionCity.label + '. ' + street).then(
+        (response) => {
+          const location: TGeoPosition = response.results[0].geometry.location
+          setMarkerStreet(location)
+        },
+        (error) => {
+          console.error(error)
+        },
+      )
+    }
+  }
+
   const getСitiesList = useCallback(() => {
     if (optionsCities) {
       let arr = optionsCities.map((city) => city.label)
@@ -125,15 +140,25 @@ export const Gmap: React.FC<TGmap> = ({
         setZoom(3)
       } else if (markerData && markerData.length > 0 && markerStreetsData) {
         setZoom(10)
-      } else if (centerMap) {
-        setZoom(10)
-      } else if (markerStreetsData) {
+      } else if (markerStreetsData && !markerStreet) {
         setZoom(10)
       } else {
         setZoom(10)
       }
     }
-  }, [centerMap, markerData, markerStreetsData])
+  }, [centerMap, markerData, markerStreet, markerStreetsData])
+
+  const switchCenterMap = useCallback(() => {
+    if (centerMapCity && !markerStreet) {
+      setCenterMap(centerMapCity)
+    } else {
+      setCenterMap(markerStreet)
+    }
+  }, [centerMapCity, markerStreet])
+
+  useEffect(() => {
+    switchCenterMap()
+  }, [switchCenterMap])
 
   useEffect(() => {
     getСitiesList()
@@ -145,16 +170,16 @@ export const Gmap: React.FC<TGmap> = ({
 
   useEffect(() => {
     if (geoSities.length < 1 && pointsList && selectedOptionCity === null) {
-      getMapPoints(pointsList)
+      getMapPointsCities(pointsList)
     }
     if (geoSities.length > 0) {
       setMarkerData([...geoSities])
     }
-  }, [geoSities, getMapPoints, pointsList, selectedOptionCity])
+  }, [geoSities, getMapPointsCities, pointsList, selectedOptionCity])
 
   useEffect(() => {
     if (selectedOptionCity) {
-      getCenterMap(selectedOptionCity.label)
+      getSityCenterMap(selectedOptionCity.label)
     } else {
       setCenterMap(null)
     }
@@ -171,7 +196,6 @@ export const Gmap: React.FC<TGmap> = ({
 
   useEffect(() => {
     if (pointsStreets) {
-      console.log('pointsStreets - ', pointsStreets)
       getMapPointsStreets(pointsStreets)
     } else {
       setPointsStreets(null)
@@ -180,17 +204,12 @@ export const Gmap: React.FC<TGmap> = ({
   }, [pointsStreets])
 
   useEffect(() => {
-    console.log('centerMap - ', centerMap)
-  }, [centerMap])
-  useEffect(() => {
-    console.log('geoSities - ', geoSities)
-  }, [geoSities])
-  useEffect(() => {
-    console.log('markerData - ', markerData)
-  }, [markerData])
-  useEffect(() => {
-    console.log('markerStreetsData - ', markerStreetsData)
-  }, [markerStreetsData])
+    if (selectedOptionCityPoint) {
+      getMapPointStreet(selectedOptionCityPoint.label)
+    } else {
+      setMarkerStreet(null)
+    }
+  }, [selectedOptionCityPoint])
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: gMapApiKey,
@@ -204,7 +223,7 @@ export const Gmap: React.FC<TGmap> = ({
     <div style={{ height: '100%' }}>
       <GoogleMap
         mapContainerStyle={containerStyle}
-        zoom={zoom}
+        zoom={markerStreet ? 15 : zoom}
         center={centerMap ? centerMap : defaultCenterGoogleMap}
         options={options}
       >
@@ -213,11 +232,15 @@ export const Gmap: React.FC<TGmap> = ({
               return <Marker key={id} position={marker} icon={iconMap} />
             })
           : null}
-        {markerStreetsData && markerStreetsData.length > 0
+        {markerStreetsData && markerStreetsData.length > 0 && !markerStreet
           ? markerStreetsData.map((marker: any, id: number) => {
               return <Marker key={id} position={marker} icon={iconMap} />
             })
           : null}
+
+        {markerStreet ? (
+          <Marker position={markerStreet} icon={iconMap} />
+        ) : null}
       </GoogleMap>
     </div>
   )

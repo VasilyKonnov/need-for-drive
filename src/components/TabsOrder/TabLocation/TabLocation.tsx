@@ -96,7 +96,7 @@ export const TabLocation: React.FC<TTabLocation> = memo(
           <Gmap
             optionsCities={optionsCities}
             optionsCityPoints={optionsCityPoints}
-            selectedOptionCityPoints={selectedOptionCityPoints}
+            selectedOptionCityPoint={selectedOptionCityPoints}
             selectedOptionCity={selectedOptionCity}
           />
         </div>
