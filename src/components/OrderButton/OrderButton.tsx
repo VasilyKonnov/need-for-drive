@@ -16,9 +16,8 @@ export const OrderButton: React.FC<TOrderButton> = ({
       {activeTab === 1 ? (
         <button
           className={isMobileOrderOpen ? 'button' : `button ${styles.smallBtn}`}
-          onClick={(e) => handlerClickOrderButton(e, 1)}
+          onClick={() => handlerClickOrderButton(2)}
           disabled={cityPoints && city ? false : true}
-          data-id={2}
         >
           {nameBtnOrder.chooseModel}
         </button>
@@ -27,9 +26,8 @@ export const OrderButton: React.FC<TOrderButton> = ({
       {activeTab === 2 ? (
         <button
           className={isMobileOrderOpen ? 'button' : `button ${styles.smallBtn}`}
-          onClick={(e) => handlerClickOrderButton(e, 2)}
+          onClick={() => handlerClickOrderButton(3)}
           disabled={!selectedСar}
-          data-id={3}
         >
           {nameBtnOrder.additionally}
         </button>
@@ -38,9 +36,8 @@ export const OrderButton: React.FC<TOrderButton> = ({
       {activeTab === 3 ? (
         <button
           className={isMobileOrderOpen ? 'button' : `button ${styles.smallBtn}`}
-          onClick={(e) => handlerClickOrderButton(e, 3)}
+          onClick={() => handlerClickOrderButton(4)}
           disabled={!order}
-          data-id={4}
         >
           {nameBtnOrder.total}
         </button>

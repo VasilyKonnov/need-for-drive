@@ -131,13 +131,9 @@ export const OrderPage: React.FC = () => {
     setTabsOrderLoc(array)
   }
 
-  const handlerClickOrderButton = (event: any, val: number) => {
-    if (tabDisabledIndex > val) {
-      openTab(event)
-    } else {
-      handlerTabsOrder()
-      openTab(event)
-    }
+  const handlerClickOrderButton = (tab: number) => {
+    handlerTabsOrder()
+    setActiveTab(tab)
   }
 
   const handlerModalConfirm = useCallback(() => {

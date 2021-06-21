@@ -93,12 +93,12 @@ export const TabLocation: React.FC<TTabLocation> = memo(
 
         <div className={styles.mapWrap}>
           <p>Выбрать на карте:</p>
-          <Gmap
+          {/* <Gmap
             optionsCities={optionsCities}
             optionsCityPoints={optionsCityPoints}
             selectedOptionCityPoint={selectedOptionCityPoints}
             selectedOptionCity={selectedOptionCity}
-          />
+          /> */}
         </div>
       </>
     )
