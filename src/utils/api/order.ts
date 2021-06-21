@@ -17,7 +17,7 @@ const getTable = async () => {
 }
 
 const getCars = async () => {
-  const response = await fetchAxios.get('db/car')
+  const response = await fetchAxios.get('db/car?limit=50')
   return response.data.data
 }
 

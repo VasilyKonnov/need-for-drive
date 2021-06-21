@@ -145,7 +145,7 @@ export const OrderPage: React.FC = () => {
   }
 
   const sendOrder = () => {
-    if (order !== null) {
+    if (order) {
       dispatch(orderAction.list(order))
     }
   }

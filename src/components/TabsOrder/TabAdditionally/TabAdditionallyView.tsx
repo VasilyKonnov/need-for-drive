@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import { CheckBox, RadioButton } from '../../../components'
 import DatePicker from 'react-datepicker'
 import { TTabAdditionallyView } from './TabAdditionallyTypes'
@@ -26,6 +26,23 @@ export const TabAdditionallyView: React.FC<TTabAdditionallyView> = memo(
     rates,
     selectedRate,
   }) => {
+    const filterPassedTime = (time: any) => {
+      const currentDate = new Date()
+      const selectedDate = new Date(time)
+      return currentDate.getTime() < selectedDate.getTime()
+    }
+
+    const filterPassedEndTime = (time: any) => {
+      const currentDate = new Date()
+      const selectedDate = new Date(time)
+      if (startDate) {
+        // @ts-ignore
+        return startDate < selectedDate.getTime()
+      } else {
+        return currentDate.getTime() < selectedDate.getTime()
+      }
+    }
+
     return (
       <>
         <form>
@@ -64,6 +81,7 @@ export const TabAdditionallyView: React.FC<TTabAdditionallyView> = memo(
                 placeholderText="Введите дату и время"
                 showTimeSelect
                 dateFormat={'dd-MM-yyyy, hh:mm'}
+                filterTime={filterPassedTime}
                 selected={startDate}
                 onChange={(date: any) => {
                   date ? setStartDate(date.getTime()) : setStartDate(null)
@@ -79,6 +97,7 @@ export const TabAdditionallyView: React.FC<TTabAdditionallyView> = memo(
                 placeholderText="Введите дату и время"
                 showTimeSelect
                 dateFormat={'dd-MM-yyyy, hh:mm'}
+                filterTime={filterPassedEndTime}
                 selected={endDate}
                 onChange={(date: any) =>
                   date ? setEndDate(date.getTime()) : setEndDate(null)
