@@ -17,7 +17,7 @@ export const TabLocation: React.FC<TTabLocation> = memo(
     selectedOptionCityPoints,
     selectedOptionCity,
     handlerCitiesSelect,
-    handlerCityOrdersSelect,
+    handlerStreetsSelect,
     optionsCities,
     optionsCityPoints,
     setOptionsCities,
@@ -85,7 +85,7 @@ export const TabLocation: React.FC<TTabLocation> = memo(
             className="react-select-container"
             classNamePrefix="react-select"
             value={selectedOptionCityPoints}
-            onChange={handlerCityOrdersSelect}
+            onChange={handlerStreetsSelect}
             placeholder="Начните вводить пункт..."
             options={optionsCityPoints}
           />

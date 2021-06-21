@@ -63,8 +63,30 @@ export const OrderPage: React.FC = () => {
   const [isRightWheel, setIsRightWheel] = useState(false)
   const [totalSumOrder, setTotalSumOrder] = useState(0)
   const [isModalConfirmOpen, setIsModalConfirmOpen] = useState(false)
-
   const [order, setOrder] = useState<TOrder | null>(null)
+
+  const resetOrderCar = useCallback(() => {
+    setSelectedСar(null)
+    setSelectedRate(null)
+    setSelectedCarColor('')
+    setSelectedCarId('')
+    setRateId('')
+    setTotalSumOrder(0)
+    setOrder(null)
+    setTabDisabledIndex(2)
+    setTabsOrderLoc(tabsOrderCarsActive)
+  }, [])
+
+  const resetOrder = useCallback(() => {
+    resetOrderCar()
+    setStartDate(null)
+    setEndDate(null)
+    setIsFullTank(false)
+    setIsNeedChildChair(false)
+    setIsRightWheel(false)
+    setTabDisabledIndex(1)
+    setTabsOrderLoc(tabsOrder)
+  }, [resetOrderCar])
 
   const { data: orderStatusTypes } = useSelector(orderStatusTypesSelector)
 
@@ -84,14 +106,15 @@ export const OrderPage: React.FC = () => {
       setOptionsCitiesPoints([])
       resetOrder()
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [setCity],
+    [setCity, resetOrder],
   )
-  const handlerCityOrdersSelect = useCallback(
+  const handlerStreetsSelect = useCallback(
     (val: TSelectValue) => {
+      setCityPoints(null)
       setCityPoints(val)
+      resetOrder()
     },
-    [setCityPoints],
+    [setCityPoints, resetOrder],
   )
 
   const handlerTabsOrder = () => {
@@ -120,29 +143,6 @@ export const OrderPage: React.FC = () => {
   const handlerModalConfirm = useCallback(() => {
     setIsModalConfirmOpen(!isModalConfirmOpen)
   }, [isModalConfirmOpen])
-
-  const resetOrderCar = () => {
-    setSelectedСar(null)
-    setSelectedRate(null)
-    setSelectedCarColor('')
-    setSelectedCarId('')
-    setRateId('')
-    setTotalSumOrder(0)
-    setOrder(null)
-    setTabDisabledIndex(2)
-    setTabsOrderLoc(tabsOrderCarsActive)
-  }
-
-  const resetOrder = () => {
-    resetOrderCar()
-    setStartDate(null)
-    setEndDate(null)
-    setIsFullTank(false)
-    setIsNeedChildChair(false)
-    setIsRightWheel(false)
-    setTabDisabledIndex(1)
-    setTabsOrderLoc(tabsOrder)
-  }
 
   const sendOrder = () => {
     if (order) {
@@ -247,7 +247,7 @@ export const OrderPage: React.FC = () => {
                 selectedOptionCityPoints={cityPoints}
                 selectedOptionCity={city}
                 handlerCitiesSelect={handlerCitiesSelect}
-                handlerCityOrdersSelect={handlerCityOrdersSelect}
+                handlerStreetsSelect={handlerStreetsSelect}
                 optionsCities={optionsCities}
                 optionsCityPoints={optionsCitiesPoints}
                 setOptionsCities={setOptionsCities}
