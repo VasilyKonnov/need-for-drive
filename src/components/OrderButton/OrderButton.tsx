@@ -5,10 +5,9 @@ export const OrderButton: React.FC<TOrderButton> = ({
   activeTab,
   isMobileOrderOpen,
   handlerClickOrderButton,
-  cityPoints,
-  city,
+  isChooseModelBtnDisabled,
   selectedСar,
-  order,
+  isAdditionallylBtnDisabled,
   handlerModalConfirm,
 }) => {
   return (
@@ -17,7 +16,7 @@ export const OrderButton: React.FC<TOrderButton> = ({
         <button
           className={isMobileOrderOpen ? 'button' : `button ${styles.smallBtn}`}
           onClick={() => handlerClickOrderButton(2)}
-          disabled={cityPoints && city ? false : true}
+          disabled={isChooseModelBtnDisabled}
         >
           {nameBtnOrder.chooseModel}
         </button>
@@ -37,7 +36,7 @@ export const OrderButton: React.FC<TOrderButton> = ({
         <button
           className={isMobileOrderOpen ? 'button' : `button ${styles.smallBtn}`}
           onClick={() => handlerClickOrderButton(4)}
-          disabled={!order}
+          disabled={isAdditionallylBtnDisabled}
         >
           {nameBtnOrder.total}
         </button>
@@ -47,7 +46,7 @@ export const OrderButton: React.FC<TOrderButton> = ({
         <button
           className={isMobileOrderOpen ? 'button' : `button ${styles.smallBtn}`}
           onClick={handlerModalConfirm}
-          disabled={!order}
+          disabled={isAdditionallylBtnDisabled}
         >
           {nameBtnOrder.doOrder}
         </button>

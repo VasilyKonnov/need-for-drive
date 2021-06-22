@@ -5,9 +5,8 @@ export type TOrderButton = {
   activeTab: number
   isMobileOrderOpen: boolean
   handlerClickOrderButton: any
-  cityPoints: TSelectValue
-  city: TSelectValue
+  isChooseModelBtnDisabled: boolean
   selectedСar: TCar | null
-  order: TOrder | null
+  isAdditionallylBtnDisabled: boolean
   handlerModalConfirm: () => void
 }

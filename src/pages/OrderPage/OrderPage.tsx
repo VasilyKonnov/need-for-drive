@@ -11,11 +11,7 @@ import { TRate } from '../../store/rates'
 import { orderAction } from '../../store/order'
 import { orderSelector } from '../../store/order/orderSelector'
 
-import {
-  nameBtnOrder,
-  tabsOrder,
-  tabsOrderCarsActive,
-} from '../../constants/constants'
+import { tabsOrder, tabsOrderCarsActive } from '../../constants/constants'
 import { TOptionsList, TOrder, TSelectValue, TTabOrder } from './OrderPageTypes'
 import {
   Layout,
@@ -27,6 +23,7 @@ import {
   ScrollToTop,
   TotalSum,
   OrderButton,
+  OrderModal,
 } from '../../components'
 import { TCarId } from '../../components/TabsOrder/TabСhooseСar/TabСhooseСarTypes'
 import locIcon from '../../assets/loc-icon.svg'
@@ -43,7 +40,6 @@ export const OrderPage: React.FC = () => {
   )
   const [activeTab, setActiveTab] = useState(1)
   const [tabsOrderLoc, setTabsOrderLoc] = useState(tabsOrder)
-  const [tabDisabledIndex, setTabDisabledIndex] = useState(1)
   const [city, setCity] = useState<TSelectValue>(null)
   const [cityPoints, setCityPoints] = useState<TSelectValue>(null)
 
@@ -73,7 +69,6 @@ export const OrderPage: React.FC = () => {
     setRateId('')
     setTotalSumOrder(0)
     setOrder(null)
-    setTabDisabledIndex(2)
     setTabsOrderLoc(tabsOrderCarsActive)
   }, [])
 
@@ -84,7 +79,6 @@ export const OrderPage: React.FC = () => {
     setIsFullTank(false)
     setIsNeedChildChair(false)
     setIsRightWheel(false)
-    setTabDisabledIndex(1)
     setTabsOrderLoc(tabsOrder)
   }, [resetOrderCar])
 
@@ -108,6 +102,7 @@ export const OrderPage: React.FC = () => {
     },
     [setCity, resetOrder],
   )
+
   const handlerStreetsSelect = useCallback(
     (val: TSelectValue) => {
       setCityPoints(null)
@@ -124,7 +119,6 @@ export const OrderPage: React.FC = () => {
     for (var i in array) {
       if (array[i].disabled === true) {
         array[i].disabled = false
-        setTabDisabledIndex(Number(i) + 1)
         break
       }
     }
@@ -330,10 +324,9 @@ export const OrderPage: React.FC = () => {
                 activeTab={activeTab}
                 isMobileOrderOpen={isMobileOrderOpen}
                 handlerClickOrderButton={handlerClickOrderButton}
-                cityPoints={cityPoints}
-                city={city}
+                isChooseModelBtnDisabled={cityPoints && city ? false : true}
                 selectedСar={selectedСar}
-                order={order}
+                isAdditionallylBtnDisabled={order ? false : true}
                 handlerModalConfirm={handlerModalConfirm}
               />
 
@@ -351,23 +344,10 @@ export const OrderPage: React.FC = () => {
       </div>
       <ScrollToTop />
       {isModalConfirmOpen ? (
-        <div className={styles.tabTotalModal}>
-          <div>
-            <p>Подтвердить заказ</p>
-            <button
-              className={`button ${styles.confirmBtn}`}
-              onClick={sendOrder}
-            >
-              {nameBtnOrder.confirm}
-            </button>
-            <button
-              className={`button--crimson ${styles.confirmBtn}`}
-              onClick={handlerModalConfirm}
-            >
-              {nameBtnOrder.goBack}
-            </button>
-          </div>
-        </div>
+        <OrderModal
+          sendOrder={sendOrder}
+          handlerModalConfirm={handlerModalConfirm}
+        />
       ) : null}
     </Layout>
   )
