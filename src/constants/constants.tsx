@@ -2,7 +2,6 @@ import imgSlid1 from '../assets/slide1.jpg'
 import imgSlid2 from '../assets/slide2.jpg'
 import imgSlid3 from '../assets/slide3.jpg'
 import imgSlid4 from '../assets/slide4.jpg'
-import carImg from '../assets/car.jpg'
 
 export const sliderData = [
   {
@@ -36,23 +35,6 @@ export const sliderData = [
   },
 ]
 
-export const filterVal = {
-  allModels: 'Все модели',
-  economy: 'Эконом',
-  premium: 'Премиум',
-}
-
-export const colorAdditionally = {
-  anyСolour: 'Любой',
-  red: 'Красный',
-  blue: 'Голубой',
-}
-
-export const tariffRate = {
-  byMinute: '7',
-  forADay: '1999',
-}
-
 export const nameBtnOrder = {
   chooseModel: 'Выбрать модель',
   additionally: 'Дополнительно',
@@ -77,8 +59,6 @@ export const tabsOrderCarsActive = [
   { id: 4, label: 'Итого', disabled: true },
 ]
 
-export const urlApi = 'https://api-factory.simbirsoft1.com'
-
 export const rateType = {
   week: '5f622f029d3a610b850fd820',
   weekSale: '60b9437e2aed9a0b9b7ed337',
@@ -95,3 +75,4 @@ export const dateOptions = {
 
 export const gMapApiKey = 'AIzaSyBmm-8GGqLITMbzUdK76mTH6oOz08UTlPw'
 export const geocodingApiKey = 'AIzaSyBwhqu0zQJiJbtHL1eZMHOxnsyF3UFWJBs'
+export const urlApi = 'https://api-factory.simbirsoft1.com'
