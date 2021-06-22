@@ -120,7 +120,7 @@ export const Gmap: React.FC<TGmap> = ({
   const getСitiesList = useCallback(() => {
     if (optionsCities) {
       let arr = optionsCities.map((city) => city.label)
-      setPointsList([...arr])
+      setPointsList(arr)
     }
   }, [optionsCities])
 
