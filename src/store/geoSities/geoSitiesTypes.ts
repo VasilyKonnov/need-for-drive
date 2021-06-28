@@ -1,10 +1,10 @@
 import { Dispatch } from 'redux'
-import { TGeoPosition } from '../../components/Gmap/GmapTypes'
+import { TAdressVsGeo } from '../../components/Gmap/GmapTypes'
 
 export type TGeoSitiesAction = {
-  list: (data: TGeoPosition[]) => (dispatch: Dispatch) => void
+  list: (data: TAdressVsGeo[]) => (dispatch: Dispatch) => void
 }
 
 export type TGeoSities = {
-  data: TGeoPosition[]
+  data: TAdressVsGeo[]
 }

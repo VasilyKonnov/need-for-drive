@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { TGeoSities } from './geoSitiesTypes'
-import { FetchingStateTypes } from '../types'
 
 const initialState: TGeoSities = {
   data: [],

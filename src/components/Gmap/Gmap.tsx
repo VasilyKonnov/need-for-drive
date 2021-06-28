@@ -1,4 +1,9 @@
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+} from '@react-google-maps/api'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { geoSitiesSelector } from '../../store/geoSities/geoSitiesSelector'
@@ -7,8 +12,8 @@ import Geocode from 'react-geocode'
 import { geocodingApiKey, gMapApiKey } from '../../constants/constants'
 import { Spinner } from '../Spiner/Spiner'
 import iconMap from '../../assets/iconMap.svg'
-import { TGeoPosition, TGmap } from './GmapTypes'
-import { TSelectVal } from '../../pages/OrderPage/OrderPageTypes'
+import { TGeoPosition, TGmap, TAdressVsGeo } from './GmapTypes'
+import { TSelectValue } from '../../pages/OrderPage/OrderPageTypes'
 
 const defaultCenterGoogleMap = {
   lat: 54.31816,
@@ -31,18 +36,23 @@ export const Gmap: React.FC<TGmap> = ({
   optionsCityPoints,
   selectedOptionCityPoint,
   selectedOptionCity,
+  handlerCitiesSelect,
+  handlerStreetsSelect,
 }) => {
   const dispatch = useDispatch()
 
-  const [markerData, setMarkerData] = useState<TGeoPosition[] | null>(null)
-  const [markerStreetsData, setMarkerStreetsData] = useState<
-    TGeoPosition[] | null
+  const [markerCitiesData, setMarkerCitiesData] = useState<
+    TAdressVsGeo[] | null
   >(null)
-  const [pointsList, setPointsList] = useState<string[] | null>(null)
-  const [pointsStreets, setPointsStreets] = useState<string[] | null>(null)
+  const [markerStreetsData, setMarkerStreetsData] = useState<
+    TAdressVsGeo[] | null
+  >(null)
   const [centerMap, setCenterMap] = useState<TGeoPosition | null>(null)
   const [centerMapCity, setCenterMapCity] = useState<TGeoPosition | null>(null)
-  const [markerStreet, setMarkerStreet] = useState<TGeoPosition | null>(null)
+  const [markerStreet, setMarkerStreet] = useState<TAdressVsGeo | null>(null)
+  const [selectedMarker, setSelectedMarker] = useState<TGeoPosition | null>(
+    null,
+  )
   const [zoom, setZoom] = useState(3)
 
   const { data: geoSities } = useSelector(geoSitiesSelector)
@@ -61,84 +71,90 @@ export const Gmap: React.FC<TGmap> = ({
   }
 
   const getMapPointsCities = useCallback(
-    (arrayAdress: string[]) => {
+    (optionsCities: TSelectValue[]) => {
       setCenterMap(null)
-      const arrGeoPoin: TGeoPosition[] = []
-      arrayAdress.map((adress) => {
-        Geocode.fromAddress(adress)
-          .then(
-            (response) => {
-              const location: TGeoPosition =
-                response.results[0].geometry.location
-              arrGeoPoin.push(location)
-            },
-            (error) => {
-              console.error(error)
-            },
-          )
-          .then(() => {
-            dispatch(geoSitiesAction.list([...arrGeoPoin]))
-          })
+      const arrGeoPoin: TAdressVsGeo[] = []
+      optionsCities.map((address) => {
+        if (address) {
+          Geocode.fromAddress(address.label)
+            .then(
+              (response) => {
+                const location: TGeoPosition =
+                  response.results[0].geometry.location
+                arrGeoPoin.push({ address, location })
+              },
+              (error) => {
+                console.error(error)
+              },
+            )
+            .then(() => {
+              dispatch(geoSitiesAction.list([...arrGeoPoin]))
+            })
+        }
       })
     },
     [dispatch],
   )
-  const getMapPointsStreets = (arrayAdress: string[]) => {
-    const arrGeoPoin: TGeoPosition[] = []
-    arrayAdress.map((adress) => {
-      Geocode.fromAddress(adress)
-        .then(
+
+  const getMapPointsStreets = useCallback(
+    (optionsCityPoints: TSelectValue[]) => {
+      const arrGeoPoin: TAdressVsGeo[] = []
+      optionsCityPoints.map((address) => {
+        if (selectedOptionCity && address) {
+          Geocode.fromAddress(
+            'г.' + selectedOptionCity.label + ',' + address.label,
+          )
+            .then(
+              (response) => {
+                const location: TGeoPosition =
+                  response.results[0].geometry.location
+                arrGeoPoin.push({ address, location })
+              },
+              (error) => {
+                console.error(error)
+              },
+            )
+            .then(() => {
+              setMarkerStreetsData([...arrGeoPoin])
+            })
+        }
+      })
+    },
+    [selectedOptionCity],
+  )
+
+  const getMapPointStreet = useCallback(
+    (street: string) => {
+      setMarkerStreet(null)
+      if (selectedOptionCityPoint && street) {
+        const address = 'г.' + selectedOptionCityPoint.label + '. ' + street
+        Geocode.fromAddress(address).then(
           (response) => {
             const location: TGeoPosition = response.results[0].geometry.location
-            arrGeoPoin.push(location)
+            setMarkerStreet({ address: selectedOptionCityPoint, location })
           },
           (error) => {
             console.error(error)
           },
         )
-        .then(() => {
-          setMarkerStreetsData([...arrGeoPoin])
-        })
-    })
-  }
-
-  const getMapPointStreet = (street: string) => {
-    setMarkerStreet(null)
-    if (selectedOptionCity && street) {
-      Geocode.fromAddress('г.' + selectedOptionCity.label + '. ' + street).then(
-        (response) => {
-          const location: TGeoPosition = response.results[0].geometry.location
-          setMarkerStreet(location)
-        },
-        (error) => {
-          console.error(error)
-        },
-      )
-    }
-  }
-
-  const getСitiesList = useCallback(() => {
-    if (optionsCities) {
-      let arr = optionsCities.map((city) => city.label)
-      setPointsList(arr)
-    }
-  }, [optionsCities])
-
-  const getStreetsList = (sity: string, optionsCityPoints: TSelectVal[]) => {
-    setPointsStreets(null)
-    if (optionsCityPoints && sity) {
-      let arr = optionsCityPoints.map((point: TSelectVal) => {
-        return 'г.' + sity + ', ' + point.label
-      })
-      setPointsStreets([...arr])
-    }
-  }
+      }
+    },
+    [selectedOptionCityPoint],
+  )
 
   const mapZoom = useCallback(() => {
-    if (markerData) {
-      if (markerData && markerData.length > 0 && !markerStreetsData) {
+    if (markerCitiesData) {
+      if (
+        markerCitiesData &&
+        markerCitiesData.length > 0 &&
+        !markerStreetsData
+      ) {
         setZoom(3)
-      } else if (markerData && markerData.length > 0 && markerStreetsData) {
+      } else if (
+        markerCitiesData &&
+        markerCitiesData.length > 0 &&
+        markerStreetsData
+      ) {
         setZoom(10)
       } else if (markerStreetsData && !markerStreet) {
         setZoom(10)
@@ -146,13 +162,15 @@ export const Gmap: React.FC<TGmap> = ({
         setZoom(10)
       }
     }
-  }, [centerMap, markerData, markerStreet, markerStreetsData])
+  }, [markerCitiesData, markerStreet, markerStreetsData])
 
   const switchCenterMap = useCallback(() => {
     if (centerMapCity && !markerStreet) {
       setCenterMap(centerMapCity)
     } else {
-      setCenterMap(markerStreet)
+      if (markerStreet) {
+        setCenterMap(markerStreet.location)
+      }
     }
   }, [centerMapCity, markerStreet])
 
@@ -161,21 +179,17 @@ export const Gmap: React.FC<TGmap> = ({
   }, [switchCenterMap])
 
   useEffect(() => {
-    getСitiesList()
-  }, [getСitiesList])
-
-  useEffect(() => {
     mapZoom()
   }, [mapZoom])
 
   useEffect(() => {
-    if (geoSities.length < 1 && pointsList && selectedOptionCity === null) {
-      getMapPointsCities(pointsList)
+    if (geoSities.length < 1 && optionsCities && selectedOptionCity === null) {
+      getMapPointsCities(optionsCities)
     }
     if (geoSities.length > 0) {
-      setMarkerData([...geoSities])
+      setMarkerCitiesData([...geoSities])
     }
-  }, [geoSities, getMapPointsCities, pointsList, selectedOptionCity])
+  }, [geoSities, getMapPointsCities, optionsCities, selectedOptionCity])
 
   useEffect(() => {
     if (selectedOptionCity) {
@@ -187,21 +201,11 @@ export const Gmap: React.FC<TGmap> = ({
 
   useEffect(() => {
     if (selectedOptionCity && optionsCityPoints) {
-      getStreetsList(selectedOptionCity.label, optionsCityPoints)
+      getMapPointsStreets(optionsCityPoints)
     } else {
-      setPointsStreets(null)
       setMarkerStreetsData(null)
     }
-  }, [optionsCityPoints, selectedOptionCity])
-
-  useEffect(() => {
-    if (pointsStreets) {
-      getMapPointsStreets(pointsStreets)
-    } else {
-      setPointsStreets(null)
-      setMarkerStreetsData(null)
-    }
-  }, [pointsStreets])
+  }, [getMapPointsStreets, optionsCityPoints, selectedOptionCity])
 
   useEffect(() => {
     if (selectedOptionCityPoint) {
@@ -209,7 +213,7 @@ export const Gmap: React.FC<TGmap> = ({
     } else {
       setMarkerStreet(null)
     }
-  }, [selectedOptionCityPoint])
+  }, [getMapPointStreet, selectedOptionCityPoint])
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: gMapApiKey,
@@ -227,19 +231,109 @@ export const Gmap: React.FC<TGmap> = ({
         center={centerMap ? centerMap : defaultCenterGoogleMap}
         options={options}
       >
-        {markerData && markerData.length > 0 && !markerStreetsData
-          ? markerData.map((marker: any, id: number) => {
-              return <Marker key={id} position={marker} icon={iconMap} />
+        {markerCitiesData && markerCitiesData.length > 0 && !markerStreetsData
+          ? markerCitiesData.map((marker: TAdressVsGeo, id: number) => {
+              return (
+                <>
+                  <Marker
+                    key={id}
+                    position={marker.location}
+                    icon={iconMap}
+                    onClick={() => {
+                      setSelectedMarker(marker.location)
+                    }}
+                  />
+                  {selectedMarker === marker.location ? (
+                    <InfoWindow
+                      key={id}
+                      position={selectedMarker}
+                      onCloseClick={() => {
+                        setSelectedMarker(null)
+                      }}
+                    >
+                      <div>
+                        <p style={{ textAlign: 'center' }}>
+                          г. {marker.address?.label}
+                        </p>
+                        <button
+                          onClick={() => handlerCitiesSelect(marker.address)}
+                        >
+                          Выбрать
+                        </button>
+                      </div>
+                    </InfoWindow>
+                  ) : null}
+                </>
+              )
             })
           : null}
-        {markerStreetsData && markerStreetsData.length > 0 && !markerStreet
+        {markerStreetsData && markerStreetsData.length > 0 && markerStreetsData
           ? markerStreetsData.map((marker: any, id: number) => {
-              return <Marker key={id} position={marker} icon={iconMap} />
+              return (
+                <>
+                  <Marker
+                    key={id}
+                    position={marker.location}
+                    icon={iconMap}
+                    onClick={() => {
+                      setSelectedMarker(marker.location)
+                    }}
+                  />
+                  {selectedMarker === marker.location ? (
+                    <InfoWindow
+                      key={id}
+                      position={selectedMarker}
+                      onCloseClick={() => {
+                        setSelectedMarker(null)
+                      }}
+                    >
+                      <div style={{ textAlign: 'center' }}>
+                        <p>
+                          {'г. ' +
+                            selectedOptionCity?.label +
+                            ', ' +
+                            marker.address.label}
+                        </p>
+                        <button
+                          onClick={() => handlerStreetsSelect(marker.address)}
+                        >
+                          Выбрать
+                        </button>
+                      </div>
+                    </InfoWindow>
+                  ) : null}
+                </>
+              )
             })
           : null}
 
         {markerStreet ? (
-          <Marker position={markerStreet} icon={iconMap} />
+          <>
+            <Marker
+              position={markerStreet.location}
+              icon={iconMap}
+              onClick={() => {
+                setSelectedMarker(markerStreet.location)
+              }}
+            />
+            {selectedMarker === markerStreet.location ? (
+              <InfoWindow
+                position={selectedMarker}
+                onCloseClick={() => {
+                  setSelectedMarker(null)
+                }}
+              >
+                <div style={{ textAlign: 'center' }}>
+                  <p>
+                    {'г. ' +
+                      selectedOptionCity?.label +
+                      ', ' +
+                      markerStreet.address?.label}
+                  </p>
+                </div>
+              </InfoWindow>
+            ) : null}
+          </>
         ) : null}
       </GoogleMap>
     </div>

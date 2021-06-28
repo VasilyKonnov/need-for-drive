@@ -25,10 +25,10 @@ export const TabLocation: React.FC<TTabLocation> = memo(
     city,
   }) => {
     const dispatch = useDispatch()
-
     const { data: cities, fetchingState: fetchingStateCities } = useSelector(
       citiesSelector,
     )
+
     const {
       data: citiesPoints,
       fetchingState: fetchingStateCityPoints,
@@ -98,6 +98,8 @@ export const TabLocation: React.FC<TTabLocation> = memo(
             optionsCityPoints={optionsCityPoints}
             selectedOptionCityPoint={selectedOptionCityPoints}
             selectedOptionCity={selectedOptionCity}
+            handlerCitiesSelect={handlerCitiesSelect}
+            handlerStreetsSelect={handlerStreetsSelect}
           />
         </div>
       </>
