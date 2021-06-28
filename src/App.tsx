@@ -5,7 +5,7 @@ function App() {
   return (
     <Switch>
       <Route exact path="/" component={MainPage} />
-      <Route path="/order-page" component={OrderPage} />
+      <Route path="/order-page/" component={OrderPage} />
       <Route path="/order-id/:id" component={OrderInfo} />
     </Switch>
   )

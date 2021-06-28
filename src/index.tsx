@@ -1,16 +1,16 @@
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import App from './App'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals'
 import store from './store'
 import './index.scss'
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter>
       <App />
-    </BrowserRouter>
+    </HashRouter>
   </Provider>,
   document.getElementById('root'),
 )
