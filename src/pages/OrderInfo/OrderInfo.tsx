@@ -36,6 +36,7 @@ export const OrderInfo = () => {
 
   const removeOrderRequest = () => {
     dispatch(orderAction.remove())
+    orderApi.removeOrder(orderId.id)
     history.push('/order-page')
   }
 
