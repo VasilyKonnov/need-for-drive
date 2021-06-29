@@ -50,9 +50,14 @@ export const Gmap: React.FC<TGmap> = ({
   const [centerMap, setCenterMap] = useState<TGeoPosition | null>(null)
   const [centerMapCity, setCenterMapCity] = useState<TGeoPosition | null>(null)
   const [markerStreet, setMarkerStreet] = useState<TAdressVsGeo | null>(null)
-  const [selectedMarker, setSelectedMarker] = useState<TGeoPosition | null>(
-    null,
-  )
+  const [
+    selectedCityMarker,
+    setSelectedCityMarker,
+  ] = useState<TGeoPosition | null>(null)
+  const [
+    selectedStreetMarker,
+    setSelectedStreetMarker,
+  ] = useState<TGeoPosition | null>(null)
   const [zoom, setZoom] = useState(3)
 
   const { data: geoSities } = useSelector(geoSitiesSelector)
@@ -127,7 +132,7 @@ export const Gmap: React.FC<TGmap> = ({
     (street: string) => {
       setMarkerStreet(null)
       if (selectedOptionCityPoint && street) {
-        const address = 'г.' + selectedOptionCityPoint.label + '. ' + street
+        const address = 'г.' + selectedOptionCityPoint.label + ', ' + street
         Geocode.fromAddress(address).then(
           (response) => {
             const location: TGeoPosition = response.results[0].geometry.location
@@ -196,6 +201,7 @@ export const Gmap: React.FC<TGmap> = ({
       getSityCenterMap(selectedOptionCity.label)
     } else {
       setCenterMap(null)
+      setSelectedCityMarker(null)
     }
   }, [selectedOptionCity, setCenterMap])
 
@@ -209,6 +215,7 @@ export const Gmap: React.FC<TGmap> = ({
 
   useEffect(() => {
     if (selectedOptionCityPoint) {
+      setSelectedStreetMarker(null)
       getMapPointStreet(selectedOptionCityPoint.label)
     } else {
       setMarkerStreet(null)
@@ -240,21 +247,19 @@ export const Gmap: React.FC<TGmap> = ({
                     position={marker.location}
                     icon={iconMap}
                     onClick={() => {
-                      setSelectedMarker(marker.location)
+                      setSelectedCityMarker(marker.location)
                     }}
                   />
-                  {selectedMarker === marker.location ? (
+                  {selectedCityMarker === marker.location ? (
                     <InfoWindow
                       key={id}
-                      position={selectedMarker}
+                      position={selectedCityMarker}
                       onCloseClick={() => {
-                        setSelectedMarker(null)
+                        setSelectedCityMarker(null)
                       }}
                     >
-                      <div>
-                        <p style={{ textAlign: 'center' }}>
-                          г. {marker.address?.label}
-                        </p>
+                      <div style={{ textAlign: 'center' }}>
+                        <p>г. {marker.address?.label}</p>
                         <button
                           onClick={() => handlerCitiesSelect(marker.address)}
                         >
@@ -267,7 +272,10 @@ export const Gmap: React.FC<TGmap> = ({
               )
             })
           : null}
-        {markerStreetsData && markerStreetsData.length > 0 && markerStreetsData
+        {markerStreetsData &&
+        markerStreetsData.length > 0 &&
+        markerStreetsData &&
+        !markerStreet
           ? markerStreetsData.map((marker: any, id: number) => {
               return (
                 <>
@@ -276,15 +284,15 @@ export const Gmap: React.FC<TGmap> = ({
                     position={marker.location}
                     icon={iconMap}
                     onClick={() => {
-                      setSelectedMarker(marker.location)
+                      setSelectedStreetMarker(marker.location)
                     }}
                   />
-                  {selectedMarker === marker.location ? (
+                  {selectedStreetMarker === marker.location ? (
                     <InfoWindow
                       key={id}
-                      position={selectedMarker}
+                      position={selectedStreetMarker}
                       onCloseClick={() => {
-                        setSelectedMarker(null)
+                        setSelectedStreetMarker(null)
                       }}
                     >
                       <div style={{ textAlign: 'center' }}>
@@ -295,7 +303,10 @@ export const Gmap: React.FC<TGmap> = ({
                             marker.address.label}
                         </p>
                         <button
-                          onClick={() => handlerStreetsSelect(marker.address)}
+                          onClick={() => {
+                            handlerStreetsSelect(marker.address)
+                            setSelectedStreetMarker(null)
+                          }}
                         >
                           Выбрать
                         </button>
@@ -313,14 +324,14 @@ export const Gmap: React.FC<TGmap> = ({
               position={markerStreet.location}
               icon={iconMap}
               onClick={() => {
-                setSelectedMarker(markerStreet.location)
+                setSelectedStreetMarker(markerStreet.location)
               }}
             />
-            {selectedMarker === markerStreet.location ? (
+            {selectedStreetMarker === markerStreet.location ? (
               <InfoWindow
-                position={selectedMarker}
+                position={selectedStreetMarker}
                 onCloseClick={() => {
-                  setSelectedMarker(null)
+                  setSelectedStreetMarker(null)
                 }}
               >
                 <div style={{ textAlign: 'center' }}>
